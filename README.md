@@ -1,2 +1,3 @@
-# linkedout
+# linkedout.app
+
 linkedin++
