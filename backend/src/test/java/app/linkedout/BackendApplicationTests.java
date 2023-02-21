@@ -1,4 +1,4 @@
-package app.linkedoout.backend;
+package app.linkedout;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

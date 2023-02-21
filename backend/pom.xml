@@ -8,8 +8,8 @@
 		<version>3.0.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>app.linkedoout</groupId>
-	<artifactId>backend</artifactId>
+	<groupId>app</groupId>
+	<artifactId>linkedout</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>backend</name>
 	<description>backend</description>
