@@ -1,4 +1,4 @@
-package app.linkedout.models;
 
+package app.linkedout.models;
 public class Admin {
 }
