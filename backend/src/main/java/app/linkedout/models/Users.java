@@ -7,6 +7,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class Users extends BaseEntity{
+public class Users extends BaseEntity {
 
 }
