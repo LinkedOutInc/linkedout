@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class UsersService implements CrudService {
+public class UsersService implements CrudService<Users, Long> {
 
     private final UsersRepository usersRepository;
 
@@ -24,22 +24,30 @@ public class UsersService implements CrudService {
     }
 
     @Override
-    public Object findById(Object o) {
-        return null;
+    public Users findById(Long aLong) {
+        return usersRepository.findById(aLong).orElse(null);
     }
 
     @Override
-    public Object save(Object object) {
-        return null;
+    public Users save(Users object) {
+        return usersRepository.save(object);
     }
 
     @Override
-    public void delete(Object object) {
-
+    public void delete(Users object) {
+        usersRepository.delete(object);
     }
 
     @Override
-    public void deleteById(Object o) {
+    public void deleteById(Long aLong) {
+        usersRepository.deleteById(aLong);
+    }
 
+    public Users findByEmail(String email) {
+        return usersRepository.findByEmail(email);
+    }
+
+    public List<Users> findBySurname(String surname) {
+        return usersRepository.findBySurname(surname);
     }
 }
