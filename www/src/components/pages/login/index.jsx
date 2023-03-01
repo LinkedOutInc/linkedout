@@ -140,10 +140,7 @@ function Login() {
           </button>
 
           <p className="text-center select-none text-sm text-gray-500">
-            New around here?{" "}
-            <a className="underline" href="">
-              Sign up
-            </a>
+            New around here? <a className="underline">Sign up</a>
           </p>
         </form>
       </div>
