@@ -4,3 +4,4 @@ export { default as Footer } from "./common/footer";
 export { default as Landing } from "./pages/landing";
 export { default as Hero } from "./pages/landing/hero";
 export { default as Testimonial } from "./pages/landing/testimonial";
+export { default as Login } from "./pages/login";
