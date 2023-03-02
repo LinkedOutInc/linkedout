@@ -1,15 +1,17 @@
 import React from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-function Login() {
+function Signup() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-
-  const handleSignIn = async (e) => {
+  const navigate = useNavigate();
+  const handleSignUp = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
       await new Promise((r) => setTimeout(r, 2000));
+      navigate("/signup/complete");
     } catch (err) {}
     setLoading(false);
   };
@@ -18,17 +20,13 @@ function Login() {
     <div className="m-auto max-w-screen-xl md:min-w-[768px] min-w-fit min-[480px]:min-w-[360px] px-4 py-16 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-lg">
         <h1 className="text-center text-2xl font-bold text-black sm:text-3xl">
-          Sign in
+          Connect to professionals
         </h1>
 
         <form
           action=""
           className="mt-6 mb-0 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8"
         >
-          <p className="text-center text-md sm:text-lg font-medium">
-            One step away!
-          </p>
-
           <label
             htmlFor="UserEmail"
             class="relative block overflow-hidden rounded-md border border-gray-200 px-3 pt-4 shadow-sm focus-within:border-linkedout focus-within:ring-1 focus-within:ring-linkedout"
@@ -120,10 +118,15 @@ function Login() {
               )}
             </span>
           </label>
+
+          <p className="text-center select-none text-sm text-gray-500">
+            By creating an account, you agree to our terms and conditions and
+            privacy policy.
+          </p>
           <button
             type="submit"
             className="block select-none w-full rounded-lg bg-linkedout px-5 py-3 text-sm font-medium text-white"
-            onClick={(e) => handleSignIn(e)}
+            onClick={(e) => handleSignUp(e)}
           >
             {loading ? (
               <svg
@@ -143,17 +146,16 @@ function Login() {
                 />
               </svg>
             ) : (
-              "Sign in"
+              "Agree & Continue"
             )}
           </button>
-
-          <p className="text-center select-none text-sm text-gray-500">
-            New around here? <a className="underline">Sign up</a>
-          </p>
         </form>
+        <p className="text-center select-none text-sm text-gray-500 mt-4">
+          Already know your way around? <a className="underline">Sign in</a>
+        </p>
       </div>
     </div>
   );
 }
 
-export default Login;
+export default Signup;
