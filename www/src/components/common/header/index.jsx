@@ -13,6 +13,10 @@ function Index() {
     navigate("/login");
   };
 
+  const signup = () => {
+    navigate("/signup");
+  };
+
   return (
     <header aria-label="Site Header" className="bg-white">
       <div className="mx-auto max-w-screen-xl my-4 px-4 sm:px-6 lg:px-8">
@@ -58,7 +62,10 @@ function Index() {
 
             <div className="flex items-center gap-4">
               <div className="flex gap-x-1 justify-end min-w-[100px] flex-nowrap flex-shrink-0 flex-1">
-                <a className="ml-6 px-5 py-2.5 text-md font-medium text-gray-600 cursor-pointer select-none hover:bg-gray-50 hover:rounded-2xl">
+                <a
+                  className="ml-6 px-5 py-2.5 text-md font-medium text-gray-600 cursor-pointer select-none hover:bg-gray-50 hover:rounded-2xl"
+                  onClick={signup}
+                >
                   Join Now
                 </a>
 

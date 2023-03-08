@@ -19,18 +19,39 @@ function Hero() {
 
         <div class="mx-auto mt-8 max-w-xl">
           <form action="#" class="sm:flex sm:gap-4">
-            <div class="sm:flex-1">
-              <label for="email" class="sr-only">
-                Email
-              </label>
-
+            <label
+              htmlFor="UserEmail"
+              class="relative flex-1 block overflow-hidden rounded-md border border-gray-200 px-3 pt-4 shadow-sm focus-within:border-linkedout focus-within:ring-1 focus-within:ring-linkedout"
+            >
               <input
                 type="email"
-                placeholder="Email address"
-                class="w-full rounded-md border-gray-200 bg-white p-3 text-gray-700 shadow-sm transition focus:border-white focus:outline-none focus:ring-1 focus:ring-linkedout"
+                id="UserEmail"
+                placeholder="Email"
+                required
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                className="peer h-10 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
               />
-            </div>
 
+              <span className="absolute left-3 top-4 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-4 peer-focus:text-xs">
+                Email
+              </span>
+              <span className="absolute inset-y-0 right-0 grid place-content-center px-4">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-4 w-4 text-gray-400"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
+                  />
+                </svg>
+              </span>
+            </label>
             <button
               type="submit"
               class="group mt-4 flex w-full items-center justify-center gap-2 rounded-md bg-linkedout px-5 py-3 text-white transition focus:outline-none focus:ring focus:ring-linkedout sm:mt-0 sm:w-auto"
