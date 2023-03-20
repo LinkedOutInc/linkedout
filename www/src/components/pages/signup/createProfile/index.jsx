@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function Complete() {
+function CreateProfile() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -18,46 +18,28 @@ function Complete() {
   return (
     <div className="m-auto max-w-screen-xl md:min-w-[768px] min-w-fit min-[380px]:min-w-[360px] px-4 py-16 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-lg">
-        <span className="flex flex-row">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-6 h-6 mr-auto cursor-pointer"
-            onClick={() => navigate(-1)}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3"
-            />
-          </svg>
-
-          <h1 className="text-center text-2xl font-bold mr-auto text-black sm:text-3xl">
-            One more step
-          </h1>
-        </span>
+        <h1 className="text-center text-2xl font-bold mr-auto text-black sm:text-3xl">
+          Let's personalize
+        </h1>
 
         <form
           action=""
           className="mt-6 mb-0 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8"
         >
           <label
-            htmlFor="UserFirst"
+            htmlFor="UserHeadline"
             class="relative block overflow-hidden rounded-md border border-gray-200 px-3 pt-4 shadow-sm focus-within:border-linkedout focus-within:ring-1 focus-within:ring-linkedout"
           >
             <input
               type="text"
-              id="UserFirst"
-              placeholder="First name"
+              id="UserHeadline"
+              placeholder="Headline"
               required
               className="peer h-10 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
             />
 
             <span className="absolute left-3 top-4 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-4 peer-focus:text-xs">
-              First name
+              Headline
             </span>
             <span className="absolute inset-y-0 right-0 grid place-content-center px-4">
               <svg
@@ -78,19 +60,118 @@ function Complete() {
           </label>
 
           <label
-            htmlFor="UserLastName"
+            htmlFor="UserLocation"
             class="relative block overflow-hidden rounded-md border border-gray-200 px-3 pt-4 shadow-sm focus-within:border-linkedout focus-within:ring-1 focus-within:ring-linkedout"
           >
             <input
               type="text"
-              id="UserLast"
-              placeholder="Last name"
+              id="UserLocation"
+              placeholder="Location"
               required
               class="peer h-10 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
             />
 
             <span class="absolute left-3 top-4 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-4 peer-focus:text-xs">
-              Last name
+              Location
+            </span>
+            <span className="absolute inset-y-0 right-0 grid place-content-center px-4">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-4 h-4 text-gray-400"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+                />
+              </svg>
+            </span>
+          </label>
+
+          <label
+            htmlFor="UserIndustry"
+            class="relative block overflow-hidden rounded-md border border-gray-200 px-3 pt-4 shadow-sm focus-within:border-linkedout focus-within:ring-1 focus-within:ring-linkedout"
+          >
+            <input
+              type="text"
+              id="UserIndustry"
+              placeholder="Industry"
+              required
+              class="peer h-10 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
+            />
+
+            <span class="absolute left-3 top-4 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-4 peer-focus:text-xs">
+              Industry
+            </span>
+            <span className="absolute inset-y-0 right-0 grid place-content-center px-4">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-4 h-4 text-gray-400"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+                />
+              </svg>
+            </span>
+          </label>
+
+          <label
+            htmlFor="UserCompany"
+            class="relative block overflow-hidden rounded-md border border-gray-200 px-3 pt-4 shadow-sm focus-within:border-linkedout focus-within:ring-1 focus-within:ring-linkedout"
+          >
+            <input
+              type="text"
+              id="UserCompany"
+              placeholder="Company"
+              required
+              class="peer h-10 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
+            />
+
+            <span class="absolute left-3 top-4 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-4 peer-focus:text-xs">
+              Company
+            </span>
+            <span className="absolute inset-y-0 right-0 grid place-content-center px-4">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-4 h-4 text-gray-400"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+                />
+              </svg>
+            </span>
+          </label>
+
+          <label
+            htmlFor="UserTitle"
+            class="relative block overflow-hidden rounded-md border border-gray-200 px-3 pt-4 shadow-sm focus-within:border-linkedout focus-within:ring-1 focus-within:ring-linkedout"
+          >
+            <input
+              type="text"
+              id="UserTitle"
+              placeholder="Title"
+              required
+              class="peer h-10 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
+            />
+
+            <span class="absolute left-3 top-4 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-4 peer-focus:text-xs">
+              Title
             </span>
             <span className="absolute inset-y-0 right-0 grid place-content-center px-4">
               <svg
@@ -133,7 +214,7 @@ function Complete() {
                 />
               </svg>
             ) : (
-              "Complete signup"
+              "Continue"
             )}
           </button>
         </form>
@@ -142,4 +223,4 @@ function Complete() {
   );
 }
 
-export default Complete;
+export default CreateProfile;
