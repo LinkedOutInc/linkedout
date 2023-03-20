@@ -1,7 +1,7 @@
 import React from "react";
-import ben from "../../../../assets/ben.jpg";
-import elisa from "../../../../assets/elisa.jpg";
-import ahmet from "../../../../assets/ahmet.jpg";
+import gavin from "../../../../assets/gavinbelson.jpeg";
+import richard from "../../../../assets/richardhendricks.jpeg";
+import jianyang from "../../../../assets/jianyang.jpeg";
 
 function Testimonial() {
   return (
@@ -15,64 +15,66 @@ function Testimonial() {
           <blockquote class="rounded-lg bg-gray-100 p-8">
             <div class="flex items-center gap-4">
               <img
-                alt="Ben"
-                src={ben}
+                alt="Gavin Belson"
+                src={gavin}
                 class="h-16 w-16 rounded-full object-cover"
               />
-              <p class="mt-1 text-lg font-medium text-gray-700">Ben Leonardo</p>
+              <p class="mt-1 text-lg font-medium text-gray-700">Gavin Belson</p>
             </div>
 
             <p class="line-clamp-2 sm:line-clamp-none mt-4 text-gray-500">
-              As an avid user of LinkedOut, I can confidently say that it is the
-              most powerful professional networking tool available. With its
-              vast user base, it provides an excellent platform to connect with
-              like-minded professionals, expand your network, and explore new
-              career opportunities.
+              As Gavin Belson, the unparalleled genius and CEO of Hooli, the
+              world's most innovative technology company, I've been making waves
+              in Silicon Valley for years. And it's no secret that LinkedOut has
+              been a key player in my quest for professional domination.
+              LinkedOut is the perfect platform for moguls like myself and the
+              company that has revolutionized the world, Hooli.
             </p>
           </blockquote>
 
           <blockquote class="rounded-lg bg-gray-100 p-8">
             <div class="flex items-center gap-4">
               <img
-                alt="Elisa"
-                src={elisa}
+                alt="Richard Hendricks"
+                src={richard}
                 class="h-16 w-16 rounded-full object-cover"
               />
               <p class="mt-1 text-lg font-medium text-gray-700">
-                Elisa Carlene
+                Richard Hendricks
               </p>
             </div>
 
             <p class="line-clamp-2 sm:line-clamp-none mt-4 text-gray-500">
-              One of the features that I love about LinkedOut is its
-              user-friendly interface. It is easy to navigate and provides a lot
-              of options to customize your profile, including adding a profile
-              picture, creating a personalized headline, and adding relevant
-              work experience and skills. This allows you to showcase your
-              professional expertise and make a strong impression on potential
-              employers or business partners.
+              As the founder of Pied Piper, I've gotta hand it to LinkedOut for
+              being a real game changer in the professional realm. It's like the
+              HTTP of networking, connecting us tech aficionados in a web of
+              career opportunities and industry insights. I've scored some
+              genius teammates (Dinesh, Gilfoyle, you know who you are) and
+              stayed ahead of Hooli's shenanigans. Sure, it's got its quirks -
+              but let's face it, so do we all! Bottom line, LinkedOut is the
+              binary code of career success, so hop on and let's optimize our
+              professional lives together!
             </p>
           </blockquote>
 
           <blockquote class="rounded-lg bg-gray-100 p-8">
             <div class="flex items-center gap-4">
               <img
-                alt="Ahmet"
-                src={ahmet}
+                alt="Jian Yang"
+                src={jianyang}
                 class="h-16 w-16 rounded-full object-cover"
               />
-              <p class="mt-1 text-lg font-medium text-gray-700">
-                Ahmet Aydoğan
-              </p>
+              <p class="mt-1 text-lg font-medium text-gray-700">Jian Yang</p>
             </div>
 
             <p class="line-clamp-2 sm:line-clamp-none mt-4 text-gray-500">
-              One excellent feature of LinkedOut is its job search
-              functionality. You can easily search for job openings by location,
-              industry, and job title. Additionally, you can set up job alerts
-              to receive notifications when new opportunities become available
-              that match your search criteria. This makes the job search process
-              more efficient and effective.
+              I like LinkedOut for making good professional friend and find job
+              chance. But, I cannot no see Erich Blachman there, always talk too
+              much about self and make noise. He make LinkedOut not so good
+              sometimes. But I try hard to not look at him, think more of good
+              things in LinkedOut. I use strong tool, meet smart people, and
+              learn many things. So, even with Erich trouble, LinkedOut still
+              can give good things to me for work and connection.
             </p>
           </blockquote>
         </div>
