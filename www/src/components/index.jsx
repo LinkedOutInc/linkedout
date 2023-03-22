@@ -7,3 +7,4 @@ export { default as Testimonial } from "./pages/landing/testimonial";
 export { default as Login } from "./pages/login";
 export { default as Signup } from "./pages/signup";
 export { default as CompleteSignup } from "./pages/signup/Complete";
+export { default as Feed } from "./pages/feed";
