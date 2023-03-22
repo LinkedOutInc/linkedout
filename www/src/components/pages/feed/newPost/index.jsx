@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const NewPost = () => {
+const NewPost = ({ userPhoto }) => {
   const [postContent, setPostContent] = useState("");
   const [postImage, setPostImage] = useState(null);
   const [textareaHeight, setTextareaHeight] = useState("3rem");
@@ -36,12 +36,12 @@ const NewPost = () => {
   };
 
   return (
-    <div className="flex items-center space-x-4 bg-white rounded-md p-4 shadow-md w-screen">
+    <div className="flex items-center space-x-4 bg-white rounded-md p-4 shadow-md w-full">
       <form className="flex-1">
         <div className="flex items-center gap-4">
           <img
             className="h-12 w-12 rounded-full"
-            src="https://via.placeholder.com/150"
+            src={userPhoto ? userPhoto : "https://via.placeholder.com/150"}
             alt="Profile Image"
           />
           <textarea
