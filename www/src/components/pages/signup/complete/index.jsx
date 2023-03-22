@@ -17,7 +17,7 @@ function Complete() {
   };
 
   return (
-    <div className="m-auto max-w-screen-xl md:min-w-[768px] min-w-fit min-[480px]:min-w-[360px] px-4 py-16 sm:px-6 lg:px-8">
+    <div className="m-auto max-w-screen-xl md:min-w-[768px] min-w-fit min-[380px]:min-w-[360px] px-4 py-16 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-lg">
         <span className="flex flex-row">
           <svg
@@ -54,7 +54,6 @@ function Complete() {
               id="UserFirst"
               placeholder="First name"
               required
-              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
               className="peer h-10 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
             />
 
