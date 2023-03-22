@@ -1,7 +1,7 @@
 import React from "react";
-import gavin from "../../../../assets/gavinbelson.jpeg";
-import richard from "../../../../assets/richardhendricks.jpeg";
-import jianyang from "../../../../assets/jianyang.jpeg";
+import gavin from "../../../../assets/gavin.jpg";
+import richard from "../../../../assets/richard.jpg";
+import jian from "../../../../assets/jian.jpg";
 
 function Testimonial() {
   return (
@@ -61,7 +61,7 @@ function Testimonial() {
             <div class="flex items-center gap-4">
               <img
                 alt="Jian Yang"
-                src={jianyang}
+                src={jian}
                 class="h-16 w-16 rounded-full object-cover"
               />
               <p class="mt-1 text-lg font-medium text-gray-700">Jian Yang</p>

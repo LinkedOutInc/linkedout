@@ -4,9 +4,9 @@ import { default as Post } from "./post";
 
 // Too lazy to create a mock db for this so I'll just hardcode the data
 // delete later and create a mock db
-import gavin from "../../../assets/ben.jpg";
-import richard from "../../../assets/elisa.jpg";
-import jian from "../../../assets/ahmet.jpg";
+import gavin from "../../../assets/gavin.jpg";
+import richard from "../../../assets/richard.jpg";
+import jian from "../../../assets/jian.jpg";
 const feedData = [
   {
     userImage: gavin,
