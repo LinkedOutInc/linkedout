@@ -38,7 +38,7 @@ const NewPost = ({ userPhoto }) => {
   return (
     <div className="flex items-center space-x-4 bg-white rounded-md p-4 shadow-md w-full">
       <form className="flex-1">
-        <div className="flex items-center gap-4">
+        <div className="flex gap-4">
           <img
             className="h-12 w-12 rounded-full"
             src={userPhoto ? userPhoto : "https://via.placeholder.com/150"}
