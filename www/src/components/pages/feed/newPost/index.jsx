@@ -3,21 +3,15 @@ import React, { useState } from "react";
 const NewPost = ({ userPhoto }) => {
   const [postContent, setPostContent] = useState("");
   const [postImage, setPostImage] = useState(null);
-  const [textareaHeight, setTextareaHeight] = useState("3rem");
+  const [textareaHeight, setTextareaHeight] = useState("4rem");
 
-  const handlePostContentChange = (event) => {
-    setPostContent(event.target.value);
-    const target = event.target;
-    const newHeight =
-      target.scrollHeight > parseInt(textareaHeight)
-        ? `${target.scrollHeight}px`
-        : textareaHeight;
-
-    setTextareaHeight(newHeight);
+  const handlePostContentChange = (e) => {
+    setPostContent(e.target.value);
+    const target = e.target;
   };
 
-  const handleImageUpload = (event) => {
-    setPostImage(event.target.files[0]);
+  const handleImageUpload = (e) => {
+    setPostImage(e.target.files[0]);
   };
 
   const handleSubmitPost = () => {
@@ -35,10 +29,15 @@ const NewPost = ({ userPhoto }) => {
     setPostImage(null);
   };
 
+  const autoResize = (e) => {
+    e.target.style.height = "auto";
+    e.target.style.height = e.target.scrollHeight + "px";
+  };
+
   return (
     <div className="flex items-center space-x-4 bg-white rounded-md p-4 shadow-md w-full">
       <form className="flex-1">
-        <div className="flex items-center gap-4">
+        <div className="flex gap-4">
           <img
             className="h-12 w-12 rounded-full"
             src={userPhoto ? userPhoto : "https://via.placeholder.com/150"}
@@ -47,6 +46,7 @@ const NewPost = ({ userPhoto }) => {
           <textarea
             value={postContent}
             onChange={handlePostContentChange}
+            onInput={autoResize}
             className="w-full p-2 border border-gray-300 rounded resize-none overflow-y-hidden focus:outline-none focus:ring focus:ring-linkedout"
             placeholder="What's on your mind?"
             style={{ height: textareaHeight }}
