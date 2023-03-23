@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class AdminService implements CrudService<Admin, Long>{
+public class AdminService implements CrudService<Admin, Long> {
 
     private final AdminRepository adminRepository;
 
