@@ -13,32 +13,34 @@ import io.jsonwebtoken.*;
 
 import java.util.Date;
 
+
 @Component
 public class JwtUtils {
 
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
-    @Value("Secret")
+    @Value("${app.jwtSecret}")
     private String jwtSecret;
 
-    @Value("86400000")
+    @Value("${app.jwtExpirationMs}")
     private int jwtExpirationMs;
 
-    @Value("LOSession")
+    @Value("${app.jwtCookieName}")
     private String jwtCookie;
 
     public String getJwtFromCookies(HttpServletRequest request) {
         Cookie cookie = WebUtils.getCookie(request, jwtCookie);
-        if(cookie != null) {
+        if (cookie != null) {
             return cookie.getValue();
         } else {
             return null;
         }
     }
 
-    public ResponseCookie generateJwtCookie(UserDetailsImpl userDetails) {
-        String jwt = generateTokenFromUsername(userDetails.getUsername());
+    public ResponseCookie generateJwtCookie(UserDetailsImpl userPrincipal) {
+        String jwt = generateTokenFromUsername(userPrincipal.getUsername());
         ResponseCookie cookie = ResponseCookie.from(jwtCookie, jwt).build();
+        // 14.12.2022 burada çok ter döktük..................
         return cookie;
     }
 
@@ -66,6 +68,7 @@ public class JwtUtils {
         } catch (IllegalArgumentException e) {
             logger.error("JWT claims string is empty: {}", e.getMessage());
         }
+
         return false;
     }
 
@@ -77,4 +80,5 @@ public class JwtUtils {
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
     }
+
 }

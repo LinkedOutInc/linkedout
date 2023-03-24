@@ -1,6 +1,6 @@
 package app.linkedout.services;
 
-import app.linkedout.models.Users;
+import app.linkedout.models.Person;
 import app.linkedout.repositories.UsersRepository;
 import org.springframework.stereotype.Service;
 
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class UsersService implements CrudService<Users, Long> {
+public class UsersService implements CrudService<Person, Long> {
 
     private final UsersRepository usersRepository;
 
@@ -18,23 +18,23 @@ public class UsersService implements CrudService<Users, Long> {
 
     @Override
     public List findAll() {
-        ArrayList<Users> ls = new ArrayList<>();
+        ArrayList<Person> ls = new ArrayList<>();
         usersRepository.findAll().forEach(ls::add);
         return ls;
     }
 
     @Override
-    public Users findById(Long aLong) {
+    public Person findById(Long aLong) {
         return usersRepository.findById(aLong).orElse(null);
     }
 
     @Override
-    public Users save(Users object) {
+    public Person save(Person object) {
         return usersRepository.save(object);
     }
 
     @Override
-    public void delete(Users object) {
+    public void delete(Person object) {
         usersRepository.delete(object);
     }
 
@@ -43,11 +43,11 @@ public class UsersService implements CrudService<Users, Long> {
         usersRepository.deleteById(aLong);
     }
 
-    public Users findByEmail(String email) {
+    public Person findByEmail(String email) {
         return usersRepository.findByEmail(email);
     }
 
-    public List<Users> findBySurname(String surname) {
+    public List<Person> findBySurname(String surname) {
         return usersRepository.findBySurname(surname);
     }
 }

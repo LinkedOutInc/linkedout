@@ -1,6 +1,6 @@
 package app.linkedout.controllers;
 
-import app.linkedout.models.Users;
+import app.linkedout.models.Person;
 import app.linkedout.services.UsersService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,16 +16,15 @@ public class UsersController {
     private final UsersService usersService;
 
     public UsersController(UsersService usersService) {
-        this.usersService = usersService;
-    }
+        this.usersService = usersService;}
 
     @GetMapping
-    public ResponseEntity<List<Users>> getAllUsers() {
+    public ResponseEntity<List<Person>> getAllUsers() {
         return new ResponseEntity<>(usersService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Users> getUsersById(@PathVariable String id) {
+    public ResponseEntity<Person> getUsersById(@PathVariable String id) {
         return new ResponseEntity<>(usersService.findById(Long.valueOf(id)), HttpStatus.OK);
     }
 }
