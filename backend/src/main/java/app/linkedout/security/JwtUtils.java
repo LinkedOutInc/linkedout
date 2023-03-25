@@ -40,7 +40,6 @@ public class JwtUtils {
     public ResponseCookie generateJwtCookie(UserDetailsImpl userPrincipal) {
         String jwt = generateTokenFromUsername(userPrincipal.getUsername());
         ResponseCookie cookie = ResponseCookie.from(jwtCookie, jwt).build();
-        // 14.12.2022 burada çok ter döktük..................
         return cookie;
     }
 
@@ -54,8 +53,10 @@ public class JwtUtils {
     }
 
     public boolean validateJwtToken(String authToken) {
+        System.out.println("[***] Token validating...");
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
+            System.out.println("[+] Token validated.");
             return true;
         } catch (SignatureException e) {
             logger.error("Invalid JWT signature: {}", e.getMessage());
@@ -68,6 +69,7 @@ public class JwtUtils {
         } catch (IllegalArgumentException e) {
             logger.error("JWT claims string is empty: {}", e.getMessage());
         }
+
 
         return false;
     }

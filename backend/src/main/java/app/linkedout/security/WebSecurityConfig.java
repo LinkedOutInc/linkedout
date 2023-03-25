@@ -50,13 +50,6 @@ public class WebSecurityConfig {
     }
 
     @Bean
-    public AuthenticationManager authManager(HttpSecurity http) throws Exception {
-        return http.getSharedObject(AuthenticationManagerBuilder.class)
-                .authenticationProvider(authenticationProvider())
-                .build();
-    }
-
-    @Bean
     public PasswordEncoder passwordEncoder() { return new BCryptPasswordEncoder(); }
 
     @Bean
@@ -65,21 +58,38 @@ public class WebSecurityConfig {
           TODO
           Change this part according to finalized roles!
          */
+        /*
         http.cors().and().exceptionHandling().authenticationEntryPoint(authEntryPoint)
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeHttpRequests()
                 .requestMatchers("/login").permitAll()
                 .requestMatchers("/signup").permitAll()
                 .requestMatchers("/api/v1/**").permitAll()
-                .requestMatchers("/**").permitAll()
+                .requestMatchers("/h2/**").permitAll()
                 .requestMatchers("/h2-console/**").permitAll()
+                .requestMatchers("/admin").hasRole("ADMIN")
+                .requestMatchers("/admin/**").hasRole("ADMIN")
+                .anyRequest().authenticated();*/
+        http.csrf().disable()
+                .authorizeHttpRequests()
+                .requestMatchers("/login").permitAll()
+                .requestMatchers("/signup").permitAll()
+                .requestMatchers("/api/v1/**").permitAll()
+                .requestMatchers("/h2/**").permitAll()
+                .requestMatchers("/h2-console/**").permitAll()
+                .requestMatchers("/admin").hasRole("ROLE_ADMIN")
                 .requestMatchers("/admin/**").hasRole("ROLE_ADMIN")
-                .anyRequest().authenticated();
-
-        http.csrf().disable();
-        http.headers().frameOptions().disable();
-        http.authenticationProvider(authenticationProvider());
-        http.addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class);
+                .requestMatchers("/admin").hasRole("ADMIN")
+                .requestMatchers("/admin/**").hasRole("ADMIN")
+                .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
+                .requestMatchers("/admin").hasAuthority("ROLE_ADMIN")
+                .requestMatchers("/admin/**").hasAuthority("ADMIN")
+                .requestMatchers("/admin").hasAuthority("ADMIN")
+                .anyRequest().authenticated().and()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and().authenticationProvider(authenticationProvider())
+                .addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
