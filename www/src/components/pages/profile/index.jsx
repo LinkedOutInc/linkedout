@@ -2,6 +2,7 @@ import React from "react";
 import ProfileBanner from "./banner";
 import Experience from "./experience";
 import Education from "./education";
+import Interests from "./interests";
 
 const experiences = [
   {
@@ -35,12 +36,25 @@ const education = [
   },
 ];
 
+const interests = [
+  {
+    name: "Interest 1",
+    logoUrl: "https://via.placeholder.com/50",
+  },
+  {
+    name: "Interest 2",
+    logoUrl: "https://via.placeholder.com/50",
+  },
+  // Add more interests...
+];
+
 function Profile() {
   return (
     <div className="max-w-screen-lg p-4 md:p-8 w-screen mx-auto flex flex-col gap-4">
       <ProfileBanner />
       <Experience experiences={experiences} />
       <Education educationItems={education} />
+      <Interests interests={interests} />
     </div>
   );
 }
