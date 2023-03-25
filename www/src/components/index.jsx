@@ -8,3 +8,4 @@ export { default as Login } from "./pages/login";
 export { default as Signup } from "./pages/signup";
 export { default as CompleteSignup } from "./pages/signup/complete";
 export { default as Feed } from "./pages/feed";
+export { default as Profile } from "./pages/profile";
