@@ -11,7 +11,7 @@ const data = {
 
 const ProfileBanner = () => {
   return (
-    <div className="flex flex-col md:flex-row border-2 border-linkedout p-4 justify-between rounded-2xl">
+    <div className="flex flex-col md:flex-row shadow p-4 justify-between rounded-2xl">
       {/* <div className="bg-blue-600 h-48">
         <img
           src="https://via.placeholder.com/1080x480"
