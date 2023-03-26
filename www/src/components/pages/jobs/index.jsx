@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import JobItem from "./JobItem";
 import JobDescription from "./JobDescription";
+import JobSearch from "./JobSearch";
 
 const Jobs = () => {
   const [jobs, setJobs] = useState([]);
@@ -38,11 +39,24 @@ const Jobs = () => {
     fetchJobs();
   }, []);
 
+  const handleSearch = (searchTerm) => {
+    // Implement search logic here
+    console.log("Searching for:", searchTerm);
+  };
+
+  const handleFilter = (filter) => {
+    // Implement filter logic here
+    console.log("Filtering by:", filter);
+  };
+
   return (
-    <div className="p-4 max-w-screen-lg w-screen mx-auto shadow rounded-2xl shadow-linkedout">
-      <div className="container mx-auto">
+    <div className="max-w-screen-lg w-screen mx-auto px-2">
+      <div className="p-4 ring-1 rounded-2xl ring-orange-200">
+        <JobSearch onSearch={handleSearch} onFilter={handleFilter} />
+      </div>
+      <div className="mt-4 shadow rounded-2xl shadow-linkedout p-4">
         <h2 className="text-2xl p-1 font-semibold mb-6">Jobs</h2>
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div className="grid grid-cols-2 gap-6">
           <div className="space-y-6">
             {jobs.map((job) => (
               <JobItem
