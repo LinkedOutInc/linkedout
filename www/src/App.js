@@ -9,6 +9,7 @@ import {
   CompleteSignup,
   Feed,
   Profile,
+  Jobs,
 } from "./components";
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
           <Route path="/signup/complete" element={<CompleteSignup />} />
           <Route path="/feed" element={<Feed />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/jobs" element={<Jobs />} />
         </Routes>
       </div>
       <Footer />
