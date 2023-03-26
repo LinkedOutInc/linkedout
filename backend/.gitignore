@@ -8,3 +8,4 @@
 /target/
 /dataSources.local.xml
 *.class
+/bin/
