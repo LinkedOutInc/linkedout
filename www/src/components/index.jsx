@@ -9,3 +9,4 @@ export { default as Signup } from "./pages/signup";
 export { default as CompleteSignup } from "./pages/signup/complete";
 export { default as Feed } from "./pages/feed";
 export { default as Profile } from "./pages/profile";
+export { default as Jobs } from "./pages/jobs";
