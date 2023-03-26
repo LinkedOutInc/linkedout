@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  outline-color: green;
 }
 
 .App-logo {
@@ -11,6 +12,10 @@
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
+}
+
+.ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited {
+  color: orange; /* specefy your color */
 }
 
 .App-header {
