@@ -3,14 +3,14 @@ import React from "react";
 function JobDescription({ job }) {
   if (!job) {
     return (
-      <div className="p-4 bg-white rounded shadow-md w-full">
+      <div className="p-4 bg-white rounded shadow-md">
         Select a job to view details.
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col h-full p-4 bg-white rounded shadow-md w-full">
+    <div className="flex flex-col h-full p-4 bg-white rounded shadow-md">
       <div>
         <h3 className="text-lg font-semibold mb-2">{job.title}</h3>
         <p className="text-sm text-gray-600 mb-2">{job.company}</p>

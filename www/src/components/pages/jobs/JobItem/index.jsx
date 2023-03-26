@@ -4,7 +4,7 @@ function JobCard({ job, isSelected, onSelect }) {
   return (
     <div
       onClick={() => onSelect(job)}
-      className={`cursor-pointer select-none p-4 bg-white rounded shadow w-full ${
+      className={`cursor-pointer select-none p-4 bg-white rounded-2xl shadow w-full ${
         isSelected ? "bg-orange-50" : ""
       }`}
     >
