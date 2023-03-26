@@ -10,6 +10,7 @@ import {
   Feed,
   Profile,
   Jobs,
+  NotFound,
 } from "./components";
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
           <Route path="/feed" element={<Feed />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/jobs" element={<Jobs />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
       <Footer />
