@@ -60,7 +60,7 @@ public class AuthController {
         roles.add(r);
         user.setRoles(roles);
 
-        roleRepository.save(r);
+        // TODO: roleRepository.save(r);
         userRepository.save(user);
 
         return new ResponseEntity<>("User created with credentials:\n email: "+user.getEmail()+"\n password: "+user.getPassword()+"\n role: " + r.getName(), HttpStatus.OK);
