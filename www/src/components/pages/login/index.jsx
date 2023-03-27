@@ -1,17 +1,39 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const UserEmail = useRef();
+  const UserPassword = useRef();
   const navigate = useNavigate();
 
   const handleSignIn = async (e) => {
     e.preventDefault();
     setLoading(true);
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+      email: UserEmail.current.value,
+      password: UserPassword.current.value,
+    });
+
+    var requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    };
+
     try {
-      await new Promise((r) => setTimeout(r, 2000));
+      await fetch("https://api.linkedout.app/api/v1/login", requestOptions)
+        .then((response) => response.text())
+        .then((result) => console.log(result))
+        .catch((error) => console.log("error", error));
+      setLoading(false);
+      navigate("/feed");
     } catch (err) {}
     setLoading(false);
   };
@@ -39,6 +61,7 @@ function Login() {
               type="email"
               id="UserEmail"
               placeholder="Email"
+              ref={UserEmail}
               required
               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
               className="peer h-10 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
@@ -73,6 +96,7 @@ function Login() {
               type={showPassword ? "text" : "password"}
               id="UserPassword"
               placeholder="Password"
+              ref={UserPassword}
               required
               class="peer h-10 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
             />
