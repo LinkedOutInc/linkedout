@@ -1,42 +1,76 @@
-name: Lint
+---
+#############################
+#############################
+## JavaScript Linter rules ##
+#############################
+#############################
 
-on:
-  # Trigger the workflow on push or pull request,
-  # but only for the main branch
-  push:
-    branches:
-      - main
-  # Replace pull_request with pull_request_target if you
-  # plan to use this action with forks, see the Limitations section
-  pull_request:
-    branches:
-      - main
+############
+# Env Vars #
+############
+env:
+  browser: true
+  es6: true
+  jest: true
 
-# Down scope as necessary via https://docs.github.com/en/actions/security-guides/automatic-token-authentication#modifying-the-permissions-for-the-github_token
-permissions:
-  checks: write
-  contents: write
+###############
+# Global Vars #
+###############
+globals:
+  Atomics: readonly
+  SharedArrayBuffer: readonly
 
-jobs:
-  run-linters:
-    name: Run linters
-    runs-on: ubuntu-latest
+ignorePatterns:
+  - "!.*"
+  - "**/node_modules/.*"
 
-    steps:
-      - name: Check out Git repository
-        uses: actions/checkout@v2
+###############
+# Parser vars #
+###############
+parser: '@typescript-eslint/parser'
+parserOptions:
+  ecmaVersion: 2018
+  sourceType: module
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: 12
+###########
+# Plugins #
+###########
+plugins:
+  - '@typescript-eslint'
 
-      # ESLint and Prettier must be in `package.json`
-      - name: Install Node.js dependencies
-        run: cd www && npm ci --legacy-peer-deps
+#########
+# Rules #
+#########
+rules: { }
 
-      - name: Run linters
-        uses: wearerequired/lint-action@v2
-        with:
-          eslint: true
-          prettier: true
+##############################
+# Overrides for JSON parsing #
+##############################
+overrides:
+
+  # JSON files
+  - files:
+      - "*.json"
+    extends:
+      - plugin:jsonc/recommended-with-json
+    parser: jsonc-eslint-parser
+    parserOptions:
+      jsonSyntax: JSON
+
+  # JSONC files
+  - files:
+      - "*.jsonc"
+    extends:
+      - plugin:jsonc/recommended-with-jsonc
+    parser: jsonc-eslint-parser
+    parserOptions:
+      jsonSyntax: JSONC
+
+  # JSON5 files
+  - files:
+      - "*.json5"
+    extends:
+      - plugin:jsonc/recommended-with-json5
+    parser: jsonc-eslint-parser
+    parserOptions:
+      jsonSyntax: JSON5
