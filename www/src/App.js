@@ -12,6 +12,7 @@ import {
   Jobs,
   NotFound,
   Recruiter,
+  Connections,
 } from "./components";
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/jobs" element={<Jobs />} />
           <Route path="/recruiter" element={<Recruiter />} />
+          <Route path="/connections" element={<Connections />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
