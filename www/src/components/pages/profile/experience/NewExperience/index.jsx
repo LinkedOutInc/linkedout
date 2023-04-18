@@ -29,14 +29,22 @@ const NewExperience = () => {
   }, [isOpen]);
 
   return (
-    <div className="relative">
-      <button
-        className="bg-linkedout text-white font-semibold py-2 px-4 rounded-2xl hover:bg-white hover:text-linkedout hover:ring-1 ring-inset hover:ring-linkedout"
+    <div className="">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth={1.5}
+        stroke="currentColor"
+        className="w-6 h-6 cursor-pointer"
         onClick={handleOpen}
       >
-        {" "}
-        +
-      </button>
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M12 4.5v15m7.5-7.5h-15"
+        />
+      </svg>
 
       {isOpen && (
         <div className="fixed top-0 left-0 h-full w-full bg-black bg-opacity-50 flex justify-center items-center">

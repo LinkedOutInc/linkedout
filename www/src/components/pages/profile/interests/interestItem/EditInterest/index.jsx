@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 
-const NewEducation = () => {
+const EditInterest = ({ title, area }) => {
   const [isOpen, setIsOpen] = useState(false);
   const popupRef = useRef(null);
 
@@ -36,13 +36,13 @@ const NewEducation = () => {
         viewBox="0 0 24 24"
         strokeWidth={1.5}
         stroke="currentColor"
-        className="w-6 h-6 cursor-pointer"
+        className="w-5 h-5 cursor-pointer"
         onClick={handleOpen}
       >
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
-          d="M12 4.5v15m7.5-7.5h-15"
+          d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"
         />
       </svg>
 
@@ -50,7 +50,7 @@ const NewEducation = () => {
         <div className="fixed top-0 left-0 h-full w-full bg-black bg-opacity-50 flex justify-center items-center">
           <div ref={popupRef} className="bg-white w-96 p-6 rounded-2xl">
             <div className="flex justify-between">
-              <h2 className="text-2xl font-bold mb-4">New Education</h2>
+              <h2 className="text-2xl font-bold mb-4">Edit Education</h2>
               <div className="cursor-pointer" onClick={handleClose}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -71,33 +71,27 @@ const NewEducation = () => {
             {/* Form content goes here */}
             <form className="flex flex-col gap-6">
               <div>
-                <h2 className="text-lg font-bold">Education Title</h2>
-                <input className="border rounded-lg p-1 mt-1" />
+                <h2 className="text-lg font-bold">Interest Title</h2>
+                <input className="border rounded-lg p-1 mt-1" value={title} />
               </div>
               <div>
-                <h2 className="text-lg font-bold">Institution</h2>
-                <input className="border rounded-lg p-1 mt-1" />
+                <h2 className="text-lg font-bold">Interest Area</h2>
+                <input className="border rounded-lg p-1 mt-1" value={area} />
               </div>
-              <div>
-                <h2 className="text-lg font-bold">Education Description</h2>
-                <input className="border rounded-lg p-1 mt-1" />
+              <div className="flex justify-between">
+                <button
+                  type="submit"
+                  className="bg-linkedout text-white font-semibold py-2 px-4 rounded-2xl hover:bg-white hover:text-linkedout hover:ring-1 ring-inset hover:ring-linkedout"
+                >
+                  Delete
+                </button>
+                <button
+                  type="submit"
+                  className="bg-linkedout text-white font-semibold py-2 px-4 rounded-2xl hover:bg-white hover:text-linkedout hover:ring-1 ring-inset hover:ring-linkedout"
+                >
+                  Save
+                </button>
               </div>
-              <div>
-                <h2 className="text-lg font-bold">Start Date</h2>
-                <input className="border rounded-lg p-1 mt-1" type="date" />
-              </div>
-              <div>
-                <h2 className="text-lg font-bold">
-                  End Date (leave empty for current education)
-                </h2>
-                <input className="border rounded-lg p-1 mt-1" type="date" />
-              </div>
-              <button
-                type="submit"
-                className="bg-linkedout text-white font-semibold py-2 px-4 rounded-2xl hover:bg-white hover:text-linkedout hover:ring-1 ring-inset hover:ring-linkedout"
-              >
-                Submit
-              </button>
             </form>
             <button
               className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
@@ -123,4 +117,4 @@ const NewEducation = () => {
   );
 };
 
-export default NewEducation;
+export default EditInterest;

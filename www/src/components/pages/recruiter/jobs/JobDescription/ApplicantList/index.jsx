@@ -1,8 +1,39 @@
 import React, { useState, useEffect, useRef } from "react";
+import ApplicantItem from "./ApplicantItem";
 
-const NewEducation = () => {
+// Too lazy to create a mock db for this so I'll just hardcode the data
+// delete later and create a mock db
+import gavin from "../../../../../../assets/gavin.jpg";
+import richard from "../../../../../../assets/richard.jpg";
+import jian from "../../../../../../assets/jian.jpg";
+const applicantData = [
+  {
+    userImage: gavin,
+    userName: "Gavin Belson",
+    userTitle: "CEO, Hooli",
+  },
+  {
+    userImage: jian,
+    userName: "Jian Yang",
+    userTitle: "Software Engineer",
+  },
+];
+
+const ApplicantList = () => {
   const [isOpen, setIsOpen] = useState(false);
   const popupRef = useRef(null);
+
+  const applications = applicantData.map((application) => {
+    return (
+      <div className="mt-2">
+        <ApplicantItem
+          userImage={application.userImage}
+          userName={application.userName}
+          userTitle={application.userTitle}
+        />
+      </div>
+    );
+  });
 
   const handleOpen = () => {
     setIsOpen(true);
@@ -29,28 +60,20 @@ const NewEducation = () => {
   }, [isOpen]);
 
   return (
-    <div className="">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth={1.5}
-        stroke="currentColor"
-        className="w-6 h-6 cursor-pointer"
+    <div className="relative">
+      <button
+        className="bg-linkedout text-white font-semibold py-2 px-4 rounded-2xl hover:bg-white hover:text-linkedout hover:ring-1 ring-inset hover:ring-linkedout"
         onClick={handleOpen}
       >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M12 4.5v15m7.5-7.5h-15"
-        />
-      </svg>
+        {" "}
+        Applicant List
+      </button>
 
       {isOpen && (
         <div className="fixed top-0 left-0 h-full w-full bg-black bg-opacity-50 flex justify-center items-center">
           <div ref={popupRef} className="bg-white w-96 p-6 rounded-2xl">
             <div className="flex justify-between">
-              <h2 className="text-2xl font-bold mb-4">New Education</h2>
+              <h2 className="text-2xl font-bold mb-4">Applicants</h2>
               <div className="cursor-pointer" onClick={handleClose}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -69,36 +92,7 @@ const NewEducation = () => {
               </div>
             </div>
             {/* Form content goes here */}
-            <form className="flex flex-col gap-6">
-              <div>
-                <h2 className="text-lg font-bold">Education Title</h2>
-                <input className="border rounded-lg p-1 mt-1" />
-              </div>
-              <div>
-                <h2 className="text-lg font-bold">Institution</h2>
-                <input className="border rounded-lg p-1 mt-1" />
-              </div>
-              <div>
-                <h2 className="text-lg font-bold">Education Description</h2>
-                <input className="border rounded-lg p-1 mt-1" />
-              </div>
-              <div>
-                <h2 className="text-lg font-bold">Start Date</h2>
-                <input className="border rounded-lg p-1 mt-1" type="date" />
-              </div>
-              <div>
-                <h2 className="text-lg font-bold">
-                  End Date (leave empty for current education)
-                </h2>
-                <input className="border rounded-lg p-1 mt-1" type="date" />
-              </div>
-              <button
-                type="submit"
-                className="bg-linkedout text-white font-semibold py-2 px-4 rounded-2xl hover:bg-white hover:text-linkedout hover:ring-1 ring-inset hover:ring-linkedout"
-              >
-                Submit
-              </button>
-            </form>
+            {applications}
             <button
               className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
               onClick={handleClose}
@@ -123,4 +117,4 @@ const NewEducation = () => {
   );
 };
 
-export default NewEducation;
+export default ApplicantList;
