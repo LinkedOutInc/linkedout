@@ -50,7 +50,7 @@ const EditInterest = ({ title, area }) => {
         <div className="fixed top-0 left-0 h-full w-full bg-black bg-opacity-50 flex justify-center items-center">
           <div ref={popupRef} className="bg-white w-96 p-6 rounded-2xl">
             <div className="flex justify-between">
-              <h2 className="text-2xl font-bold mb-4">Edit Education</h2>
+              <h2 className="text-2xl font-bold mb-4">Edit Interest</h2>
               <div className="cursor-pointer" onClick={handleClose}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
