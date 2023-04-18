@@ -9,10 +9,7 @@
 }
 
 :focus {
-  outline: solid #f5993d; /* Replace with your desired color */
-  outline-offset: 0px; /* Add space between the outline and the element */
-  outline-width: 1px;
-  border-radius: 16px; /* Adjust the border-radius value for the desired roundness */
+  outline: solid #f5993d;
 }
 
 body{
