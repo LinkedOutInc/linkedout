@@ -1,5 +1,6 @@
 import React from "react";
 import EditJob from "./EditJob";
+import ApplicantList from "./ApplicantList";
 
 function JobDescription({ job }) {
   if (!job) {
@@ -26,9 +27,9 @@ function JobDescription({ job }) {
           </button>
           <EditJob job={job} />
         </div>
-        <button className="bg-linkedout ml-auto text-white font-semibold py-2 px-4 rounded-2xl hover:bg-white hover:text-linkedout hover:ring-1 ring-inset hover:ring-linkedout">
-          Applicant List
-        </button>
+        <div className="ml-auto">
+          <ApplicantList />
+        </div>
       </div>
     </div>
   );
