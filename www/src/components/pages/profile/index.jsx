@@ -38,11 +38,13 @@ const education = [
 
 const interests = [
   {
-    name: "Interest 1",
+    name: "Open AI",
+    area: "Machine Learning",
     logoUrl: "https://via.placeholder.com/50",
   },
   {
-    name: "Interest 2",
+    name: "Microsoft",
+    area: "Software Development",
     logoUrl: "https://via.placeholder.com/50",
   },
   // Add more interests...
