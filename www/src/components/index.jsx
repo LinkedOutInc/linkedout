@@ -12,3 +12,4 @@ export { default as Profile } from "./pages/profile";
 export { default as Jobs } from "./pages/jobs";
 export { default as NotFound } from "./pages/notFound";
 export { default as Recruiter } from "./pages/recruiter";
+export { default as Connections } from "./pages/connections";
