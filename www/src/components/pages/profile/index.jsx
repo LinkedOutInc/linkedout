@@ -27,12 +27,14 @@ const education = [
     degree: "Bachelor of Science",
     fieldOfStudy: "Computer Science",
     duration: "2015 - 2019",
+    description: "Graduated with Honors",
   },
   {
     institution: "University 2",
     degree: "Master of Science",
     fieldOfStudy: "Software Engineering",
-    duration: "2019 - 2021",
+    duration: "2021 - 2023",
+    description: "Currently pursuing",
   },
 ];
 
