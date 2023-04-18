@@ -1,7 +1,7 @@
 import React from "react";
 
 const InterestItem = ({ interest }) => {
-  const { name, logoUrl } = interest;
+  const { name, area, logoUrl } = interest;
 
   return (
     <div className="bg-white p-6 shadow rounded flex items-center space-x-4">
