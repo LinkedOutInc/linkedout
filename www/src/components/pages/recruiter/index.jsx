@@ -1,13 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import Jobs from "./jobs";
+import TalentList from "./TalentList";
 
 function Recruiter() {
+  const [activeTab, setActiveTab] = useState("jobs");
+
+  const handleTabClick = (tab) => {
+    setActiveTab(tab);
+  };
+
   return (
     <div className="gap-4 flex flex-col">
       <ul class="flex border-b border-gray-100 w-screen max-w-screen-lg mx-auto">
         <li class="flex-1">
-          <a class="relative block p-4" href="">
-            <span class="absolute inset-x-0 -bottom-px h-px w-full bg-linkedout"></span>
+          <div
+            class="relative block p-4 cursor-pointer"
+            onClick={() => handleTabClick("jobs")}
+          >
+            <span
+              class={
+                "absolute inset-x-0 w-full bg-linkedout" +
+                (activeTab === "jobs" ? " -bottom-px h-px" : "")
+              }
+            ></span>
 
             <div class="flex items-center justify-center gap-4">
               <svg
@@ -27,11 +42,20 @@ function Recruiter() {
 
               <span class="text-sm font-medium text-gray-900"> Jobs </span>
             </div>
-          </a>
+          </div>
         </li>
 
         <li class="flex-1">
-          <a class="relative block p-4" href="">
+          <div
+            class="relative block p-4 cursor-pointer"
+            onClick={() => handleTabClick("talent")}
+          >
+            <span
+              class={
+                "absolute inset-x-0 w-full bg-linkedout" +
+                (activeTab === "talent" ? " -bottom-px h-px" : "")
+              }
+            ></span>
             <div class="flex items-center justify-center gap-4">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -53,10 +77,10 @@ function Recruiter() {
                 Talent List{" "}
               </span>
             </div>
-          </a>
+          </div>
         </li>
       </ul>
-      <Jobs />
+      {activeTab === "jobs" ? <Jobs /> : <TalentList />}
     </div>
   );
 }
