@@ -4,6 +4,7 @@ import JobDescription from "./JobDescription";
 import JobSearch from "./JobSearch";
 
 const Jobs = () => {
+  localStorage.setItem("auth", 1); // Remove later
   const [jobs, setJobs] = useState([]);
   const [selectedJob, setSelectedJob] = useState(null);
 
