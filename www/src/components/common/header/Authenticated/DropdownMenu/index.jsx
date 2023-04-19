@@ -1,9 +1,11 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 // Data
 import richard from "../../../../../assets/richard.jpg";
 
 function DropdownMenu() {
+  const navigate = useNavigate();
   return (
     <div>
       <details class="group [&_summary::-webkit-details-marker]:hidden">
@@ -43,9 +45,9 @@ function DropdownMenu() {
           aria-label="Main Nav"
           class="absolute ml-20 bg-gray-100 rounded-2xl mt-2 flex flex-col p-2"
         >
-          <a
-            href=""
-            class="flex items-center gap-2 rounded-lg bg-gray-100 px-4 py-2 text-gray-700"
+          <div
+            class="flex items-center cursor-pointer gap-2 rounded-lg bg-gray-100 px-4 py-2 text-gray-700"
+            onClick={() => navigate("/profile")}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -63,11 +65,11 @@ function DropdownMenu() {
             </svg>
 
             <span class="text-sm font-medium"> Profile </span>
-          </a>
+          </div>
 
-          <a
-            href=""
-            class="flex items-center gap-2 rounded-lg px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+          <div
+            class="flex items-center cursor-pointer gap-2 rounded-lg px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+            onClick={() => navigate("/feed")}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -85,11 +87,11 @@ function DropdownMenu() {
             </svg>
 
             <span class="text-sm font-medium"> Feed </span>
-          </a>
+          </div>
 
-          <a
-            href=""
-            class="flex items-center gap-2 rounded-lg px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+          <div
+            class="flex items-center cursor-pointer gap-2 rounded-lg px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+            onClick={() => navigate("/jobs")}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -107,11 +109,11 @@ function DropdownMenu() {
             </svg>
 
             <span class="text-sm font-medium"> Jobs </span>
-          </a>
+          </div>
 
-          <a
-            href=""
-            class="flex items-center gap-2 rounded-lg px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+          <div
+            class="flex items-center cursor-pointer gap-2 rounded-lg px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+            onClick={() => navigate("/connections")}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -129,11 +131,11 @@ function DropdownMenu() {
             </svg>
 
             <span class="text-sm font-medium"> Connections </span>
-          </a>
+          </div>
 
-          <a
-            href=""
-            class="flex items-center gap-2 rounded-lg px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+          <div
+            class="flex items-center cursor-pointer gap-2 rounded-lg px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+            onClick={() => navigate("/recruiter")}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -151,13 +153,14 @@ function DropdownMenu() {
             </svg>
 
             <span class="text-sm font-medium"> Recruiter </span>
-          </a>
+          </div>
 
           <div
-            class="flex items-center gap-2 rounded-lg px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700 cursor-pointer"
+            class="flex items-center cursor-pointer gap-2 rounded-lg px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700"
             onClick={() => {
               localStorage.setItem("auth", false);
               window.location.reload();
+              navigate("/");
             }}
           >
             <svg

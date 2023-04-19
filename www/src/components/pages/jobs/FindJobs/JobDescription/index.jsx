@@ -1,4 +1,5 @@
 import React from "react";
+import ApplyJob from "./ApplyJob";
 
 function JobDescription({ job }) {
   if (!job) {
@@ -19,9 +20,7 @@ function JobDescription({ job }) {
         <p className="text-sm text-gray-700">{job.description}</p>
       </div>
       <div className="mt-auto ml-auto">
-        <button className="bg-linkedout text-white font-semibold py-2 px-4 rounded-2xl hover:bg-white hover:text-linkedout hover:ring-1 ring-inset hover:ring-linkedout">
-          Apply
-        </button>
+        <ApplyJob />
       </div>
     </div>
   );

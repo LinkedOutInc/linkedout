@@ -33,6 +33,26 @@ const JobSearch = ({ onSearch, onFilter }) => {
         <option value="product">Product</option>
         <option value="data">Data</option>
       </select>
+      <select
+        value={selectedFilter}
+        onChange={handleFilter}
+        className="border border-gray-300 rounded-2xl p-2"
+      >
+        <option value="all">All Types</option>
+        <option value="onsite">On-site</option>
+        <option value="remote">Remote</option>
+        <option value="hybrid">Hybrid</option>
+      </select>
+      <select
+        value={selectedFilter}
+        onChange={handleFilter}
+        className="border border-gray-300 rounded-2xl p-2"
+      >
+        <option value="all">All Locations</option>
+        <option value="istanbul">Istanbul</option>
+        <option value="ankara">Ankara</option>
+        <option value="izmir">Izmir</option>
+      </select>
       <button
         onClick={handleSearch}
         className="bg-white ring-1 ring-inset ring-linkedout hover:text-white font-semibold py-2 px-4 rounded-2xl hover:bg-linkedout text-linkedout"
