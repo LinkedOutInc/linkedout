@@ -12,6 +12,7 @@ const randomCopypasta = () => {
 };
 
 function NotFound() {
+  localStorage.setItem("auth", false);
   const copypasta = randomCopypasta();
 
   return (
