@@ -32,6 +32,28 @@ const UserSearch = ({ onSearch, onFilter }) => {
         <option value="recruiters">Recruiters</option>
         <option value="cexpert">Career Experts</option>
       </select>
+      <select
+        value={selectedFilter}
+        onChange={handleFilter}
+        className="border border-gray-300 rounded-2xl p-2"
+      >
+        <option value="all">All Locations</option>
+        <option value="istanbul">Istanbul</option>
+        <option value="ankara">Ankara</option>
+        <option value="izmir">Izmir</option>
+      </select>
+      <select
+        value={selectedFilter}
+        onChange={handleFilter}
+        className="border border-gray-300 rounded-2xl p-2"
+      >
+        <option value="all">All Companies</option>
+        <option value="fb">Facebook</option>
+        <option value="amzn">Amazon</option>
+        <option value="aapl">Apple</option>
+        <option value="nflx">Netflix</option>
+        <option value="googl">Google</option>
+      </select>
       <button
         onClick={handleSearch}
         className="bg-white ring-1 ring-inset ring-linkedout hover:text-white font-semibold py-2 px-4 rounded-2xl hover:bg-linkedout text-linkedout"
