@@ -14,6 +14,7 @@ import {
   Recruiter,
   Connections,
   Admin,
+  AdminLogin,
 } from "./components";
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
           <Route path="/jobs" element={<Jobs />} />
           <Route path="/recruiter" element={<Recruiter />} />
           <Route path="/connections" element={<Connections />} />
+          <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
