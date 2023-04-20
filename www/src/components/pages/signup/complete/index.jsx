@@ -5,6 +5,12 @@ import { useNavigate } from "react-router-dom";
 function Complete() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedFilter, setSelectedFilter] = useState("all");
+
+  const handleFilter = (event) => {
+    setSelectedFilter(event.target.value);
+  };
 
   const handleComplete = async (e) => {
     e.preventDefault();
@@ -109,6 +115,17 @@ function Complete() {
               </svg>
             </span>
           </label>
+
+          <select
+            value={selectedFilter}
+            onChange={handleFilter}
+            className="border border-linkedout rounded-2xl p-2"
+          >
+            <option value="default">Select Account Type</option>
+            <option value="user">User</option>
+            <option value="recruiter">Recruiter</option>
+            <option value="cexpert">Career Expert</option>
+          </select>
 
           <button
             type="submit"
