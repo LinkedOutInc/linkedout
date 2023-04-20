@@ -19,6 +19,7 @@ const Jobs = () => {
           company: "ABC Corp",
           location: "New York, NY",
           description: "This is a Software Engineer job description.",
+          type: "On-site",
         },
         {
           id: 2,
@@ -26,6 +27,7 @@ const Jobs = () => {
           company: "XYZ Inc",
           location: "San Francisco, CA",
           description: "This is a Product Manager job description.",
+          type: "Remote",
         },
         {
           id: 3,
@@ -33,6 +35,7 @@ const Jobs = () => {
           company: "Data Co",
           location: "Seattle, WA",
           description: "This is a Data Scientist job description.",
+          type: "Hybrid",
         },
       ];
       setJobs(newJobs);

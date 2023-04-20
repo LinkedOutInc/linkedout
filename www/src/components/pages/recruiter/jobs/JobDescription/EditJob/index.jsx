@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 const EditJob = ({ job }) => {
   const [isOpen, setIsOpen] = useState(false);
   const popupRef = useRef(null);
+  const [selectedType, setSelectedType] = useState("on-site");
 
   const handleOpen = () => {
     setIsOpen(true);
@@ -10,6 +11,11 @@ const EditJob = ({ job }) => {
 
   const handleClose = () => {
     setIsOpen(false);
+  };
+
+  const handleSelect = (filter) => {
+    // Implement filter logic here
+    console.log("Filtering by:", filter);
   };
 
   useEffect(() => {
@@ -90,6 +96,18 @@ const EditJob = ({ job }) => {
                   type="date"
                   value={job.deadline}
                 />
+              </div>
+
+              <div>
+                <select
+                  value={selectedType}
+                  onChange={(e) => setSelectedType(e.value)}
+                  className="border ml-auto border-gray-300 rounded-2xl p-2"
+                >
+                  <option value="on-site">On-site</option>
+                  <option value="remote">Remote</option>
+                  <option value="hybrid">Hybrid</option>
+                </select>
               </div>
               <button
                 type="submit"
