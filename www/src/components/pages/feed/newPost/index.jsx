@@ -44,16 +44,20 @@ const NewPost = ({ userPhoto }) => {
             alt="Profile Image"
           />
           <textarea
-            value={postContent}
-            onChange={handlePostContentChange}
-            onInput={autoResize}
-            className="w-full p-2 border border-gray-300 rounded resize-none overflow-y-hidden focus:outline-none focus:ring focus:ring-linkedout"
-            placeholder="What's on your mind?"
-            style={{ height: textareaHeight }}
+            id="title"
+            className="border h-11 w-full pl-2 pt-2 border-gray-300 rounded resize-none overflow-y-hidden focus:outline-none focus:ring focus:ring-linkedout"
+            placeholder="Post Title"
           />
         </div>
-
-        <div className="flex justify-between items-center mt-4 ml-14">
+        <textarea
+          value={postContent}
+          onChange={handlePostContentChange}
+          onInput={autoResize}
+          className="w-full mt-2 p-2 border border-gray-300 rounded resize-none overflow-y-hidden focus:outline-none focus:ring focus:ring-linkedout"
+          placeholder="What's on your mind?"
+          style={{ height: textareaHeight }}
+        />
+        <div className="flex justify-between items-center mt-4">
           <div className="flex flex-grow justify-between mr-4">
             <label className="flex space-x-2 cursor-pointer">
               <input

@@ -5,6 +5,7 @@ const LinkedInFeedPost = ({
   userName,
   userTitle,
   postTime,
+  postTitle,
   postContent,
 }) => {
   return (
@@ -17,7 +18,8 @@ const LinkedInFeedPost = ({
           <p className="text-xs text-gray-500">{postTime}</p>
         </div>
       </div>
-      <p className="mt-4 text-sm">{postContent}</p>
+      <h3 className="mt-4 font-semibold underline">{postTitle}</h3>
+      <p className="mt-2 text-sm">{postContent}</p>
       <div className="mt-4 border-t border-gray-200 pt-4">
         <div className="flex justify-between items-center mx-2 md:mx-12 text-gray-500">
           <button className="flex items-center space-x-2">
