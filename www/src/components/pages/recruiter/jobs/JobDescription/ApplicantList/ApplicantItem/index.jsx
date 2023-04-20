@@ -1,8 +1,9 @@
 import React from "react";
+import Resume from "./Resume";
 
 const ApplicantItem = ({ userImage, userName, userTitle }) => {
   return (
-    <div className="bg-white shadow-md p-4 rounded-md">
+    <div className="bg-white shadow-md p-4 rounded-md flex justify-between">
       <div className="flex items-center space-x-3">
         <img className="w-12 h-12 rounded-full" src={userImage} alt="User" />
         <div>
@@ -10,6 +11,7 @@ const ApplicantItem = ({ userImage, userName, userTitle }) => {
           <p className="text-xs text-gray-500">{userTitle}</p>
         </div>
       </div>
+      <Resume />
     </div>
   );
 };
