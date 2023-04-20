@@ -1,6 +1,7 @@
 // components/ProfileBanner.js
 import React from "react";
 import Resume from "./Resume";
+import EditProfile from "./EditProfile";
 
 const data = {
   name: "John Doe",
@@ -28,7 +29,10 @@ const ProfileBanner = () => {
             className="w-32 h-32 border-4 border-white rounded-full"
           />
           <div className="p-4">
-            <h1 className="text-2xl font-bold">{data.name}</h1>
+            <div className="flex gap-4">
+              <h1 className="text-2xl font-bold">{data.name}</h1>
+              <EditProfile />
+            </div>
             <h2 className="font-semibold">{data.headline}</h2>
             <div className="">LinkedOut</div>
             <div className="flex space-x-4 mt-2">
@@ -38,7 +42,9 @@ const ProfileBanner = () => {
           </div>
         </div>
       </div>
-      <Resume />
+      <div className="flex flex-col items-end gap-4">
+        <Resume />
+      </div>
     </div>
   );
 };
