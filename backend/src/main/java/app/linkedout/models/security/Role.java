@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+// TODO: Delete?
+
 @Entity
 @Getter
 @Setter
