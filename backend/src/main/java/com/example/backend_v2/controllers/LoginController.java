@@ -46,7 +46,7 @@ public class LoginController {
         }
         System.out.println("===> " + usr.email() + " " + usr.password());
         if(Objects.equals(usr.password(), password)) {
-            return ResponseEntity.status(200).body("Login Successful.");
+            return ResponseEntity.status(200).body(usr);
         }
         return ResponseEntity.status(401).body("Login Unsuccessful.");
     }
