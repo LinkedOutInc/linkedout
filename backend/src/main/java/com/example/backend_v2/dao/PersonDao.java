@@ -10,4 +10,5 @@ public interface PersonDao {
     int insertPerson(Person person);
     int deletePersonById(int id);
     Optional<Person> getPersonById(int id);
+    Optional<Person> getPersonByEmail(String email);
 }

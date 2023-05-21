@@ -49,9 +49,18 @@ public class PersonRepository implements PersonDao {
     @Override
     public Optional<Person> getPersonById(int id) {
         var sql = """
-                SELECT FROM Person
+                SELECT * FROM Person
                 WHERE id = ?;
                 """;
-        return jdbcTemplate.query(sql, new PersonRowMapper()).stream().findFirst();
+        return jdbcTemplate.query(sql, new PersonRowMapper(), id).stream().findFirst();
+    }
+
+    @Override
+    public Optional<Person> getPersonByEmail(String email) {
+        var sql = """
+                SELECT * FROM Person
+                WHERE email = ?;
+                """;
+        return jdbcTemplate.query(sql, new PersonRowMapper(), email).stream().findFirst();
     }
 }

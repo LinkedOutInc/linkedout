@@ -31,4 +31,8 @@ public class RecruiterService {
     public Recruiter getRecruiterById(int id) {
         return recruiterDao.getRecruiterById(id).orElseThrow(PropertyNotFoundException::new);
     }
+
+    public Recruiter getRecruiterByEmail(String email) {
+        return recruiterDao.getRecruiterByEmail(email).orElseThrow(PropertyNotFoundException::new);
+    }
 }

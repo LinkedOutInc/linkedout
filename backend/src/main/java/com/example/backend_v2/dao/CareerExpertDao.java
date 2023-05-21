@@ -11,4 +11,5 @@ public interface CareerExpertDao {
         int insertCareerExpert(CareerExpert careerExpert);
         int deleteCareerExpertById(int id);
         Optional<CareerExpert> getCareerExpertById(int id);
+        Optional<CareerExpert> getCareerExpertByEmail(String email);
 }

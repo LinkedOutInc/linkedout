@@ -50,9 +50,18 @@ public class RecruiterRepository implements RecruiterDao {
     @Override
     public Optional<Recruiter> getRecruiterById(int id) {
         var sql = """
-                SELECT FROM Recruiter
+                SELECT * FROM Recruiter
                 WHERE id = ?;
                 """;
-        return jdbcTemplate.query(sql, new RecruiterRowMapper()).stream().findFirst();
+        return jdbcTemplate.query(sql, new RecruiterRowMapper(), id).stream().findFirst();
+    }
+
+    @Override
+    public Optional<Recruiter> getRecruiterByEmail(String email) {
+        var sql = """
+                SELECT * FROM Recruiter
+                WHERE email = '?';       
+                """;
+        return jdbcTemplate.query(sql, new RecruiterRowMapper(), email).stream().findFirst();
     }
 }
