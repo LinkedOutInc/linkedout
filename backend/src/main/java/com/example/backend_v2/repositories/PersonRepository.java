@@ -31,10 +31,10 @@ public class PersonRepository implements PersonDao {
     @Override
     public int insertPerson(Person person) {
         var sql = """
-                INSERT INTO Person(name, email, password)
-                VALUES(?, ?, ?);
+                INSERT INTO Person(name, surname, email, password, job_title, location, role)
+                VALUES(?, ?, ?, ?, ?, ?, ?);
                 """;
-        return jdbcTemplate.update(sql, person.name(), person.email(), person.password());
+        return jdbcTemplate.update(sql, person.name(), person.surname(), person.email(), person.password(), person.job_title(), person.location(), person.role());
     }
 
     @Override

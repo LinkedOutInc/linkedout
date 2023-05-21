@@ -1,15 +1,15 @@
 package com.example.backend_v2.repositories.rowMappers;
 
-import com.example.backend_v2.models.Person;
+import com.example.backend_v2.models.CareerExpert;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class PersonRowMapper implements RowMapper<Person> {
+public class CareerExpertRowMapper implements RowMapper<CareerExpert> {
     @Override
-    public Person mapRow(ResultSet rs, int rowNum) throws SQLException {
-        return new Person(
+    public CareerExpert mapRow(ResultSet rs, int rowNum) throws SQLException {
+        return new CareerExpert(
                 rs.getInt("id"),
                 rs.getString("name"),
                 rs.getString("surname"),
@@ -17,7 +17,8 @@ public class PersonRowMapper implements RowMapper<Person> {
                 rs.getString("password"),
                 rs.getString("job_title"),
                 rs.getString("location"),
-                rs.getString("role")
+                rs.getString("role"),
+                rs.getString("field")
         );
     }
 }
