@@ -33,4 +33,8 @@ public class CareerExpertService {
     public CareerExpert getCareerExpertById(int id) {
         return careerExpertDao.getCareerExpertById(id).orElseThrow(PropertyNotFoundException::new);
     }
+
+    public CareerExpert getCareerExpertByEmaill(String email) {
+        return careerExpertDao.getCareerExpertByEmail(email).orElseThrow(PropertyNotFoundException::new);
+    }
 }

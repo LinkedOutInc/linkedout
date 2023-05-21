@@ -10,4 +10,5 @@ public interface RecruiterDao {
     int insertRecruiter(Recruiter recruiter);
     int deleteRecruiterById(int id);
     Optional<Recruiter> getRecruiterById(int id);
+    Optional<Recruiter> getRecruiterByEmail(String email);
 }

@@ -31,5 +31,9 @@ public class PersonService {
     public Person getPersonById(int id) {
         return personDao.getPersonById(id).orElseThrow(PropertyNotFoundException::new);
     }
+
+    public Person getPersonByEmail(String email) {
+        return personDao.getPersonByEmail(email).orElseThrow(PropertyNotFoundException::new);
+    }
 }
 

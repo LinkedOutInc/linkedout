@@ -51,9 +51,18 @@ public class CareerExpertRepository implements CareerExpertDao {
     @Override
     public Optional<CareerExpert> getCareerExpertById(int id) {
         var sql = """
-                SELECT FROM CareerExpert
+                SELECT  * FROM CareerExpert
                 WHERE id = ?;
                 """;
-        return jdbcTemplate.query(sql, new CareerExpertRowMapper()).stream().findFirst();
+        return jdbcTemplate.query(sql, new CareerExpertRowMapper(), id).stream().findFirst();
+    }
+
+    @Override
+    public Optional<CareerExpert> getCareerExpertByEmail(String email) {
+        var sql = """
+                SELECT * FROM CareerExpert
+                WHERE email='?';
+                """;
+        return jdbcTemplate.query(sql, new CareerExpertRowMapper(), email).stream().findFirst();
     }
 }
