@@ -59,7 +59,7 @@ public class RecruiterRepository implements RecruiterDao {
     public Optional<Recruiter> getRecruiterByEmail(String email) {
         var sql = """
                 SELECT * FROM Recruiter
-                WHERE email = '?';       
+                WHERE email = ?;      
                 """;
         return jdbcTemplate.query(sql, new RecruiterRowMapper(), email).stream().findFirst();
     }

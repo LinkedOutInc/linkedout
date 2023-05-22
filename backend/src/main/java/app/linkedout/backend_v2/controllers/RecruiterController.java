@@ -22,7 +22,7 @@ public class RecruiterController {
     }
 
     @GetMapping("{id}")
-    public Recruiter getRecruiterById(@PathVariable("id") Integer id) {
+    public Recruiter getRecruiterById(@PathVariable("id") Integer id) throws Exception {
         return recruiterService.getRecruiterById(id);
     }
 

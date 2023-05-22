@@ -2,7 +2,6 @@ package app.linkedout.backend_v2.services;
 
 import app.linkedout.backend_v2.dao.CareerExpertDao;
 import app.linkedout.backend_v2.models.CareerExpert;
-import jakarta.el.PropertyNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,11 +27,11 @@ public class CareerExpertService {
         careerExpertDao.deleteCareerExpertById(id);
     }
 
-    public CareerExpert getCareerExpertById(int id) {
-        return careerExpertDao.getCareerExpertById(id).orElseThrow(PropertyNotFoundException::new);
+    public CareerExpert getCareerExpertById(int id) throws Exception {
+        return careerExpertDao.getCareerExpertById(id).orElseThrow(Exception::new);
     }
 
-    public CareerExpert getCareerExpertByEmaill(String email) {
-        return careerExpertDao.getCareerExpertByEmail(email).orElseThrow(PropertyNotFoundException::new);
+    public CareerExpert getCareerExpertByEmaill(String email) throws Exception {
+        return careerExpertDao.getCareerExpertByEmail(email).orElseThrow(Exception::new);
     }
 }

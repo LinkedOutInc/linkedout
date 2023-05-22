@@ -2,7 +2,6 @@ package app.linkedout.backend_v2.services;
 
 import app.linkedout.backend_v2.dao.RecruiterDao;
 import app.linkedout.backend_v2.models.Recruiter;
-import jakarta.el.PropertyNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,11 +27,11 @@ public class RecruiterService {
         recruiterDao.deleteRecruiterById(id);
     }
 
-    public Recruiter getRecruiterById(int id) {
-        return recruiterDao.getRecruiterById(id).orElseThrow(PropertyNotFoundException::new);
+    public Recruiter getRecruiterById(int id) throws Exception {
+        return recruiterDao.getRecruiterById(id).orElseThrow(Exception::new);
     }
 
-    public Recruiter getRecruiterByEmail(String email) {
-        return recruiterDao.getRecruiterByEmail(email).orElseThrow(PropertyNotFoundException::new);
+    public Recruiter getRecruiterByEmail(String email) throws Exception {
+        return recruiterDao.getRecruiterByEmail(email).orElseThrow(Exception::new);
     }
 }

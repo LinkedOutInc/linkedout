@@ -22,7 +22,7 @@ public class PersonController {
     }
 
     @GetMapping("{id}")
-    public Person getPersonById(@PathVariable("id") Integer id) {
+    public Person getPersonById(@PathVariable("id") Integer id) throws Exception {
         return personService.getPersonById(id);
     }
 

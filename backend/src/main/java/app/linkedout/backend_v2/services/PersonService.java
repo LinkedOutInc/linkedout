@@ -2,7 +2,6 @@ package app.linkedout.backend_v2.services;
 
 import app.linkedout.backend_v2.dao.PersonDao;
 import app.linkedout.backend_v2.models.Person;
-import jakarta.el.PropertyNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,12 +27,12 @@ public class PersonService {
         personDao.deletePersonById(id);
     }
 
-    public Person getPersonById(int id) {
-        return personDao.getPersonById(id).orElseThrow(PropertyNotFoundException::new);
+    public Person getPersonById(int id) throws Exception {
+        return personDao.getPersonById(id).orElseThrow(Exception::new);
     }
 
-    public Person getPersonByEmail(String email) {
-        return personDao.getPersonByEmail(email).orElseThrow(PropertyNotFoundException::new);
+    public Person getPersonByEmail(String email) throws Exception {
+        return personDao.getPersonByEmail(email).orElseThrow(Exception::new);
     }
 }
 

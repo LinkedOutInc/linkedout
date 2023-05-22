@@ -28,7 +28,7 @@ public class LoginController {
     }
 
     @PostMapping
-    public ResponseEntity<?> login(@RequestBody HashMap<String, Object> payload) {
+    public ResponseEntity<?> login(@RequestBody HashMap<String, Object> payload) throws Exception {
         String email = "", password = "";
         try {
             email = (String) payload.get("email");

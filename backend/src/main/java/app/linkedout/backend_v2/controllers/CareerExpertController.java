@@ -21,7 +21,7 @@ public class CareerExpertController {
     }
 
     @GetMapping("{id}")
-    public CareerExpert getCareerExpertById(@PathVariable Integer id) {
+    public CareerExpert getCareerExpertById(@PathVariable Integer id) throws Exception {
         return careerExpertService.getCareerExpertById(id);
     }
 
