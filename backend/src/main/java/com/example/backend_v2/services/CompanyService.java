@@ -35,4 +35,9 @@ public class CompanyService
     {
         return companyDao.getCompanyById(id).orElseThrow(PropertyNotFoundException::new);
     }
+
+    public void updateCompany(int id, Company company)
+    {
+        companyDao.updateCompanyById(id, company);
+    }
 }

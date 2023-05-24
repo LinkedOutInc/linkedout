@@ -53,4 +53,15 @@ public class CompanyRepository implements CompanyDao {
         return jdbcTemplate.query(sql, new CompanyRowMapper(), id).stream().findFirst();
     }
 
+    @Override
+    public int updateCompanyById(int id, Company company)
+    {
+        var sql = """
+                UPDATE CareerExpert
+                SET name = ?, location = ?, about = ?, domain = ?, company_picture = ?
+                WHERE id = ?;
+                """;
+        return jdbcTemplate.update(sql, company.company_ID(), company.name(), company.location(), company.about(), company.domain(), company.company_picture());
+    }
+
 }

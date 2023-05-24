@@ -10,4 +10,5 @@ public interface CompanyDao {
     int insertCompany(Company company);
     int deleteCompanyById(int id);
     Optional<Company> getCompanyById(int id);
+    int updateCompanyById(int id, Company company);
 }

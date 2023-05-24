@@ -1,3 +1,4 @@
+
 package com.example.backend_v2.controllers;
 
 import com.example.backend_v2.models.Person;
@@ -35,4 +36,5 @@ public class PersonController {
     public void deletePerson(@PathVariable("id") Integer id) {
         personService.deletePersonById(id);
     }
+
 }
