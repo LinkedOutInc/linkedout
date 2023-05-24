@@ -2,7 +2,6 @@ package com.example.backend_v2.repositories;
 
 import com.example.backend_v2.dao.RecruiterDao;
 import com.example.backend_v2.models.Recruiter;
-import com.example.backend_v2.repositories.rowMappers.PersonRowMapper;
 import com.example.backend_v2.repositories.rowMappers.RecruiterRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;

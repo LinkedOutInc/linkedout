@@ -1,9 +1,7 @@
 package com.example.backend_v2.services;
 
 import com.example.backend_v2.dao.CareerExpertDao;
-import com.example.backend_v2.dao.PersonDao;
 import com.example.backend_v2.models.CareerExpert;
-import com.example.backend_v2.models.Person;
 import jakarta.el.PropertyNotFoundException;
 import org.springframework.stereotype.Service;
 
