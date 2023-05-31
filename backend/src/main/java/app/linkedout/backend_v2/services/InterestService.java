@@ -21,8 +21,8 @@ public class InterestService {
     public Optional<Interest> getInterestById(int id) {
         return interestDao.getInterestById(id);
     }
-    public int insertInterest(Interest interest) {
-        return interestDao.insertInterest(interest);
+    public int insertInterest(Interest interest, int user_id) {
+        return interestDao.insertInterest(interest, user_id);
     }
     public int deleteInterestById(int id) {
         return interestDao.deleteInterestById(id);
