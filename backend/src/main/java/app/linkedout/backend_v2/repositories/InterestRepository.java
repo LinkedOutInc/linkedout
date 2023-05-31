@@ -42,20 +42,53 @@ public class InterestRepository implements InterestDao {
     }
 
     @Override
-    public int insertInterest(Interest interest) {
+    public int insertInterest(Interest interest, int user_id) {
         var sql = """
                 INSERT INTO Interest(title, area)
                 VALUES(?, ?);
                 """;
-        return jdbcTemplate.update(sql, interest.title(), interest.area());
+        jdbcTemplate.update(sql, interest.title(), interest.area());
+        Interest newInterest = findInterestByTitle(interest.title()).orElseThrow();
+        var map_sql = """
+                INSERT INTO Interests(int_id, person_id)
+                VALUES(?, ?);
+                """;
+        return jdbcTemplate.update(map_sql, newInterest.id(), user_id);
     }
 
     @Override
     public int deleteInterestById(int id) {
-        var sql = """
+        var sql1 = """
                 DELETE FROM Interest
                 WHERE id = ?;
                 """;
-        return jdbcTemplate.update(sql, id);
+        var sql2 = """
+                DELETE FROM Interests
+                WHERE int_id = ?;
+                """;
+        jdbcTemplate.update(sql2, id);
+        return jdbcTemplate.update(sql1, id);
+    }
+
+    @Override
+    public int deleteInterest(Interest interest) {
+        var sql1 = """
+                DELETE FROM Interest
+                WHERE id = ?;
+                """;
+        var sql2 = """
+                DELETE FROM Interests
+                WHERE int_id = ?;
+                """;
+        jdbcTemplate.update(sql2, interest.id());
+        return jdbcTemplate.update(sql1, interest.id());
+    }
+
+    public Optional<Interest> findInterestByTitle(String title) {
+        var sql = """
+                SELECT * FROM Interest
+                WHERE title = ?;
+                """;
+        return jdbcTemplate.query(sql, new InterestRowMapper(),title).stream().findFirst();
     }
 }

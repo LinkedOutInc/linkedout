@@ -39,4 +39,21 @@ public class SessionService {
             default -> null;
         };
     }
+
+    public int getCurrentUserId() throws Exception {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        ArrayList<GrantedAuthority> authorities = new ArrayList<>(authentication.getAuthorities());
+        if(authentication.getAuthorities()==null)
+            return -1;
+
+        String email = authentication.getName();
+        String role = authorities.get(0).getAuthority();
+
+        return switch (role) {
+            case "ROLE_USER" -> personService.getPersonByEmail(email).id();
+            case "ROLE_CE" -> careerExpertService.getCareerExpertByEmaill(email).id();
+            case "ROLE_RECRUITER" -> recruiterService.getRecruiterByEmail(email).id();
+            default -> -1;
+        };
+    }
 }
