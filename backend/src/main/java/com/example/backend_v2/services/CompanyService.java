@@ -2,11 +2,14 @@ package com.example.backend_v2.services;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.example.backend_v2.dao.CompanyDao;
 import com.example.backend_v2.models.Company;
 
 import jakarta.el.PropertyNotFoundException;
 
+@Service
 public class CompanyService 
 {
     private final CompanyDao companyDao;

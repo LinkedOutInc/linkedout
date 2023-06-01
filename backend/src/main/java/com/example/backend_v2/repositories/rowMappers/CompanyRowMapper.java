@@ -13,8 +13,8 @@ public class CompanyRowMapper implements RowMapper<Company>  {
             rs.getInt("company_ID"),
             rs.getString("name"),
             rs.getString("location"),
-            rs.getString("id"),
-            rs.getString("id"),
+            rs.getString("about"),
+            rs.getString("domain"),
             rs.getBlob("company_picture")
         );
     }

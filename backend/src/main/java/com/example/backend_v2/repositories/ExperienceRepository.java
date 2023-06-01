@@ -1,12 +1,15 @@
 package com.example.backend_v2.repositories;
 
 import com.example.backend_v2.dao.ExperienceDao;
+import com.example.backend_v2.models.Company;
 import com.example.backend_v2.models.Experience;
+import com.example.backend_v2.repositories.rowMappers.CompanyRowMapper;
 import com.example.backend_v2.repositories.rowMappers.ExperienceRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class ExperienceRepository implements ExperienceDao {
@@ -32,13 +35,31 @@ public class ExperienceRepository implements ExperienceDao {
 
     @Override
     public int insertExperience(Experience experience, String companyName) {
+        System.out.println(experience.title() + "\n\n\n\n\n\n");
         var sql = """
                 INSERT INTO Experience (exp_ID, user_ID, title, description, type, start_date, end_date)
                 VALUES (?, ?, ?, ?, 'WORK', ?, ?);
-                INSERT INTO experiences (exp_ID, id)
-                VALUES (?, SELECT company_ID FROM Company WHERE name = ?);
                 """;
-        return jdbcTemplate.update(sql, experience.exp_id(), experience.user_id(), experience.title(), experience.description(), experience.start_date(), experience.end_date(), experience.exp_id(), companyName);
+        jdbcTemplate.update(sql, experience.exp_ID(), experience.user_ID(), experience.title(), experience.description(), experience.start_date(), experience.end_date());
+
+
+        sql = """
+                SELECT company_ID FROM Company WHERE name = ?
+                """;
+        Optional<Company> temp = jdbcTemplate.query(sql, new CompanyRowMapper(), companyName).stream().findFirst();
+
+        sql = """
+                INSERT INTO Exp_company (exp_ID, user_ID, company_ID)
+                VALUES (?, ?, ?);
+                """;
+        jdbcTemplate.update(sql, experience.exp_ID(), experience.user_ID(), temp.get().company_ID());
+
+        sql = """
+                INSERT INTO experiences (exp_ID, user_ID)
+                VALUES (?, ?);
+                """;
+        return jdbcTemplate.update(sql, experience.exp_ID(), experience.user_ID());
+
     }
 
     @Override
@@ -51,7 +72,7 @@ public class ExperienceRepository implements ExperienceDao {
                 SET company_ID = SELECT company_ID FROM Company WHERE name = ?
                 WHERE exp_ID = ?;
                 """;
-        return jdbcTemplate.update(sql, experience.title(), experience.description(), experience.start_date(), experience.end_date(), experience.exp_id(), experience.user_id(), companyName, experience.exp_id());
+        return jdbcTemplate.update(sql, experience.title(), experience.description(), experience.start_date(), experience.end_date(), experience.exp_ID(), experience.user_ID(), companyName, experience.exp_ID());
     }
 
     @Override
@@ -86,7 +107,7 @@ public class ExperienceRepository implements ExperienceDao {
                 INSERT INTO Exp_company (exp_ID, company_ID)
                 VALUES (?, SELECT company_ID FROM Company WHERE name = ?);
                 """;
-        return jdbcTemplate.update(sql, experience.exp_id(), experience.user_id(), experience.title(), experience.description(), experience.start_date(), experience.end_date(), experience.exp_id(), institution);
+        return jdbcTemplate.update(sql, experience.exp_ID(), experience.user_ID(), experience.title(), experience.description(), experience.start_date(), experience.end_date(), experience.exp_ID(), institution);
     }
 
     @Override
@@ -99,7 +120,7 @@ public class ExperienceRepository implements ExperienceDao {
                 SET company_ID = SELECT company_ID FROM Company WHERE name = ?
                 WHERE exp_ID = ?;
                 """;
-        return jdbcTemplate.update(sql, experience.title(), experience.description(), experience.start_date(), experience.end_date(), experience.exp_id(), experience.user_id(), institution, experience.exp_id());
+        return jdbcTemplate.update(sql, experience.title(), experience.description(), experience.start_date(), experience.end_date(), experience.exp_ID(), experience.user_ID(), institution, experience.exp_ID());
     }
 
     @Override

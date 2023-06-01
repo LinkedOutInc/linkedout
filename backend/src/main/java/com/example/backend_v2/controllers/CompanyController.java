@@ -17,12 +17,12 @@ public class CompanyController {
     }
 
     @GetMapping
-    public List<Company> getPersons() {
+    public List<Company> getCompanies() {
         return companyService.getCompanies();
     }
 
     @GetMapping("{company_id}")
-    public Company getPersonById(@PathVariable("company_id") Integer company_id) {
+    public Company getCompanyById(@PathVariable("company_id") Integer company_id) {
         return companyService.getCompanyById(company_id);
     }
 

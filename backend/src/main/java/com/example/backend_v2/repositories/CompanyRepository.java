@@ -4,10 +4,12 @@ import com.example.backend_v2.dao.CompanyDao;
 import com.example.backend_v2.models.Company;
 import com.example.backend_v2.repositories.rowMappers.CompanyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public class CompanyRepository implements CompanyDao { 
     private final JdbcTemplate jdbcTemplate;
     
@@ -18,11 +20,7 @@ public class CompanyRepository implements CompanyDao {
 
     @Override
     public List<Company> getCompanies() {
-        var sql = """
-                SELECT *
-                FROM Company
-                LIMIT 100;
-                """;
+        String sql = "SELECT * FROM Company;";
         return jdbcTemplate.query(sql, new CompanyRowMapper());
     }
 

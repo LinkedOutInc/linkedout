@@ -20,8 +20,8 @@ public class ExperienceController {
     public List<Experience> getExperiences(int user_id) {
         return experienceService.getExperiences(user_id);
     }
-    @PostMapping("")
-    public void addExperience(Experience experience, String companyName) {
+    @PostMapping()
+    public void addExperience(@RequestBody Experience experience, @RequestParam String companyName) {
         experienceService.addExperience(experience, companyName);
     }
     @PutMapping("")
