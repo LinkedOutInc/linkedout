@@ -11,16 +11,16 @@ public class JobPostAndCompanyRowMapper implements RowMapper<JobPostAndCompany> 
     @Override
     public JobPostAndCompany mapRow(ResultSet rs, int rowNum) throws SQLException {
         return new JobPostAndCompany(
-                rs.getInt("post_id"),
+                rs.getInt("post_ID"),
                 rs.getDate("date"),
                 rs.getString("content"),
                 rs.getString("job_title"),
-                rs.getInt("company_id"),
+                rs.getInt("company_ID"),
                 rs.getString("workplace"),
-                rs.getString("location"),
                 rs.getString("position"),
                 rs.getString("profession"),
                 rs.getString("name"),
+                rs.getString("location"),
                 rs.getString("about"),
                 rs.getString("domain"),
                 rs.getBlob("company_picture")

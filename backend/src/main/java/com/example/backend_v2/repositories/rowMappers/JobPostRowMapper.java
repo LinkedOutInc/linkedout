@@ -16,7 +16,6 @@ public class JobPostRowMapper implements RowMapper<JobPost> {
                 rs.getString("job_title"),
                 rs.getInt("company_id"),
                 rs.getString("workplace"),
-                rs.getString("location"),
                 rs.getString("position"),
                 rs.getString("profession")
         );

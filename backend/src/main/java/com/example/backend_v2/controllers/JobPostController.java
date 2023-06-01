@@ -6,6 +6,7 @@ import com.example.backend_v2.services.JobPostService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("api/v1/jobposts")
@@ -27,28 +28,33 @@ public class JobPostController {
         jobPostService.addJobPost(jobPost);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteJobPost(@PathVariable("id") Integer id) {
-        jobPostService.deleteJobPostById(id);
+    @DeleteMapping("/{post_ID}")
+    public void deleteJobPost(@PathVariable("post_ID") Integer post_ID) {
+        jobPostService.deleteJobPostById(post_ID);
     }
 
-    @GetMapping("/{id}")
-    public JobPostAndCompany getJobPostDetails(@PathVariable("id") Integer id) {
-        return jobPostService.getJobPostDetails(id);
+    @GetMapping("/{post_ID}")
+    public JobPostAndCompany getJobPostDetails(@PathVariable("post_ID") Integer post_ID) {
+        return jobPostService.getJobPostDetails(post_ID);
     }
 
-    @GetMapping("/filtered")
-    public List<JobPostAndCompany> getFilteredJobPosts(String content, String job_title, String position, String workplace, String location) {
+    @PostMapping("/filtered")
+    public List<JobPostAndCompany> getFilteredJobPosts(@RequestBody Map<String, String> filterParams) {
+        String content = filterParams.get("content");
+        String job_title = filterParams.get("job_title");
+        String position = filterParams.get("position");
+        String workplace = filterParams.get("workplace");
+        String location = filterParams.get("location");
         return jobPostService.filterJobPosts(content, job_title, position, workplace, location);
     }
 
-    @GetMapping("/applied/{id}")
-    public List<JobPostAndCompany> getAppliedJobs(@PathVariable("id") Integer id) {
-        return jobPostService.getAppliedJobs(id);
+    @GetMapping("/applied/{user_ID}")
+    public List<JobPostAndCompany> getAppliedJobs(@PathVariable("user_ID") Integer user_ID) {
+        return jobPostService.getAppliedJobs(user_ID);
     }
 
-    @PostMapping("{user_id}/{post_id}")
-    public void applyForJob(@PathVariable("user_id") Integer user_id,@PathVariable("post_id") Integer post_id) {
-        jobPostService.apply(user_id, post_id);
+    @PostMapping("{user_ID}/{post_ID}")
+    public void applyForJob(@PathVariable("user_ID") Integer user_ID,@PathVariable("post_ID") Integer post_ID) {
+        jobPostService.apply(user_ID, post_ID);
     }
 }
