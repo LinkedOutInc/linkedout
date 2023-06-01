@@ -2,6 +2,7 @@ package com.example.backend_v2.services;
 
 import com.example.backend_v2.dao.ExperienceDao;
 import com.example.backend_v2.models.Experience;
+import com.example.backend_v2.models.ExperienceAndCompany;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public class ExperienceService {
         this.experienceDao = experienceDao;
     }
 
-    public List<Experience> getExperiences(int user_id) {
+    public List<ExperienceAndCompany> getExperiences(int user_id) {
         return experienceDao.getExperiences(user_id);
     }
 
@@ -30,7 +31,7 @@ public class ExperienceService {
         experienceDao.deleteExperience(exp_id, user_id);
     }
 
-    public List<Experience> getEducations(int user_id) {
+    public List<ExperienceAndCompany> getEducations(int user_id) {
         return experienceDao.getEducations(user_id);
     }
 
