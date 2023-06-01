@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS Company (
     company_picture bytea,
     PRIMARY KEY (company_ID)
 );
-CREATE TABLE Experience (
+CREATE TABLE IF NOT EXISTS Experience (
     exp_ID BIGSERIAL NOT NULL,
     user_ID BIGSERIAL NOT NULL,
     title VARCHAR,
@@ -18,10 +18,17 @@ CREATE TABLE Experience (
     PRIMARY KEY (exp_ID, user_ID),
     FOREIGN KEY (user_ID) REFERENCES Person(id)
 );
-CREATE TABLE Exp_company (
+CREATE TABLE IF NOT EXISTS experiences (
+    exp_ID BIGSERIAL NOT NULL,
+    user_ID BIGSERIAL NOT NULL,
+    PRIMARY KEY (exp_ID, user_ID),
+    FOREIGN KEY (exp_ID) REFERENCES Experience(exp_ID),
+    FOREIGN KEY (user_ID) REFERENCES Person(id)
+);
+CREATE TABLE IF NOT EXISTS Exp_company (
     exp_ID BIGSERIAL NOT NULL,
     company_ID BIGSERIAL NOT NULL,
-    is_verified TINYINT,
+    is_verified INT,
     PRIMARY KEY (exp_ID, company_ID),
     FOREIGN KEY (exp_ID) REFERENCES Experience(exp_ID),
     FOREIGN KEY (company_ID) REFERENCES Company(company_ID)

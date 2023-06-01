@@ -1,6 +1,7 @@
 package com.example.backend_v2.controllers;
 
 import com.example.backend_v2.models.JobPost;
+import com.example.backend_v2.models.JobPostAndCompany;
 import com.example.backend_v2.services.JobPostService;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +18,7 @@ public class JobPostController {
     }
 
     @GetMapping("")
-    public List<JobPost> getJobPosts() {
+    public List<JobPostAndCompany> getJobPosts() {
         return jobPostService.getJobPosts();
     }
 
@@ -32,17 +33,17 @@ public class JobPostController {
     }
 
     @GetMapping("/{id}")
-    public JobPost getJobPostDetails(@PathVariable("id") Integer id) {
+    public JobPostAndCompany getJobPostDetails(@PathVariable("id") Integer id) {
         return jobPostService.getJobPostDetails(id);
     }
 
     @GetMapping("/filtered")
-    public List<JobPost> getFilteredJobPosts(String content, String job_title, String position, String workplace, String location) {
+    public List<JobPostAndCompany> getFilteredJobPosts(String content, String job_title, String position, String workplace, String location) {
         return jobPostService.filterJobPosts(content, job_title, position, workplace, location);
     }
 
     @GetMapping("/applied/{id}")
-    public List<JobPost> getAppliedJobs(@PathVariable("id") Integer id) {
+    public List<JobPostAndCompany> getAppliedJobs(@PathVariable("id") Integer id) {
         return jobPostService.getAppliedJobs(id);
     }
 

@@ -2,6 +2,8 @@ package com.example.backend_v2.repositories;
 
 import com.example.backend_v2.dao.JobPostDao;
 import com.example.backend_v2.models.JobPost;
+import com.example.backend_v2.models.JobPostAndCompany;
+import com.example.backend_v2.repositories.rowMappers.JobPostAndCompanyRowMapper;
 import com.example.backend_v2.repositories.rowMappers.JobPostRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -20,13 +22,13 @@ public class JobPostRepository implements JobPostDao {
     }
 
     @Override
-    public List<JobPost> getJobs() {
+    public List<JobPostAndCompany> getJobs() {
         var sql = """
                 SELECT post_ID, date, content, job_title, workplace, jp.location AS location, position, company_ID, name AS company_name, company_ID
                 FROM JobPost AS jp JOIN Company AS c ON jp.company_ID = c.company_ID
                 WHERE date > GETDATE();
                 """;
-        return jdbcTemplate.query(sql, new JobPostRowMapper());
+        return jdbcTemplate.query(sql, new JobPostAndCompanyRowMapper());
     }
 
     @Override
@@ -48,33 +50,33 @@ public class JobPostRepository implements JobPostDao {
     }
 
     @Override
-    public Optional<JobPost> getJobPostDetails(int id) {
+    public Optional<JobPostAndCompany> getJobPostDetails(int id) {
         var sql = """
                 SELECT *
                 FROM JobPost AS jp JOIN Company AS c ON jp.company_ID = c.company_ID
                 WHERE post_ID = ?
                 """;
-        return jdbcTemplate.query(sql, new JobPostRowMapper(), id).stream().findFirst();
+        return jdbcTemplate.query(sql, new JobPostAndCompanyRowMapper(), id).stream().findFirst();
     }
 
     @Override
-    public List<JobPost> filterJobs(String content, String job_title, String position, String workplace, String location) {
+    public List<JobPostAndCompany> filterJobs(String content, String job_title, String position, String workplace, String location) {
         var sql = """
                 SELECT post_ID, date, content, job_title, workplace, jp.location AS location, position, company_ID, name AS company_name, company_ID
                 FROM JobPost AS jp JOIN Company AS c ON jp.company_ID = c.company_ID
                 WHERE (content LIKE '%?%' OR job_title LIKE '%?%' OR name LIKE '%?%') AND position = ? AND workplace = ? AND jp.location = ? AND date > GETDATE();
                 """;
-        return jdbcTemplate.query(sql, new JobPostRowMapper(), content, job_title, position, workplace, location);
+        return jdbcTemplate.query(sql, new JobPostAndCompanyRowMapper(), content, job_title, position, workplace, location);
     }
 
     @Override
-    public List<JobPost> getAppliedJobs(int id) {
+    public List<JobPostAndCompany> getAppliedJobs(int id) {
         var sql = """
                 SELECT post_ID, date, content, job_title, workplace, jp.location AS location, position, company_ID, name AS company_name, company_ID
                 FROM (JobPost NATURAL JOIN Applies) AS jp JOIN Company AS c ON jp.company_ID = c.company_ID
                 WHERE user_ID = ?
                 """;
-        return jdbcTemplate.query(sql, new JobPostRowMapper(), id);
+        return jdbcTemplate.query(sql, new JobPostAndCompanyRowMapper(), id);
     }
 
     @Override
