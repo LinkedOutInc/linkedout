@@ -1,20 +1,22 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../contexts/AuthContext";
 
 function Login() {
-  localStorage.setItem("auth", 0);
+  const email = useRef();
+  const password = useRef();
   const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const { loading } = useAuth();
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleSignIn = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    console.log(email.current.value, password.current.value);
     try {
-      await new Promise((r) => setTimeout(r, 2000));
+      login(email.current.value, password.current.value);
     } catch (err) {}
-    setLoading(false);
   };
 
   return (
@@ -41,6 +43,7 @@ function Login() {
               id="UserEmail"
               placeholder="Email"
               required
+              ref={email}
               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
               className="peer h-10 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
             />
@@ -74,6 +77,7 @@ function Login() {
               type={showPassword ? "text" : "password"}
               id="UserPassword"
               placeholder="Password"
+              ref={password}
               required
               class="peer h-10 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
             />
