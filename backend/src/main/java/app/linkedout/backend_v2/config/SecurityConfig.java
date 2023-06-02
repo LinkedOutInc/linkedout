@@ -40,7 +40,7 @@ public class SecurityConfig {
         // TODO: Change /api/** permitall later!!!
 
         http
-                .csrf().disable()
+                .csrf().disable().cors().disable()
                 .authorizeRequests()
                 .antMatchers("/**/auth/**").permitAll()
                 .antMatchers("/api/v1/persons/**").hasRole("USER")

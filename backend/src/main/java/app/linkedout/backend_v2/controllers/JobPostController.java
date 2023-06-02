@@ -18,26 +18,31 @@ public class JobPostController {
         this.jobPostService = jobPostService;
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("")
     public List<JobPostAndCompany> getJobPosts() {
         return jobPostService.getJobPosts();
     }
 
+    @CrossOrigin(origins = "*")
     @PostMapping("")
     public void addJobPost(@RequestBody JobPost jobPost) {
         jobPostService.addJobPost(jobPost);
     }
 
+    @CrossOrigin(origins = "*")
     @DeleteMapping("/{post_ID}")
     public void deleteJobPost(@PathVariable("post_ID") Integer post_ID) {
         jobPostService.deleteJobPostById(post_ID);
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/{post_ID}")
     public JobPostAndCompany getJobPostDetails(@PathVariable("post_ID") Integer post_ID) {
         return jobPostService.getJobPostDetails(post_ID);
     }
 
+    @CrossOrigin(origins = "*")
     @PostMapping("/filtered")
     public List<JobPostAndCompany> getFilteredJobPosts(@RequestBody Map<String, String> filterParams) {
         String content = filterParams.get("content");
@@ -48,11 +53,13 @@ public class JobPostController {
         return jobPostService.filterJobPosts(content, job_title, position, workplace, location);
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/applied/{user_ID}")
     public List<JobPostAndCompany> getAppliedJobs(@PathVariable("user_ID") Integer user_ID) {
         return jobPostService.getAppliedJobs(user_ID);
     }
 
+    @CrossOrigin(origins = "*")
     @PostMapping("{user_ID}/{post_ID}")
     public void applyForJob(@PathVariable("user_ID") Integer user_ID,@PathVariable("post_ID") Integer post_ID) {
         jobPostService.apply(user_ID, post_ID);

@@ -16,21 +16,25 @@ public class PersonController {
         this.personService = personService;
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping
     public List<Person> getPersons() {
         return personService.getPersons();
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("{id}")
     public Person getPersonById(@PathVariable("id") Integer id) throws Exception {
         return personService.getPersonById(id);
     }
 
+    @CrossOrigin(origins = "*")
     @PostMapping
     public void insertPerson(@RequestBody Person person) {
         personService.addPerson(person);
     }
 
+    @CrossOrigin(origins = "*")
     @DeleteMapping("{id}")
     public void deletePerson(@PathVariable("id") Integer id) {
         personService.deletePersonById(id);

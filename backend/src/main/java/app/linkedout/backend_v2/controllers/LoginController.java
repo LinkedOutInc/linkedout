@@ -5,10 +5,7 @@ import app.linkedout.backend_v2.services.CareerExpertService;
 import app.linkedout.backend_v2.services.PersonService;
 import app.linkedout.backend_v2.services.RecruiterService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Objects;
@@ -27,6 +24,7 @@ public class LoginController {
         this.recruiterService = recruiterService;
     }
 
+    @CrossOrigin(origins = "*")
     @PostMapping
     public ResponseEntity<?> login(@RequestBody HashMap<String, Object> payload) throws Exception {
         String email = "", password = "";
