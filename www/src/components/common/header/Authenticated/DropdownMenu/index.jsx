@@ -1,10 +1,14 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../../../contexts/AuthContext";
 
 // Data
 import richard from "../../../../../assets/richard.jpg";
 
 function DropdownMenu() {
+  const { user } = useAuth();
+  const { logout } = useAuth();
+
   const navigate = useNavigate();
   return (
     <div>
@@ -19,9 +23,11 @@ function DropdownMenu() {
             />
 
             <p class="ml-2 hidden text-left text-xs sm:block">
-              <strong class="block font-medium">Richard Hendricks</strong>
+              <strong class="block font-medium">
+                {user.name + " " + user.surname}
+              </strong>
 
-              <span class="text-gray-500"> richard@piedpiper.com </span>
+              <span class="text-gray-500"> {user.email} </span>
             </p>
           </div>
 
@@ -158,7 +164,6 @@ function DropdownMenu() {
           <div
             class="flex items-center cursor-pointer gap-2 rounded-lg px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700"
             onClick={() => {
-              localStorage.setItem("auth", false);
               window.location.reload();
               navigate("/");
             }}

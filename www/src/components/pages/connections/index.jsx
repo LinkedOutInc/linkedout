@@ -3,7 +3,6 @@ import NewConnection from "./NewConnection";
 import ConnectionRequest from "./ConnectionRequest";
 
 function Connections() {
-  localStorage.setItem("auth", 1); // Remove later
   const [activeTab, setActiveTab] = useState("discover");
 
   const handleTabClick = (tab) => {
