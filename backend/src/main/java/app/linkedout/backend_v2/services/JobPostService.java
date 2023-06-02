@@ -1,7 +1,8 @@
 package app.linkedout.backend_v2.services;
 
+import app.linkedout.backend_v2.dao.HiringReportDao;
 import app.linkedout.backend_v2.dao.JobPostDao;
-import app.linkedout.backend_v2.models.CareerExpert;
+import app.linkedout.backend_v2.models.HiringReport;
 import app.linkedout.backend_v2.models.JobPost;
 import app.linkedout.backend_v2.models.JobPostAndCompany;
 import org.springframework.stereotype.Service;
@@ -14,9 +15,11 @@ import javax.el.PropertyNotFoundException;
 public class JobPostService {
 
     private final JobPostDao jobPostDao;
+    private final HiringReportDao hiringReportDao;
 
-    public JobPostService(JobPostDao jobPostDao) {
+    public JobPostService(JobPostDao jobPostDao, HiringReportDao hiringReportDao) {
         this.jobPostDao = jobPostDao;
+        this.hiringReportDao = hiringReportDao;
     }
 
     public List<JobPostAndCompany> getJobPosts() {

@@ -26,7 +26,7 @@ public class CompanyController {
     }
 
     @CrossOrigin(origins = "*")
-    @GetMapping("{company_id}")
+    @GetMapping("/{company_id}")
     public Company getCompanyById(@PathVariable("company_id") Integer company_id) {
         return companyService.getCompanyById(company_id);
     }
@@ -38,13 +38,13 @@ public class CompanyController {
     }
 
     @CrossOrigin(origins = "*")
-    @DeleteMapping("{company_id}")
+    @DeleteMapping("/{company_id}")
     public void deleteCompany(@PathVariable("company_id") Integer company_id) {
         companyService.deleteCompanyById(company_id);
     }
 
     @CrossOrigin(origins = "*")
-    @PutMapping("{company_id}")
+    @PutMapping("/{company_id}")
     public void updateCompany(@PathVariable("company_id") Integer company_id, @RequestBody Company company)
     {
         companyService.updateCompany(company_id, company);
