@@ -21,17 +21,86 @@ const ProfileProvider = ({ children }) => {
 
   const API = process.env.REACT_APP_API_URL;
 
-  // useEffect(() => {
-  //     if (user && token) {
-  //         setLoading(true);
-  //         var myHeaders = new Headers();
-  //         myHeaders.append("Authorization", "Bearer " + token);
+  const fetchEducation = async () => {
+    setLoading((loading) => !loading);
+    try {
+      var myHeaders = new Headers();
+      myHeaders.append("Authorization", `Bearer ${token}`);
 
-  //         var requestOptions = {
-  //             method: "GET",
-  //             headers: myHeaders,
-  //             redirect: "follow",
-  //         };
+      var requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+        redirect: "follow",
+      };
+
+      fetch(`${API}/api/v1/experiences/educations`, requestOptions)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Couldn't fetch education");
+          }
+          return response.text();
+        })
+        .then((result) => {
+          setEducation(() => JSON.parse(result));
+          setLoading((loading) => !loading);
+        })
+        .catch((error) => console.log("error", error));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const addEducation = async ({
+    title,
+    description,
+    start_date,
+    end_date,
+    institutionName,
+  }) => {
+    setLoading((loading) => !loading);
+    try {
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+      myHeaders.append("Authorization", `Bearer ${token}`);
+
+      var raw = JSON.stringify({
+        experience: {
+          exp_ID: -1, // Doesn't matter
+          user_ID: -1, // Doesn't matter
+          title: title,
+          description: description,
+          type: "EDUCATION",
+          start_date: start_date,
+          end_date: end_date,
+        },
+        institutionName: institutionName,
+      });
+
+      console.log(raw);
+
+      var requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow",
+      };
+
+      fetch(`${API}/api/v1/experiences/educations`, requestOptions)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Couldn't add education");
+          }
+          return response.text();
+        })
+        .then((result) => {
+          console.log(result);
+          fetchEducation();
+        })
+        .catch((error) => console.log("error", error));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const value = {
     user,
@@ -42,6 +111,8 @@ const ProfileProvider = ({ children }) => {
     setEducation,
     interests,
     setInterests,
+    fetchEducation,
+    addEducation,
   };
 
   return (
