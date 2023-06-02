@@ -14,8 +14,8 @@ CREATE TABLE IF NOT EXISTS File (
     content VARCHAR,
     fileName VARCHAR,
     fileType VARCHAR,
-    contentType VARCHAR
-    PRIMARY KEY (file_ID);
+    contentType VARCHAR,
+    PRIMARY KEY (file_ID),
     FOREIGN KEY (user_ID) REFERENCES Person(id)
 );
 
