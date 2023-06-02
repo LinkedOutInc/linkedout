@@ -64,13 +64,13 @@ public class AuthenticationController {
 
         // TODO: Add Different Register for different users!!!
 
-        if(person.role()=="ROLE_USER") {
+        if(Objects.equals(person.role(), "ROLE_USER")) {
             personService.addPerson(person);
         }
-        else if(person.role()=="ROLE_RECRUITER") {
+        else if(Objects.equals(person.role(), "ROLE_RECRUITER")) {
             recruiterService.addRecruiter(new Recruiter(person.id(), person.name(), person.surname(), person.email(), person.password(), person.job_title(), person.location(), person.role(), false));
         }
-        else if(person.role()=="ROLE_CE") {
+        else if(Objects.equals(person.role(), "ROLE_CE")) {
             careerExpertService.addCareerExpert(new CareerExpert(person.id(), person.name(), person.surname(), person.email(), person.password(), person.job_title(), person.location(), person.role(), "dummy"));
         }
         else {
