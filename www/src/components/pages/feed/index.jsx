@@ -29,7 +29,6 @@ const feedData = [
 ];
 
 const Feed = () => {
-  localStorage.setItem("auth", 1); // Remove later
   const posts = feedData.map((post) => {
     return (
       <Post

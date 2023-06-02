@@ -3,7 +3,6 @@ import Jobs from "./jobs";
 import TalentList from "./TalentList";
 
 function Recruiter() {
-  localStorage.setItem("auth", true); // Remove later
   const [activeTab, setActiveTab] = useState("jobs");
 
   const handleTabClick = (tab) => {

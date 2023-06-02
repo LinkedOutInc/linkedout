@@ -3,7 +3,6 @@ import FindJobs from "./FindJobs";
 import AppliedJobs from "./AppliedJobs";
 
 function Jobs() {
-  localStorage.setItem("auth", 1); // Remove later
   const [activeTab, setActiveTab] = useState("findjobs");
 
   const handleTabClick = (tab) => {

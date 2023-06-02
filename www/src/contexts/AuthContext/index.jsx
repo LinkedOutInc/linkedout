@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const AuthContext = React.createContext();
@@ -11,6 +12,12 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = React.useState(null); // null: loading, undefined: not logged in
   const [loading, setLoading] = React.useState(false);
   const [role, setRole] = React.useState(undefined);
+
+  const [token, setToken] = React.useState(() => {
+    const token = localStorage.getItem("auth");
+    return token ? token : undefined;
+  });
+
   const navigate = useNavigate();
   const API = process.env.REACT_APP_API_URL;
 
@@ -44,7 +51,7 @@ const AuthProvider = ({ children }) => {
       .then((result) => {
         console.log(result);
         localStorage.setItem("auth", result);
-        setUser(result);
+        setToken(() => result);
         setLoading((loading) => !loading);
         navigate("/feed");
       })
@@ -57,6 +64,7 @@ const AuthProvider = ({ children }) => {
   const logout = async () => {
     localStorage.removeItem("auth");
     setUser(() => undefined);
+    setToken(() => "");
     navigate("/");
   };
 
@@ -92,7 +100,7 @@ const AuthProvider = ({ children }) => {
       .then((result) => {
         console.log(result);
         localStorage.setItem("auth", result);
-        setUser(result);
+        setToken(() => result);
         setLoading((loading) => !loading);
         navigate("/feed");
       })
@@ -102,7 +110,45 @@ const AuthProvider = ({ children }) => {
       });
   };
 
-  const value = { user, login, logout, signup, loading };
+  const fetchUser = async () => {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Authorization", "Bearer " + token);
+
+    var requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+      redirect: "follow",
+    };
+
+    fetch(API + "/profile", requestOptions)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Authentication failed");
+        } else {
+          return response.text();
+        }
+      })
+      .then((result) => {
+        console.log(result);
+        setUser(() => JSON.parse(result));
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+  };
+
+  React.useEffect(() => {
+    if (token && token.length > 0 && !user) {
+      fetchUser();
+    }
+  }, [token, user]);
+
+  useEffect(() => {
+    localStorage.setItem("auth", token);
+  }, [token]);
+
+  const value = { user, login, logout, signup, loading, user };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
