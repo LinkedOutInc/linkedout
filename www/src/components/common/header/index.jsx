@@ -1,9 +1,11 @@
 import React from "react";
 import Authenticated from "./Authenticated";
 import Guest from "./Guest";
+import { useAuth } from "../../../contexts/AuthContext";
 
 function Header() {
-  return localStorage.getItem("auth") == 1 ? <Authenticated /> : <Guest />;
+  const { user } = useAuth();
+  return user ? <Authenticated /> : <Guest />;
 }
 
 export default Header;

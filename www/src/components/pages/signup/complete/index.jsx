@@ -1,24 +1,47 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../../contexts/AuthContext";
 
-function Complete() {
-  const [loading, setLoading] = useState(false);
+function Complete({ formStep, setFormStep, signUpForm, setSignUpForm }) {
+  const { loading } = useAuth();
+  const { signup } = useAuth();
   const navigate = useNavigate();
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedFilter, setSelectedFilter] = useState("all");
 
   const handleFilter = (event) => {
-    setSelectedFilter(event.target.value);
+    if (event.target.value === "ROLE_USER") {
+      setSignUpForm({
+        ...signUpForm,
+        role: "ROLE_USER",
+      });
+    }
+
+    if (event.target.value === "ROLE_RECRUITER") {
+      setSignUpForm({
+        ...signUpForm,
+        role: "ROLE_RECRUITER",
+        is_hiring: true,
+      });
+    }
+
+    if (event.target.value === "ROLE_CE") {
+      setSignUpForm({
+        ...signUpForm,
+        role: "ROLE_CE",
+      });
+    }
   };
 
   const handleComplete = async (e) => {
     e.preventDefault();
-    setLoading(true);
+
     try {
-      await new Promise((r) => setTimeout(r, 2000));
+      await signup(signUpForm);
     } catch (err) {}
-    setLoading(false);
+  };
+
+  const back = () => {
+    setFormStep((formStep) => formStep - 1);
   };
 
   return (
@@ -32,7 +55,7 @@ function Complete() {
             strokeWidth={1.5}
             stroke="currentColor"
             className="w-6 h-6 mr-auto cursor-pointer"
-            onClick={() => navigate(-1)}
+            onClick={back}
           >
             <path
               strokeLinecap="round"
@@ -58,6 +81,10 @@ function Complete() {
               type="text"
               id="UserFirst"
               placeholder="First name"
+              value={signUpForm.name}
+              onChange={(e) => {
+                setSignUpForm({ ...signUpForm, name: e.target.value });
+              }}
               required
               className="peer h-10 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
             />
@@ -91,6 +118,10 @@ function Complete() {
               type="text"
               id="UserLast"
               placeholder="Last name"
+              value={signUpForm.surname}
+              onChange={(e) => {
+                setSignUpForm({ ...signUpForm, surname: e.target.value });
+              }}
               required
               class="peer h-10 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
             />
@@ -115,16 +146,87 @@ function Complete() {
               </svg>
             </span>
           </label>
+          <label
+            htmlFor="UserLocation"
+            class="relative block overflow-hidden rounded-md border border-gray-200 px-3 pt-4 shadow-sm focus-within:border-linkedout focus-within:ring-1 focus-within:ring-linkedout"
+          >
+            <input
+              type="text"
+              id="UserLocation"
+              placeholder="Location"
+              value={signUpForm.location}
+              onChange={(e) => {
+                setSignUpForm({ ...signUpForm, location: e.target.value });
+              }}
+              required
+              class="peer h-10 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
+            />
+
+            <span class="absolute left-3 top-4 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-4 peer-focus:text-xs">
+              Location
+            </span>
+            <span className="absolute inset-y-0 right-0 grid place-content-center px-4">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-4 h-4 text-gray-400"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+                />
+              </svg>
+            </span>
+          </label>
+
+          <label
+            htmlFor="UserJobTitle"
+            class="relative block overflow-hidden rounded-md border border-gray-200 px-3 pt-4 shadow-sm focus-within:border-linkedout focus-within:ring-1 focus-within:ring-linkedout"
+          >
+            <input
+              type="text"
+              id="UserJobTitle"
+              placeholder="Job Title"
+              value={signUpForm.job_title}
+              onChange={(e) => {
+                setSignUpForm({ ...signUpForm, job_title: e.target.value });
+              }}
+              class="peer h-10 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
+            />
+
+            <span class="absolute left-3 top-4 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-4 peer-focus:text-xs">
+              Job Title
+            </span>
+            <span className="absolute inset-y-0 right-0 grid place-content-center px-4">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-4 h-4 text-gray-400"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+                />
+              </svg>
+            </span>
+          </label>
 
           <select
-            value={selectedFilter}
+            value={signUpForm.role}
             onChange={handleFilter}
-            className="border border-linkedout rounded-2xl p-2"
+            className=" rounded-md border border-gray-200 focus-within:border-linkedout focus-within:ring-1 bg-transparent focus-within:ring-linkedout p-4 w-full"
           >
-            <option value="default">Select Account Type</option>
-            <option value="user">User</option>
-            <option value="recruiter">Recruiter</option>
-            <option value="cexpert">Career Expert</option>
+            <option value="ROLE_USER">User</option>
+            <option value="ROLE_RECRUITER">Recruiter</option>
+            <option value="ROLE_CE">Career Expert</option>
           </select>
 
           <button
