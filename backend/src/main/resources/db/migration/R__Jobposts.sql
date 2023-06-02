@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS Exp_company (
     FOREIGN KEY (company_ID) REFERENCES Company(company_ID)
 );
 CREATE TABLE IF NOT EXISTS JobPost (
-    post_ID BIGSERIAL,
+    post_ID BIGSERIAL PRIMARY KEY,
     date DATE,
     content VARCHAR,
     job_title VARCHAR,
@@ -42,7 +42,6 @@ CREATE TABLE IF NOT EXISTS JobPost (
     workplace VARCHAR,
     position VARCHAR,
     profession VARCHAR,
-    PRIMARY KEY (post_ID),
     FOREIGN KEY (company_ID) REFERENCES Company(company_ID)
 );
 CREATE TABLE IF NOT EXISTS Applies (
