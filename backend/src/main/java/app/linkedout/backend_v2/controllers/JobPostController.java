@@ -2,9 +2,15 @@ package app.linkedout.backend_v2.controllers;
 
 import app.linkedout.backend_v2.models.JobPost;
 import app.linkedout.backend_v2.models.JobPostAndCompany;
+import app.linkedout.backend_v2.models.Person;
 import app.linkedout.backend_v2.services.JobPostService;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -45,7 +51,15 @@ public class JobPostController {
         String position = filterParams.get("position");
         String workplace = filterParams.get("workplace");
         String location = filterParams.get("location");
-        return jobPostService.filterJobPosts(content, job_title, position, workplace, location);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date start_date, end_date;
+        try {
+            start_date = new Date(dateFormat.parse(filterParams.get("start_date")).getTime());
+            end_date = new Date(dateFormat.parse(filterParams.get("end_date")).getTime());
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        return jobPostService.filterJobPosts(content, job_title, position, workplace, location, start_date, end_date);
     }
 
     @GetMapping("/applied/{user_ID}")
@@ -56,5 +70,10 @@ public class JobPostController {
     @PostMapping("{user_ID}/{post_ID}")
     public void applyForJob(@PathVariable("user_ID") Integer user_ID,@PathVariable("post_ID") Integer post_ID) {
         jobPostService.apply(user_ID, post_ID);
+    }
+
+    @GetMapping("/applicants/{post_ID}")
+    public List<Person> getApplicantsOfPost(@PathVariable("post_ID") Integer post_ID) {
+        return jobPostService.getApplicantsOfPost(post_ID);
     }
 }

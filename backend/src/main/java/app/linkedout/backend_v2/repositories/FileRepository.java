@@ -31,7 +31,7 @@ public class FileRepository implements FileDao {
         var sql = """
                 SELECT *
                 FROM File 
-                WHERE user_id = ? AND content_type = ?
+                WHERE user_id = ? AND contentType = ?
                 """;
         return jdbcTemplate.query(sql, new FileRowMapper(), user_id, content_type);
     }

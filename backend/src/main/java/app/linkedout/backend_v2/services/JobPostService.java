@@ -4,8 +4,10 @@ import app.linkedout.backend_v2.dao.JobPostDao;
 import app.linkedout.backend_v2.models.CareerExpert;
 import app.linkedout.backend_v2.models.JobPost;
 import app.linkedout.backend_v2.models.JobPostAndCompany;
+import app.linkedout.backend_v2.models.Person;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.List;
 
 import javax.el.PropertyNotFoundException;
@@ -35,8 +37,8 @@ public class JobPostService {
         return jobPostDao.getJobPostDetails(id).orElseThrow(PropertyNotFoundException::new);
     }
 
-    public List<JobPostAndCompany> filterJobPosts(String content, String job_title, String position, String workplace, String location) {
-        return jobPostDao.filterJobs(content, job_title, position, workplace, location);
+    public List<JobPostAndCompany> filterJobPosts(String content, String job_title, String position, String workplace, String location, Date start_date, Date end_date) {
+        return jobPostDao.filterJobs(content, job_title, position, workplace, location, start_date, end_date);
     }
 
     public void apply(int user_id, int post_id) {
@@ -47,4 +49,7 @@ public class JobPostService {
         return jobPostDao.getAppliedJobs(id);
     }
 
+    public List<Person> getApplicantsOfPost(int post_id) {
+        return jobPostDao.getApplicantsOfPost(post_id);
+    }
 }
