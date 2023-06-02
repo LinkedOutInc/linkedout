@@ -18,11 +18,13 @@ public class ProfileController {
     private final SessionService sessionService;
     private final InterestService interestService;
 
+    @CrossOrigin(origins = "*")
     @GetMapping
     public ResponseEntity<Object> getProfile() throws Exception {
         return ResponseEntity.ok().body(sessionService.getCurrentUser());
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/interests")
     public ResponseEntity<List<Interest>> getInterests() throws Exception {
         int userId = sessionService.getCurrentUserId();
@@ -30,11 +32,13 @@ public class ProfileController {
         return ResponseEntity.ok().body(interests);
     }
 
+    @CrossOrigin(origins = "*")
     @PostMapping("/interests/add")
     public void addInterest(@RequestBody Interest interest) throws Exception {
         interestService.insertInterest(interest, sessionService.getCurrentUserId());
     }
 
+    @CrossOrigin(origins = "*")
     @DeleteMapping("/interests/delete/{id}")
     public void deleteInterest(@PathVariable("id") Integer id) {
         interestService.deleteInterestById(id);
