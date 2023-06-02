@@ -3,15 +3,7 @@ import React from "react";
 import Resume from "./Resume";
 import EditProfile from "./EditProfile";
 
-const data = {
-  name: "John Doe",
-  headline: "Software Engineer",
-  location: "San Francisco, CA",
-  connectionCount: "500+",
-  picture: "https://via.placeholder.com/150",
-};
-
-const ProfileBanner = () => {
+const ProfileBanner = ({ data }) => {
   return (
     <div className="flex flex-col md:flex-row shadow p-4 justify-between rounded-2xl">
       {/* <div className="bg-blue-600 h-48">
@@ -30,11 +22,13 @@ const ProfileBanner = () => {
           />
           <div className="p-4">
             <div className="flex gap-4">
-              <h1 className="text-2xl font-bold">{data.name}</h1>
+              <h1 className="text-2xl font-bold">
+                {data.name + " " + data.surname}
+              </h1>
               <EditProfile />
             </div>
-            <h2 className="font-semibold">{data.headline}</h2>
-            <div className="">LinkedOut</div>
+            <h2 className="font-semibold">{data.job_title}</h2>
+            <div className="">[Replace with most recent experience]</div>
             <div className="flex space-x-4 mt-2">
               <div>{data.location}</div>
               <div>{data.connectionCount} connections</div>
