@@ -56,27 +56,20 @@ const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     localStorage.removeItem("auth");
-    setUser((user) => undefined);
+    setUser(() => undefined);
     navigate("/");
   };
 
-  const signup = (first, last, email, password) => {
+  const signup = async (form) => {
     if (loading)
       return console.log("Already loading, please wait for a few seconds");
     setLoading((loading) => !loading);
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
-    var raw = JSON.stringify({
-      name: first,
-      surname: last,
-      email: email,
-      password: password,
-      job_title: "rejob",
-      location: "Ankara",
-      role: "ROLE_RECRUITER",
-      is_hiring: false,
-    });
+    var raw = JSON.stringify(form);
+
+    console.log(raw);
 
     var requestOptions = {
       method: "POST",
@@ -85,10 +78,13 @@ const AuthProvider = ({ children }) => {
       redirect: "follow",
     };
 
+    console.log(requestOptions);
+
     fetch(API + "/api/v1/auth/register", requestOptions)
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Authentication failed");
+          console.log(response);
+          throw new Error("Register failed");
         } else {
           return response.text();
         }

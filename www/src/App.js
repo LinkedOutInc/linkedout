@@ -38,8 +38,8 @@ function App() {
               <Route path="/connections" element={<Connections />} />
               <Route path="/admin/login" element={<AdminLogin />} />
               <Route path="/admin" element={<Admin />} />
-              <Route path="*" element={<NotFound />} />
             </Route>
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
         <Footer />
