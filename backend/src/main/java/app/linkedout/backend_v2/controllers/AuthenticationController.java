@@ -15,10 +15,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 
 import java.util.Objects;
 
@@ -34,6 +32,7 @@ public class AuthenticationController {
     private final RecruiterService recruiterService;
     private final CareerExpertService careerExpertService;
 
+    @CrossOrigin(origins = "*")
     @PostMapping("/authenticate")
     public ResponseEntity<String> authenticate (@RequestBody AuthenticationRequest request) {
 
@@ -59,18 +58,19 @@ public class AuthenticationController {
         return ResponseEntity.status(400).body("[-] Error during authentication.");
     }
 
+    @CrossOrigin(origins = "*")
     @PostMapping("/register")
     public ResponseEntity<String> register (@RequestBody Person person) {
 
         // TODO: Add Different Register for different users!!!
 
-        if(Objects.equals(person.role(), "ROLE_USER")) {
+        if(person.role()=="ROLE_USER") {
             personService.addPerson(person);
         }
-        else if(Objects.equals(person.role(), "ROLE_RECRUITER")) {
+        else if(person.role()=="ROLE_RECRUITER") {
             recruiterService.addRecruiter(new Recruiter(person.id(), person.name(), person.surname(), person.email(), person.password(), person.job_title(), person.location(), person.role(), false));
         }
-        else if(Objects.equals(person.role(), "ROLE_CE")) {
+        else if(person.role()=="ROLE_CE") {
             careerExpertService.addCareerExpert(new CareerExpert(person.id(), person.name(), person.surname(), person.email(), person.password(), person.job_title(), person.location(), person.role(), "dummy"));
         }
         else {
