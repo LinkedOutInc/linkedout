@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../../../contexts/AuthContext";
+import { useEffect, useRef, useState } from "react";
 
 // Data
 import richard from "../../../../../assets/richard.jpg";
@@ -12,9 +13,9 @@ function DropdownMenu() {
   const navigate = useNavigate();
   return (
     <div className="select-none">
-      <details class="group [&_summary::-webkit-details-marker]:hidden">
-        <summary class="flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700">
-          <div class="flex items-center gap-2">
+      <div class="group">
+        <div class="inline-flex cursor-pointer items-center justify-between rounded-t-xl py-2 px-4 text-gray-500 group-hover:bg-gray-100 group-hover:text-gray-700">
+          <div class="flex items-center">
             <span class="sr-only">Menu</span>
             <img
               alt="Man"
@@ -31,7 +32,7 @@ function DropdownMenu() {
             </p>
           </div>
 
-          <span class="shrink-0 transition duration-300 group-open:-rotate-180">
+          <span class="shrink-0 transition duration-300 group-hover:-rotate-180">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="h-5 w-5"
@@ -45,12 +46,8 @@ function DropdownMenu() {
               />
             </svg>
           </span>
-        </summary>
-
-        <nav
-          aria-label="Main Nav"
-          class="absolute z-10 w-52 bg-gray-100 rounded-2xl mt-2 flex flex-col p-2"
-        >
+        </div>
+        <div class="hidden group-hover:absolute w-[12.34rem] shadow-2xl group-hover:flex z-10 flex-1 bg-gray-100 rounded-b-xl flex-col p-2">
           <div
             class="flex items-center cursor-pointer gap-2 rounded-lg bg-gray-100 px-4 py-2 text-gray-700"
             onClick={() => navigate("/profile")}
@@ -185,8 +182,8 @@ function DropdownMenu() {
 
             <span class="text-sm font-medium"> Logout </span>
           </div>
-        </nav>
-      </details>
+        </div>
+      </div>
     </div>
   );
 }
