@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 public record Comment(Integer comment_ID, Integer post_ID, String content, LocalDateTime date) {
 
-    public Comment filter() {
-        return new Comment(null, post_ID(), content(), LocalDateTime.now());
+    public Comment filter(int postId) {
+        return new Comment(null, postId, content(), LocalDateTime.now());
     }
 }

@@ -3,6 +3,7 @@ package app.linkedout.backend_v2.services;
 import app.linkedout.backend_v2.dao.CommentDao;
 import app.linkedout.backend_v2.dao.FeedPostDao;
 import app.linkedout.backend_v2.dto.Error;
+import app.linkedout.backend_v2.models.Comment;
 import app.linkedout.backend_v2.models.FeedPost;
 import app.linkedout.backend_v2.models.Recruiter;
 import org.springframework.http.ResponseEntity;
@@ -50,5 +51,17 @@ public class PostService {
 
     public List<HashMap<String, Object>> getComments(int postId, int offset) {
         return commentDao.getComments(postId, offset);
+    }
+
+    public Object newComment(int postId, Comment comment, int userId) {
+        comment = comment.filter(postId);
+
+        // Check if post exists
+        Object queryResult = feedPostDao.getPost(postId);
+        if (queryResult instanceof ResponseEntity<?>) {
+            return queryResult;
+        }
+
+        return commentDao.insertComment(comment, userId);
     }
 }

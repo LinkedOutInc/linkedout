@@ -1,6 +1,12 @@
 package app.linkedout.backend_v2.repositories;
 
 import app.linkedout.backend_v2.dao.CommentDao;
+import app.linkedout.backend_v2.dto.Error;
+import app.linkedout.backend_v2.dto.Success;
+import app.linkedout.backend_v2.models.Comment;
+import app.linkedout.backend_v2.models.FeedPost;
+import app.linkedout.backend_v2.repositories.rowMappers.CommentRowMapper;
+import app.linkedout.backend_v2.repositories.rowMappers.FeedPostRowMapper;
 import app.linkedout.backend_v2.repositories.rowMappers.GenericRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -29,5 +35,44 @@ public class CommentRepository implements CommentDao {
                 OFFSET ?;                
                 """;
         return jdbcTemplate.query(sql, new GenericRowMapper(), postId, offset);
+    }
+
+    @Override
+    public Object insertComment(Comment comment, int userId) {
+        // Insert on Comment
+        var sqlComment = """
+                INSERT INTO Comment (comment_ID, post_ID, content, date)
+                VALUES (DEFAULT, ?, ?, ?);
+                """;
+        int queryResult = jdbcTemplate.update(sqlComment, comment.post_ID(),
+                comment.content(), comment.date());
+        if (queryResult <= 0) {
+            return Error.create(500, "Comment could not be inserted.");
+        }
+
+        // Get selected post id from FeedPost
+        var sqlQuery = """
+                SELECT *
+                FROM Comment
+                WHERE post_ID = ? AND content = ? AND date = ?;
+                """;
+        List<Comment> tempComments = jdbcTemplate.query(sqlQuery, new CommentRowMapper(), comment.post_ID(),
+                comment.content(), comment.date());
+        if (tempComments.isEmpty()) {
+            return Error.create(500, "Comment id could not retrieved.");
+        }
+        int newCommentId = tempComments.get(0).comment_ID();
+
+        // Insert on FeedPostUser
+        var sqlUserComment = """
+                INSERT INTO User_comments (user_ID, comment_ID)
+                VALUES (?, ?);
+                """;
+        queryResult = jdbcTemplate.update(sqlUserComment, userId, newCommentId);
+        if (queryResult <= 0) {
+            return Error.create(500, "Comment could not be linked to the user.");
+        }
+
+        return Success.create("Comment posted.");
     }
 }

@@ -1,5 +1,6 @@
 package app.linkedout.backend_v2.controllers;
 
+import app.linkedout.backend_v2.models.Comment;
 import app.linkedout.backend_v2.models.FeedPost;
 import app.linkedout.backend_v2.services.PostService;
 import app.linkedout.backend_v2.services.SessionService;
@@ -67,5 +68,17 @@ public class PostController {
 
         int userId = (int) controlResult;
         return postService.getComments(id, offset);
+    }
+
+    @CrossOrigin(origins = "*")
+    @PostMapping("{id}/comments/new")
+    public Object newComment(@PathVariable("id") Integer id, @RequestBody Comment comment) {
+        Object controlResult = sessionService.gutCurrentUserIdIfExists();
+        if (controlResult instanceof ResponseEntity) {
+            return controlResult;
+        }
+
+        int userId = (int) controlResult;
+        return postService.newComment(id, comment, userId);
     }
 }
