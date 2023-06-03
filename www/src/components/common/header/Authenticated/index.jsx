@@ -8,13 +8,13 @@ function Authenticated() {
 
   return (
     <header aria-label="Page Header">
-      <div class="mx-auto max-w-screen-lg px-4 py-8 sm:px-6 lg:px-8">
-        <div class="flex items-center sm:justify-between sm:gap-4">
+      <div class="mx-auto max-w-screen-lg py-8 pr-2 sm:pl-0 pl-2">
+        <div class="flex justify-between items-center sm:gap-4">
           <Logo />
-          <div class="flex flex-1 items-center justify-between gap-8 sm:justify-end">
-            <div class="flex gap-4">
+          <div class="flex flex-1 gap-8 justify-end">
+            <div class="sm:flex gap-4 hidden">
               <div
-                class="block cursor-pointer shrink-0 rounded-lg bg-white p-2.5 text-gray-600 shadow-sm hover:text-gray-700"
+                class="block cursor-pointer shrink-0 rounded-lg bg-white p-2.5 text-gray-600 hover:text-gray-700"
                 onClick={() => navigate("/feed")}
               >
                 <span class="sr-only">Feed</span>
@@ -34,7 +34,7 @@ function Authenticated() {
                 </svg>
               </div>
               <div
-                class="block cursor-pointer shrink-0 rounded-lg bg-white p-2.5 text-gray-600 shadow-sm hover:text-gray-700"
+                class="block cursor-pointer shrink-0 rounded-lg bg-white p-2.5 text-gray-600 hover:text-gray-700"
                 onClick={() => navigate("/jobs")}
               >
                 <span class="sr-only">Jobs</span>
@@ -55,7 +55,7 @@ function Authenticated() {
               </div>
 
               <div
-                class="block cursor-pointer shrink-0 rounded-lg bg-white p-2.5 text-gray-600 shadow-sm hover:text-gray-700"
+                class="block cursor-pointer shrink-0 rounded-lg bg-white p-2.5 text-gray-600 hover:text-gray-700"
                 onClick={() => navigate("/connections")}
               >
                 <span class="sr-only">Connections</span>
