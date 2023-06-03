@@ -1,9 +1,31 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useProfile } from "../../../../../contexts/ProfileContext";
 
 const NewEducation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const popupRef = useRef(null);
 
+  const { addEducation } = useProfile();
+  const title = useRef(null);
+  const description = useRef(null);
+  const start_date = useRef(null);
+  const end_date = useRef(null);
+  const institutionName = useRef(null);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    console.log("Submitted");
+    addEducation({
+      title: title.current.value,
+      description: description.current.value,
+      start_date: start_date.current.value,
+      end_date: end_date.current.value,
+      institutionName: institutionName.current.value,
+    });
+  };
+
+  // Animation stuff
   const handleOpen = () => {
     setIsOpen(true);
   };
@@ -69,31 +91,49 @@ const NewEducation = () => {
               </div>
             </div>
             {/* Form content goes here */}
-            <form className="flex flex-col gap-6">
+            <form
+              className="flex flex-col gap-6"
+              onSubmit={(e) => handleSubmit(e)}
+            >
               <div>
                 <h2 className="text-lg font-bold">Education Title</h2>
-                <input className="border rounded-lg p-1 mt-1" />
+                <input className="border rounded-lg p-1 mt-1" ref={title} />
               </div>
               <div>
                 <h2 className="text-lg font-bold">Institution</h2>
-                <input className="border rounded-lg p-1 mt-1" />
+                <input
+                  className="border rounded-lg p-1 mt-1"
+                  ref={institutionName}
+                />
               </div>
               <div>
                 <h2 className="text-lg font-bold">Education Description</h2>
-                <input className="border rounded-lg p-1 mt-1" />
+                <input
+                  className="border rounded-lg p-1 mt-1"
+                  ref={description}
+                />
               </div>
               <div>
                 <h2 className="text-lg font-bold">Start Date</h2>
-                <input className="border rounded-lg p-1 mt-1" type="date" />
+                <input
+                  className="border rounded-lg p-1 mt-1"
+                  type="date"
+                  ref={start_date}
+                />
               </div>
               <div>
                 <h2 className="text-lg font-bold">
                   End Date (leave empty for current education)
                 </h2>
-                <input className="border rounded-lg p-1 mt-1" type="date" />
+                <input
+                  className="border rounded-lg p-1 mt-1"
+                  type="date"
+                  ref={end_date}
+                />
               </div>
               <button
                 type="submit"
+                onSubmit={(e) => handleSubmit(e)}
                 className="bg-linkedout text-white font-semibold py-2 px-4 rounded-2xl hover:bg-white hover:text-linkedout hover:ring-1 ring-inset hover:ring-linkedout"
               >
                 Submit

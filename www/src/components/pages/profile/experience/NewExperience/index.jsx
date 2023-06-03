@@ -1,9 +1,17 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useProfile } from "../../../../../contexts/ProfileContext";
 
 const NewExperience = () => {
   const [isOpen, setIsOpen] = useState(false);
   const popupRef = useRef(null);
 
+  const { setExperience } = useProfile();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
+  // Animation stuff
   const handleOpen = () => {
     setIsOpen(true);
   };

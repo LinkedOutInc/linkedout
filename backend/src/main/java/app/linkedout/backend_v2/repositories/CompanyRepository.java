@@ -27,10 +27,10 @@ public class CompanyRepository implements CompanyDao {
     @Override
     public int insertCompany(Company company) {
         var sql = """
-                INSERT INTO Company(company_ID, name, location, about, domain, company_picture)
-                VALUES(?, ?, ?, ?, ?, ?);
+                INSERT INTO Company(name, location, about, domain)
+                VALUES(?, ?, ?, ?);
                 """;
-        return jdbcTemplate.update(sql, company.company_ID(), company.name(), company.location(), company.about(), company.domain(), company.company_picture());
+        return jdbcTemplate.update(sql, company.name(), company.location(), company.about(), company.domain());
     }
 
     @Override

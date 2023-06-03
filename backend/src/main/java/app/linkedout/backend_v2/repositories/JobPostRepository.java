@@ -41,10 +41,15 @@ public class JobPostRepository implements JobPostDao {
     @Override
     public int insertJobPost(JobPost jobPost) {
         var sql = """
-                INSERT INTO JobPost(post_id, date, content, job_title, company_id, workplace, position, profession)
-                VALUES(?, ?, ?, ?, ?, ?, ?, ?);
+                INSERT INTO JobPost(date, content, job_title, company_id, workplace, position, profession)
+                VALUES(?, ?, ?, ?, ?, ?, ?);
                 """;
-        return jdbcTemplate.update(sql, jobPost.post_ID(), jobPost.date(), jobPost.content(), jobPost.job_title(), jobPost.company_ID(), jobPost.workplace(), jobPost.position(), jobPost.profession());
+        var sqlupd = """
+                INSERT INTO Hiring_Reports(JobPost_id, apply_count)
+                (SELECT J.post_ID, 0 FROM JobPost AS J WHERE J.job_title = ?);
+                """;
+        jdbcTemplate.update(sqlupd, jobPost.job_title());
+        return jdbcTemplate.update(sql, jobPost.date(), jobPost.content(), jobPost.job_title(), jobPost.company_ID(), jobPost.workplace(), jobPost.position(), jobPost.profession());
     }
 
     @Override

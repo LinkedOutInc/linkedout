@@ -3,7 +3,7 @@ import { Hero, Testimonial } from "../../../components";
 
 function Index() {
   return (
-    <div>
+    <div className="max-w-screen-lg mx-auto">
       <Hero />
       <Testimonial />
     </div>

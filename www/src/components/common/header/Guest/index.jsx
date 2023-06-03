@@ -19,7 +19,7 @@ function Guest() {
 
   return (
     <header aria-label="Site Header" className="bg-white">
-      <div className="mx-auto max-w-screen-xl my-4 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-screen-lg my-4 px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           <div
             className="flex-1 md:flex md:items-center md:gap-12"

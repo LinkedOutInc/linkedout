@@ -18,7 +18,10 @@ import {
 } from "./components";
 
 import { AuthProvider } from "./contexts/AuthContext";
-import { UserRoutes } from "./contexts/AuthRoute";
+import { UserRoutes as AuthRoutes } from "./routes/AuthRoute";
+import { ProfileRoute } from "./routes/ProfileRoute";
+import { ProfileProvider } from "./contexts/ProfileContext";
+
 function App() {
   return (
     <div id="app_container" className="m-0 min-h-screen flex flex-col">
@@ -30,9 +33,18 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/signup/complete" element={<CompleteSignup />} />
-            <Route element={<UserRoutes />}>
+            <Route element={<AuthRoutes />}>
               <Route path="/feed" element={<Feed />} />
-              <Route path="/profile" element={<Profile />} />
+              <Route element={<ProfileRoute />}>
+                <Route
+                  path="/profile"
+                  element={
+                    <ProfileProvider>
+                      <Profile />
+                    </ProfileProvider>
+                  }
+                />
+              </Route>
               <Route path="/jobs" element={<Jobs />} />
               <Route path="/recruiter" element={<Recruiter />} />
               <Route path="/connections" element={<Connections />} />
