@@ -44,4 +44,16 @@ public class PostController {
         int userId = (int) controlResult;
         return postService.newPost(userId, feedPost);
     }
+
+    @CrossOrigin(origins = "*")
+    @DeleteMapping("{id}")
+    public Object deletePost(@PathVariable("id") Integer id) {
+        Object controlResult = sessionService.gutCurrentUserIdIfExists();
+        if (controlResult instanceof ResponseEntity) {
+            return controlResult;
+        }
+
+        int userId = (int) controlResult;
+        return postService.deletePost(userId, id);
+    }
 }

@@ -94,4 +94,44 @@ public class FeedPostRepository implements FeedPostDao {
 
         return Success.create("Post created.");
     }
+
+    @Override
+    public Object getPost(int postId) {
+        // Get selected post id from FeedPost
+        var sqlQuery = """
+                SELECT *
+                FROM FeedPost NATURAL JOIN Feed_posts
+                WHERE post_id = ?;
+                """;
+        List<HashMap<String, Object>> tempFeedPosts = jdbcTemplate.query(sqlQuery, new GenericRowMapper(), postId);
+        if (tempFeedPosts.isEmpty()) {
+            return Error.create(500, "Post not found.");
+        }
+        return tempFeedPosts.get(0);
+    }
+
+    @Override
+    public Object deletePost(int postId) {
+        // Delete from FeedPost
+        var sqlFeedPostUser = """
+                DELETE FROM Feed_posts
+                WHERE post_ID = ?;
+                """;
+        int queryResult = jdbcTemplate.update(sqlFeedPostUser, postId);
+        if (queryResult <= 0) {
+            return Error.create(500, "Post could not be unlinked.");
+        }
+
+        // Delete from FeedPost
+        var sqlFeedPost = """
+                DELETE FROM FeedPost
+                WHERE post_ID = ?;
+                """;
+        queryResult = jdbcTemplate.update(sqlFeedPost, postId);
+        if (queryResult <= 0) {
+            return Error.create(500, "Post could not be deleted.");
+        }
+
+        return Success.create("Post deleted.");
+    }
 }
