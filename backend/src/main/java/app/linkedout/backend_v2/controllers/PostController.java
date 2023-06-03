@@ -56,4 +56,16 @@ public class PostController {
         int userId = (int) controlResult;
         return postService.deletePost(userId, id);
     }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping("{id}/comments")
+    public Object getComments(@PathVariable("id") Integer id, @RequestParam(name = "offset") int offset) {
+        Object controlResult = sessionService.gutCurrentUserIdIfExists();
+        if (controlResult instanceof ResponseEntity) {
+            return controlResult;
+        }
+
+        int userId = (int) controlResult;
+        return postService.getComments(id, offset);
+    }
 }

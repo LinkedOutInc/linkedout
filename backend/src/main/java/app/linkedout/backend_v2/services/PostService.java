@@ -1,5 +1,6 @@
 package app.linkedout.backend_v2.services;
 
+import app.linkedout.backend_v2.dao.CommentDao;
 import app.linkedout.backend_v2.dao.FeedPostDao;
 import app.linkedout.backend_v2.dto.Error;
 import app.linkedout.backend_v2.models.FeedPost;
@@ -14,9 +15,11 @@ import java.util.List;
 public class PostService {
 
     private final FeedPostDao feedPostDao;
+    private final CommentDao commentDao;
 
-    public PostService(FeedPostDao feedPostDao) {
+    public PostService(FeedPostDao feedPostDao, CommentDao commentDao) {
         this.feedPostDao = feedPostDao;
+        this.commentDao = commentDao;
     }
 
     public List<HashMap<String, Object>> getFeed(int userId, int offset) {
@@ -43,5 +46,9 @@ public class PostService {
         }
 
         return feedPostDao.deletePost(postId);
+    }
+
+    public List<HashMap<String, Object>> getComments(int postId, int offset) {
+        return commentDao.getComments(postId, offset);
     }
 }
