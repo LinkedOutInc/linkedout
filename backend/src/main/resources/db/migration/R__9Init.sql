@@ -1,5 +1,13 @@
-DELETE FROM admin;
-DELETE FROM person;
+DELETE FROM Connections;
+DELETE FROM ConnectionSuggestions;
+DELETE FROM Admin;
+DELETE FROM Person;
+DELETE FROM FeedPost;
+DELETE FROM Feed_Posts;
 
-INSERT INTO admin(id, name, surname, email, password, job_title, location, role) VALUES (1, 'admin', 'admin', 'admin', 'admin', 'admin', 'admin', 'ROLE_ADMIN');
-INSERT INTO person (id, name, surname, email, password, job_title, location, role) VALUES (2, 'user', 'user', 'user', 'user', 'user', 'user', 'ROLE_USER');
+INSERT INTO Admin(id, name, surname, email, password, job_title, location, role) VALUES (1, 'admin', 'admin', 'admin', 'admin', 'admin', 'admin', 'ROLE_ADMIN');
+
+INSERT INTO Person (id, name, surname, email, password, job_title, location, role) VALUES (2, 'user1', 'user1', 'user1', 'user1', 'user1', 'user1', 'ROLE_USER');
+INSERT INTO Person (id, name, surname, email, password, job_title, location, role) VALUES (3, 'user2', 'user2', 'user2', 'user2', 'user2', 'user2', 'ROLE_USER');
+
+INSERT INTO Connections (user_ID_1, user_ID_2, status) VALUES (2, 3, 'ACCEPTED');
