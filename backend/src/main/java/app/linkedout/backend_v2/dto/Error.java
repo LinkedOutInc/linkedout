@@ -16,7 +16,7 @@ public class Error extends HashMap<String, Object> {
 
     private Error(int status, String message) {
         put("status", status);
-        put("text", message);
+        put("message", message);
     }
 
     public static ResponseEntity create(int status, String message) {

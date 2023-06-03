@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class FeedPostRowMapper implements RowMapper<FeedPost> {
@@ -13,7 +14,7 @@ public class FeedPostRowMapper implements RowMapper<FeedPost> {
         return new FeedPost(
                 rs.getInt("post_ID"),
                 rs.getString("title"),
-                (LocalDateTime) rs.getObject("date"),
+                ((Timestamp) rs.getObject("date")).toLocalDateTime(),
                 rs.getString("content"),
                 rs.getString("image"),
                 rs.getString("type")

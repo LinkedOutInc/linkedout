@@ -1,5 +1,6 @@
 package app.linkedout.backend_v2.controllers;
 
+import app.linkedout.backend_v2.models.FeedPost;
 import app.linkedout.backend_v2.services.PostService;
 import app.linkedout.backend_v2.services.SessionService;
 import app.linkedout.backend_v2.dto.Error;
@@ -28,8 +29,19 @@ public class PostController {
             return controlResult;
         }
 
-
         int userId = (int) controlResult;
         return postService.getFeed(userId, offset);
+    }
+
+    @CrossOrigin(origins = "*")
+    @PostMapping("new")
+    public Object newPost(@RequestBody FeedPost feedPost) {
+        Object controlResult = sessionService.gutCurrentUserIdIfExists();
+        if (controlResult instanceof ResponseEntity) {
+            return controlResult;
+        }
+
+        int userId = (int) controlResult;
+        return postService.newPost(userId, feedPost);
     }
 }

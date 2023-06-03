@@ -1,9 +1,9 @@
 DELETE FROM Connections;
 DELETE FROM ConnectionSuggestions;
+DELETE FROM Feed_Posts;
+DELETE FROM FeedPost;
 DELETE FROM Admin;
 DELETE FROM Person;
-DELETE FROM FeedPost;
-DELETE FROM Feed_Posts;
 
 INSERT INTO Admin(id, name, surname, email, password, job_title, location, role) VALUES (1, 'admin', 'admin', 'admin', 'admin', 'admin', 'admin', 'ROLE_ADMIN');
 

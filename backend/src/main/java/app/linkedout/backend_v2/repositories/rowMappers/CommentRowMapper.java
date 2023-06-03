@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class CommentRowMapper implements RowMapper<Comment> {
@@ -14,7 +15,7 @@ public class CommentRowMapper implements RowMapper<Comment> {
                 rs.getInt("comment_ID"),
                 rs.getInt("post_ID"),
                 rs.getString("content"),
-                (LocalDateTime) rs.getObject("date")
+                ((Timestamp) rs.getObject("date")).toLocalDateTime()
         );
     }
 }

@@ -1,12 +1,20 @@
 package app.linkedout.backend_v2.repositories;
 
 import app.linkedout.backend_v2.dao.FeedPostDao;
+import app.linkedout.backend_v2.dto.Error;
+import app.linkedout.backend_v2.dto.Success;
+import app.linkedout.backend_v2.models.FeedPost;
+import app.linkedout.backend_v2.models.FeedPostUser;
+import app.linkedout.backend_v2.repositories.rowMappers.FeedPostRowMapper;
 import app.linkedout.backend_v2.repositories.rowMappers.GenericRowMapper;
 import app.linkedout.backend_v2.repositories.rowMappers.HiringRowMapper;
+import app.linkedout.backend_v2.repositories.rowMappers.Report1RowMapper;
 import app.linkedout.backend_v2.services.SessionService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -46,5 +54,44 @@ public class FeedPostRepository implements FeedPostDao {
                 OFFSET ?;
                 """;
         return jdbcTemplate.query(sql, new GenericRowMapper(), userId, userId, userId, offset);
+    }
+
+    @Override
+    public Object insertPost(int userId, FeedPost feedPost) {
+        // Insert on FeedPost
+        var sqlFeedPost = """
+                INSERT INTO FeedPost(post_ID, title, date, content, image, type)
+                VALUES (DEFAULT, ?, ?, ?, ?, ?);
+                """;
+        int queryResult = jdbcTemplate.update(sqlFeedPost, feedPost.title(),
+                feedPost.date(), feedPost.content(), feedPost.image(), feedPost.type());
+        if (queryResult <= 0) {
+            return Error.create(500, "Post could not be inserted.");
+        }
+
+        // Get selected post id from FeedPost
+        var sqlQuery = """
+                SELECT *
+                FROM FeedPost
+                WHERE title = ? AND date = ? AND content = ? AND image = ? AND type = ?;
+                """;
+        List<FeedPost> tempFeedPosts = jdbcTemplate.query(sqlQuery, new FeedPostRowMapper(), feedPost.title(),
+                feedPost.date(), feedPost.content(), feedPost.image(), feedPost.type());
+        if (tempFeedPosts.isEmpty()) {
+            return Error.create(500, "Post id could not retrieved.");
+        }
+        int newPostId = tempFeedPosts.get(0).post_ID();
+
+        // Insert on FeedPostUser
+        var sqlFeedPostUser = """
+                INSERT INTO Feed_posts(user_ID, post_ID)
+                VALUES (?, ?);
+                """;
+        queryResult = jdbcTemplate.update(sqlFeedPostUser, userId, newPostId);
+        if (queryResult <= 0) {
+            return Error.create(500, "Post could not be linked to the user.");
+        }
+
+        return Success.create("Post created.");
     }
 }
