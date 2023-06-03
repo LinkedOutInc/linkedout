@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 
 public class ReactionRowMapper implements RowMapper<Reaction> {
     @Override
@@ -12,7 +13,7 @@ public class ReactionRowMapper implements RowMapper<Reaction> {
         return new Reaction(
                 rs.getInt("reaction_ID"),
                 rs.getString("type"),
-                rs.getDate("date")
+                (LocalDateTime) rs.getObject("date")
         );
     }
 }

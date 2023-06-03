@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 
 public class FeedPostRowMapper implements RowMapper<FeedPost> {
     @Override
@@ -12,7 +13,7 @@ public class FeedPostRowMapper implements RowMapper<FeedPost> {
         return new FeedPost(
                 rs.getInt("post_ID"),
                 rs.getString("title"),
-                rs.getDate("date"),
+                (LocalDateTime) rs.getObject("date"),
                 rs.getString("content"),
                 rs.getString("image"),
                 rs.getString("type")

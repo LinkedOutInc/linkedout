@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS FeedPost (
     post_ID BIGSERIAL PRIMARY KEY,
     title VARCHAR NOT NULL,
-    date DATE NOT NULL,
+    date TIMESTAMP NOT NULL,
     content VARCHAR(2000),
     image VARCHAR(100),
     type VARCHAR(20) NOT NULL
@@ -12,14 +12,14 @@ CREATE TABLE IF NOT EXISTS Comment (
     comment_ID BIGSERIAL PRIMARY KEY,
     post_ID BIGSERIAL NOT NULL,
     content VARCHAR(2000) NOT NULL,
-    date DATE NOT NULL,
+    date TIMESTAMP NOT NULL,
     FOREIGN KEY (post_ID) REFERENCES FeedPost(post_ID)
 );
 
 CREATE TABLE IF NOT EXISTS Reaction (
     reaction_ID BIGSERIAL PRIMARY KEY,
     type VARCHAR(20),
-    date DATE NOT NULL
+    date TIMESTAMP NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS User_reactions (
