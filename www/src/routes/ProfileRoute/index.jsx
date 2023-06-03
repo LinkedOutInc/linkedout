@@ -1,8 +1,8 @@
 import { Outlet, Navigate } from "react-router-dom";
-import { useAuth } from "../AuthContext";
+import { useAuth } from "../../contexts/AuthContext";
 import { NotFound } from "../../components";
 
-function UserRoutes() {
+function ProfileRoute() {
   const { user } = useAuth();
 
   return user === null ? (
@@ -36,4 +36,4 @@ function UserRoutes() {
   );
 }
 
-export { UserRoutes };
+export { ProfileRoute };

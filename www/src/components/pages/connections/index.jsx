@@ -84,7 +84,9 @@ function Connections() {
             </div>
           </li>
         </ul>
-        {activeTab === "discover" ? <NewConnection /> : <ConnectionRequest />}
+        <div className="mb-2">
+          {activeTab === "discover" ? <NewConnection /> : <ConnectionRequest />}
+        </div>
       </div>
     </div>
   );

@@ -148,7 +148,7 @@ const AuthProvider = ({ children }) => {
     localStorage.setItem("auth", token);
   }, [token]);
 
-  const value = { user, login, logout, signup, loading, user };
+  const value = { user, login, logout, signup, loading, token };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

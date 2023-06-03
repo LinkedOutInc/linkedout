@@ -84,7 +84,9 @@ function Jobs() {
             </div>
           </li>
         </ul>
-        {activeTab === "findjobs" ? <FindJobs /> : <AppliedJobs />}
+        <div className="mb-2">
+          {activeTab === "findjobs" ? <FindJobs /> : <AppliedJobs />}
+        </div>
       </div>
     </div>
   );

@@ -14,14 +14,14 @@ const UserSearch = ({ onSearch, onFilter }) => {
   };
 
   return (
-    <div className="flex flex-row space-x-4">
+    <div className="flex sm:flex-row flex-col sm:space-x-4 space-y-2 sm:space-y-0">
       <input
         type="text"
         placeholder="Search users..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
         onSubmit={() => handleSearch()}
-        className="p-2 border border-gray-300 rounded-xl flex-grow focus:border-linkedout"
+        className="p-2 border border-gray-300 rounded-xl flex-grow focus-within:border-transparent focus-within:ring-1 focus-within:ring-linkedout outline-none"
       />
       <select
         value={selectedFilter}

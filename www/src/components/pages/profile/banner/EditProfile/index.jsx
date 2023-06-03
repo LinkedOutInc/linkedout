@@ -1,8 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useProfile } from "../../../../../contexts/ProfileContext";
 
 const EditProfile = ({ title, area }) => {
   const [isOpen, setIsOpen] = useState(false);
   const popupRef = useRef(null);
+
+  const { user } = useProfile();
 
   const handleOpen = () => {
     setIsOpen(true);
@@ -72,15 +75,24 @@ const EditProfile = ({ title, area }) => {
             <form className="flex flex-col gap-6">
               <div>
                 <h2 className="text-lg font-bold">First Name</h2>
-                <input className="border rounded-lg p-1 mt-1" value={title} />
+                <input
+                  className="border rounded-lg p-1 mt-1"
+                  value={user.name}
+                />
               </div>
               <div>
                 <h2 className="text-lg font-bold">Last Name</h2>
-                <input className="border rounded-lg p-1 mt-1" value={area} />
+                <input
+                  className="border rounded-lg p-1 mt-1"
+                  value={user.surname}
+                />
               </div>
               <div>
                 <h2 className="text-lg font-bold">Location</h2>
-                <input className="border rounded-lg p-1 mt-1" value={area} />
+                <input
+                  className="border rounded-lg p-1 mt-1"
+                  value={user.location}
+                />
               </div>
               <div>
                 <h2 className="text-lg font-bold">Profile Photo</h2>

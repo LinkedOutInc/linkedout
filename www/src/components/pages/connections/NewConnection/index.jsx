@@ -36,11 +36,11 @@ function NewConnection() {
   });
 
   return (
-    <div className="">
-      <div className="flex flex-col">
+    <div className="max-w-screen-lg w-screen mx-auto px-2">
+      <div className="p-4 ring-1 rounded-2xl ring-orange-200">
         <UserSearch />
-        <div className="mt-4">{connections}</div>
       </div>
+      <div className="mt-4">{connections}</div>
     </div>
   );
 }

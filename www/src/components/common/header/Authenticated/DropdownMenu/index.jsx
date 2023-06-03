@@ -11,7 +11,7 @@ function DropdownMenu() {
 
   const navigate = useNavigate();
   return (
-    <div>
+    <div className="select-none">
       <details class="group [&_summary::-webkit-details-marker]:hidden">
         <summary class="flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700">
           <div class="flex items-center gap-2">
@@ -22,7 +22,7 @@ function DropdownMenu() {
               class="h-10 w-10 rounded-full object-cover"
             />
 
-            <p class="ml-2 hidden text-left text-xs sm:block">
+            <p class="ml-2 text-left text-xs block">
               <strong class="block font-medium">
                 {user.name + " " + user.surname}
               </strong>
@@ -49,7 +49,7 @@ function DropdownMenu() {
 
         <nav
           aria-label="Main Nav"
-          class="absolute ml-20 bg-gray-100 rounded-2xl mt-2 flex flex-col p-2"
+          class="absolute z-10 w-52 bg-gray-100 rounded-2xl mt-2 flex flex-col p-2"
         >
           <div
             class="flex items-center cursor-pointer gap-2 rounded-lg bg-gray-100 px-4 py-2 text-gray-700"
