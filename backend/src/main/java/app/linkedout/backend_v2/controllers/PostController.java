@@ -81,4 +81,16 @@ public class PostController {
         int userId = (int) controlResult;
         return postService.newComment(id, comment, userId);
     }
+
+    @CrossOrigin(origins = "*")
+    @DeleteMapping("{postId}/comments/{commentId}")
+    public Object newComment(@PathVariable("postId") Integer postId, @PathVariable("commentId") Integer commentId) {
+        Object controlResult = sessionService.gutCurrentUserIdIfExists();
+        if (controlResult instanceof ResponseEntity) {
+            return controlResult;
+        }
+
+        int userId = (int) controlResult;
+        return postService.deleteComment(postId, commentId, userId);
+    }
 }

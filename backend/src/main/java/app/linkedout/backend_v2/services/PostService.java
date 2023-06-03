@@ -64,4 +64,27 @@ public class PostService {
 
         return commentDao.insertComment(comment, userId);
     }
+
+    public Object deleteComment(int postId, int commentId, int userId) {
+        // Check if post exists
+        Object queryResult = feedPostDao.getPost(postId);
+        if (queryResult instanceof ResponseEntity<?>) {
+            return queryResult;
+        }
+
+        // Check comment owner
+        queryResult = commentDao.getComment(commentId);
+        if (queryResult instanceof ResponseEntity<?>) {
+            return queryResult;
+        }
+
+        HashMap<String, Object> comment = (HashMap<String, Object>) queryResult;
+        int ownerId = (int) ((long) comment.get("user_id"));
+
+        if (ownerId != userId) {
+            return Error.create(403, "Not authorized to delete comment of another user.");
+        }
+
+        return commentDao.deleteComment(commentId);
+    }
 }

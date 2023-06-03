@@ -75,4 +75,44 @@ public class CommentRepository implements CommentDao {
 
         return Success.create("Comment posted.");
     }
+
+    @Override
+    public Object getComment(int commentId) {
+        // Get selected post id from FeedPost
+        var sqlQuery = """
+                SELECT *
+                FROM Comment NATURAL JOIN User_Comments
+                WHERE comment_id = ?;
+                """;
+        List<HashMap<String, Object>> tempComments = jdbcTemplate.query(sqlQuery, new GenericRowMapper(), commentId);
+        if (tempComments.isEmpty()) {
+            return Error.create(500, "Comment not found.");
+        }
+        return tempComments.get(0);
+    }
+
+    @Override
+    public Object deleteComment(int commentId) {
+        // Delete from UserComments
+        var sqlUserComments = """
+              DELETE FROM User_comments
+              WHERE comment_ID = ?;
+                """;
+        int queryResult = jdbcTemplate.update(sqlUserComments, commentId);
+        if (queryResult <= 0) {
+            return Error.create(500, "Comment could not be unlinked.");
+        }
+
+        // Delete from Comment
+        var sqlComment = """
+                DELETE FROM Comment
+                WHERE comment_ID = ?;
+                """;
+        queryResult = jdbcTemplate.update(sqlComment, commentId);
+        if (queryResult <= 0) {
+            return Error.create(500, "Comment could not be deleted.");
+        }
+
+        return Success.create("Comment deleted.");
+    }
 }
