@@ -1,4 +1,4 @@
-CREATE TABLE Person (
+CREATE TABLE IF NOT EXISTS Person (
     id BIGSERIAL PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
     surname VARCHAR(50) NOT NULL,
@@ -10,12 +10,12 @@ CREATE TABLE Person (
     unique (email)
 );
 
-CREATE TABLE CareerExpert (
+CREATE TABLE IF NOT EXISTS CareerExpert (
     field VARCHAR(20) NOT NULL,
     PRIMARY KEY (id)
 ) INHERITS (Person);
 
-CREATE TABLE Recruiter (
+CREATE TABLE IF NOT EXISTS Recruiter (
     is_hiring BOOLEAN,
     PRIMARY KEY (id)
 ) INHERITS (Person);
