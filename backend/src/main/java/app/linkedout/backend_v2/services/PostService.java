@@ -123,4 +123,14 @@ public class PostService {
     public List<HashMap<String, Object>> getReactionCounts(int postId) {
         return reactionDao.getReactionCounts(postId);
     }
+
+    public Object removeReaction(int postId, int userId) {
+        // Check if post exists
+        Object queryResult = feedPostDao.getPost(postId);
+        if (queryResult instanceof ResponseEntity<?>) {
+            return queryResult;
+        }
+
+        return reactionDao.removeUserReaction(postId, userId);
+    }
 }

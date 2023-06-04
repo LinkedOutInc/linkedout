@@ -117,4 +117,16 @@ public class PostController {
 
         return postService.getReactionCounts(postId);
     }
+
+    @CrossOrigin(origins = "*")
+    @DeleteMapping("{postId}/reactions/currentUser")
+    public Object removeReaction(@PathVariable("postId") Integer postId) {
+        Object controlResult = sessionService.gutCurrentUserIdIfExists();
+        if (controlResult instanceof ResponseEntity) {
+            return controlResult;
+        }
+
+        int userId = (int) controlResult;
+        return postService.removeReaction(postId, userId);
+    }
 }
