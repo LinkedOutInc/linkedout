@@ -1,6 +1,7 @@
 package app.linkedout.backend_v2.services;
 
 import app.linkedout.backend_v2.config.JwtUtils;
+import app.linkedout.backend_v2.dto.Error;
 import app.linkedout.backend_v2.models.Person;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -55,5 +56,18 @@ public class SessionService {
             case "ROLE_RECRUITER" -> recruiterService.getRecruiterByEmail(email).id();
             default -> -1;
         };
+    }
+
+    public Object gutCurrentUserIdIfExists() {
+        try {
+            int userId = getCurrentUserId();
+            if (userId == -1) {
+                return Error.create(401, "User not logged in.");
+            }
+            return userId;
+        }
+        catch (Exception e) {
+            return Error.create(500, "User details could not be retrieved.");
+        }
     }
 }
