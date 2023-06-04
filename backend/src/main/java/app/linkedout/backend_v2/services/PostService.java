@@ -2,10 +2,9 @@ package app.linkedout.backend_v2.services;
 
 import app.linkedout.backend_v2.dao.CommentDao;
 import app.linkedout.backend_v2.dao.FeedPostDao;
+import app.linkedout.backend_v2.dao.ReactionDao;
 import app.linkedout.backend_v2.dto.Error;
-import app.linkedout.backend_v2.models.Comment;
-import app.linkedout.backend_v2.models.FeedPost;
-import app.linkedout.backend_v2.models.Recruiter;
+import app.linkedout.backend_v2.models.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -17,10 +16,12 @@ public class PostService {
 
     private final FeedPostDao feedPostDao;
     private final CommentDao commentDao;
+    private final ReactionDao reactionDao;
 
-    public PostService(FeedPostDao feedPostDao, CommentDao commentDao) {
+    public PostService(FeedPostDao feedPostDao, CommentDao commentDao, ReactionDao reactionDao) {
         this.feedPostDao = feedPostDao;
         this.commentDao = commentDao;
+        this.reactionDao = reactionDao;
     }
 
     public List<HashMap<String, Object>> getFeed(int userId, int offset) {
@@ -86,5 +87,36 @@ public class PostService {
         }
 
         return commentDao.deleteComment(commentId);
+    }
+
+    public Object updateReaction(int postId, String reactionType, int userId) {
+        // Check if post exists
+        Object queryResult = feedPostDao.getPost(postId);
+        if (queryResult instanceof ResponseEntity<?>) {
+            return queryResult;
+        }
+
+        // Get reaction id
+        queryResult = reactionDao.getReactionId(reactionType);
+        if (queryResult instanceof ResponseEntity<?>) {
+            return queryResult;
+        }
+
+        int reactionId = (int) queryResult;
+
+        // Check if reaction exists
+        queryResult = reactionDao.getUserReactionList(postId, userId);
+        if (queryResult instanceof ResponseEntity<?>) {
+            return queryResult;
+        }
+
+        List<UserReaction> tempUserReactions = (List<UserReaction>) queryResult;
+        if (tempUserReactions.isEmpty()) {
+            // Insert
+            return reactionDao.insertUserReaction(postId, reactionId, userId);
+        }
+
+        // Update
+        return reactionDao.updateUserReaction(postId, reactionId, userId);
     }
 }

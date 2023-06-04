@@ -1,9 +1,9 @@
 DELETE FROM Connections;
 DELETE FROM ConnectionSuggestions;
-DELETE FROM Comment;
 DELETE FROM User_Comments;
-DELETE FROM Reaction;
+DELETE FROM Comment;
 DELETE FROM User_Reactions;
+DELETE FROM Reaction;
 DELETE FROM Feed_Posts;
 DELETE FROM FeedPost;
 DELETE FROM Admin;
@@ -21,3 +21,6 @@ INSERT INTO Feed_Posts (user_id, post_id) VALUES (3, 1);
 
 INSERT INTO Comment (comment_id, post_id, content, date) VALUES (1, 1, 'Comment 1', '2017-03-31 09:30:20');
 INSERT INTO User_Comments (comment_id, user_id) VALUES (1, 2);
+
+INSERT INTO Reaction (reaction_ID, type, date) VALUES (1, 'Like', NULL);
+INSERT INTO Reaction (reaction_ID, type, date) VALUES (2, 'Love', NULL);

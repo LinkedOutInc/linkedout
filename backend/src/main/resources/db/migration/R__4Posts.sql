@@ -16,15 +16,16 @@ CREATE TABLE IF NOT EXISTS Comment (
     FOREIGN KEY (post_ID) REFERENCES FeedPost(post_ID)
 );
 
+-- TODO: Check date
 CREATE TABLE IF NOT EXISTS Reaction (
-    reaction_ID BIGSERIAL PRIMARY KEY,
+    reaction_id SERIAL PRIMARY KEY,
     type VARCHAR(20),
-    date TIMESTAMP NOT NULL
+    date TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS User_reactions (
     user_ID BIGSERIAL NOT NULL,
-    reaction_ID BIGSERIAL NOT NULL,
+    reaction_ID SERIAL NOT NULL,
     post_ID BIGSERIAL NOT NULL,
     PRIMARY KEY (user_ID, post_ID),
     FOREIGN KEY (user_ID) REFERENCES Person(id),

@@ -12,7 +12,7 @@ public class ReactionRowMapper implements RowMapper<Reaction> {
     @Override
     public Reaction mapRow(ResultSet rs, int rowNum) throws SQLException {
         return new Reaction(
-                rs.getInt("reaction_ID"),
+                rs.getInt("reaction_id"),
                 rs.getString("type"),
                 ((Timestamp) rs.getObject("date")).toLocalDateTime()
         );

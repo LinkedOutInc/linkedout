@@ -2,6 +2,7 @@ package app.linkedout.backend_v2.controllers;
 
 import app.linkedout.backend_v2.models.Comment;
 import app.linkedout.backend_v2.models.FeedPost;
+import app.linkedout.backend_v2.models.Reaction;
 import app.linkedout.backend_v2.services.PostService;
 import app.linkedout.backend_v2.services.SessionService;
 import app.linkedout.backend_v2.dto.Error;
@@ -92,5 +93,17 @@ public class PostController {
 
         int userId = (int) controlResult;
         return postService.deleteComment(postId, commentId, userId);
+    }
+
+    @CrossOrigin(origins = "*")
+    @PostMapping("{postId}/reactions/currentUser")
+    public Object updateReaction(@PathVariable("postId") Integer postId, @RequestBody Reaction reaction) {
+        Object controlResult = sessionService.gutCurrentUserIdIfExists();
+        if (controlResult instanceof ResponseEntity) {
+            return controlResult;
+        }
+
+        int userId = (int) controlResult;
+        return postService.updateReaction(postId, reaction.type(), userId);
     }
 }
