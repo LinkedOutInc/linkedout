@@ -49,6 +49,10 @@ const ProfileProvider = ({ children }) => {
     }
   };
 
+  useEffect(() => {
+    fetchEducation();
+  }, [token]);
+
   const addEducation = async ({
     title,
     description,
