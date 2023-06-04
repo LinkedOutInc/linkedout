@@ -28,8 +28,9 @@ public class JobPostController {
 
     @CrossOrigin(origins = "*")
     @PostMapping("")
-    public void addJobPost(@RequestBody JobPost jobPost) {
-        jobPostService.addJobPost(jobPost);
+    public void addJobPost(@RequestBody JobPost jobPost) throws Exception {
+        int user_id = sessionService.getCurrentUserId();
+        jobPostService.addJobPost(jobPost, user_id);
     }
 
     @CrossOrigin(origins = "*")
