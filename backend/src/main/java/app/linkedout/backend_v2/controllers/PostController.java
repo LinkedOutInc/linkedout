@@ -106,4 +106,15 @@ public class PostController {
         int userId = (int) controlResult;
         return postService.updateReaction(postId, reaction.type(), userId);
     }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping("{id}/reactions/counts")
+    public Object getReactionCounts(@PathVariable("id") Integer postId) {
+        Object controlResult = sessionService.gutCurrentUserIdIfExists();
+        if (controlResult instanceof ResponseEntity) {
+            return controlResult;
+        }
+
+        return postService.getReactionCounts(postId);
+    }
 }

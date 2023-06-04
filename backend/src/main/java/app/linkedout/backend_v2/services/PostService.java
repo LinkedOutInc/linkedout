@@ -119,4 +119,8 @@ public class PostService {
         // Update
         return reactionDao.updateUserReaction(postId, reactionId, userId);
     }
+
+    public List<HashMap<String, Object>> getReactionCounts(int postId) {
+        return reactionDao.getReactionCounts(postId);
+    }
 }

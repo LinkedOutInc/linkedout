@@ -76,4 +76,15 @@ public class ReactionRepository implements ReactionDao {
         }
         return Success.create("Reaction updated.");
     }
+
+    @Override
+    public List<HashMap<String, Object>> getReactionCounts(int postId) {
+        var sql = """
+              SELECT type, COUNT(user_id)
+              FROM Reaction NATURAL JOIN User_reactions
+              WHERE post_id = ?
+              GROUP BY type;
+                """;
+        return jdbcTemplate.query(sql, new GenericRowMapper(), postId);
+    }
 }
