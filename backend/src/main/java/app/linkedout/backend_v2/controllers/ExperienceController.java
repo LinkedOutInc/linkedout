@@ -40,12 +40,12 @@ public class ExperienceController {
     }
 
     @CrossOrigin(origins = "*")
-    @PutMapping("")
-    public void editExperience(@RequestBody Map<String, Object> requestMap) throws Exception {
+    @PutMapping("/{exp_ID}")
+    public void editExperience(@RequestBody Map<String, Object> requestMap, @PathVariable("exp_ID") Integer exp_ID) throws Exception {
         Experience experience = objectMapper.convertValue(requestMap.get("experience"), Experience.class);
         String companyName = (String) requestMap.get("companyName");
         int user_ID = sessionService.getCurrentUserId();
-        experienceService.editExperience(experience, companyName, user_ID);
+        experienceService.editExperience(experience, companyName, user_ID, exp_ID);
     }
 
     @CrossOrigin(origins = "*")
@@ -72,12 +72,12 @@ public class ExperienceController {
     }
 
     @CrossOrigin(origins = "*")
-    @PutMapping("/educations")
-    public void editEducation(@RequestBody Map<String, Object> requestMap) throws Exception {
+    @PutMapping("/educations/{exp_ID}")
+    public void editEducation(@RequestBody Map<String, Object> requestMap, @PathVariable("exp_ID") Integer exp_ID) throws Exception {
         Experience experience = objectMapper.convertValue(requestMap.get("experience"), Experience.class);
         String institutionName = (String) requestMap.get("institutionName");
         int user_ID = sessionService.getCurrentUserId();
-        experienceService.editEducation(experience, institutionName, user_ID);
+        experienceService.editEducation(experience, institutionName, user_ID, exp_ID);
     }
 
     @CrossOrigin(origins = "*")
