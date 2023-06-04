@@ -25,11 +25,6 @@ public class JobPostRepository implements JobPostDao {
 
     @Override
     public List<JobPostAndCompany> getJobs() {
-        /*var sql = """
-                SELECT post_ID, date, content, job_title, workplace, jp.location AS location, position, jp.company_ID, name AS company_name
-                FROM JobPost AS jp JOIN Company AS c ON jp.company_ID = c.company_ID
-                WHERE date > CURRENT_DATE;
-                """;*/
         var sql = """
                 SELECT *
                 FROM JobPost AS jp JOIN Company AS c ON jp.company_ID = c.company_ID

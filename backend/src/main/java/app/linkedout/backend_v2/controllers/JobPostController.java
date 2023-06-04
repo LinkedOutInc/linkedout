@@ -3,6 +3,7 @@ package app.linkedout.backend_v2.controllers;
 import app.linkedout.backend_v2.models.JobPost;
 import app.linkedout.backend_v2.models.JobPostAndCompany;
 import app.linkedout.backend_v2.services.JobPostService;
+import app.linkedout.backend_v2.services.SessionService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,9 +14,10 @@ import java.util.Map;
 public class JobPostController {
 
     private final JobPostService jobPostService;
-
-    public JobPostController(JobPostService jobPostService) {
+    private final SessionService sessionService;
+    public JobPostController(JobPostService jobPostService, SessionService sessionService) {
         this.jobPostService = jobPostService;
+        this.sessionService = sessionService;
     }
 
     @CrossOrigin(origins = "*")
@@ -54,14 +56,16 @@ public class JobPostController {
     }
 
     @CrossOrigin(origins = "*")
-    @GetMapping("/applied/{user_ID}")
-    public List<JobPostAndCompany> getAppliedJobs(@PathVariable("user_ID") Integer user_ID) {
+    @GetMapping("/applied")
+    public List<JobPostAndCompany> getAppliedJobs() throws Exception {
+        int user_ID = sessionService.getCurrentUserId();
         return jobPostService.getAppliedJobs(user_ID);
     }
 
     @CrossOrigin(origins = "*")
-    @PostMapping("{user_ID}/{post_ID}")
-    public void applyForJob(@PathVariable("user_ID") Integer user_ID,@PathVariable("post_ID") Integer post_ID) {
+    @PostMapping("/{post_ID}")
+    public void applyForJob(@PathVariable("post_ID") Integer post_ID) throws Exception {
+        int user_ID = sessionService.getCurrentUserId();
         jobPostService.apply(user_ID, post_ID);
     }
 }

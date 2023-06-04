@@ -19,12 +19,12 @@ public class ExperienceService {
         return experienceDao.getExperiences(user_id);
     }
 
-    public void addExperience(Experience experience, String companyName) {
-        experienceDao.insertExperience(experience, companyName);
+    public void addExperience(Experience experience, String companyName, int user_ID) {
+        experienceDao.insertExperience(experience, companyName, user_ID);
     }
 
-    public void editExperience(Experience experience, String companyName) {
-        experienceDao.editExperience(experience, companyName);
+    public void editExperience(Experience experience, String companyName, int user_ID) {
+        experienceDao.editExperience(experience, companyName, user_ID);
     }
 
     public void deleteExperience(int exp_id, int user_id) {
@@ -35,12 +35,12 @@ public class ExperienceService {
         return experienceDao.getEducations(user_id);
     }
 
-    public void addEducation(Experience experience, String companyName) {
-        experienceDao.insertEducation(experience, companyName);
+    public void addEducation(Experience experience, String companyName, int user_ID) {
+        experienceDao.insertEducation(experience, companyName, user_ID);
     }
 
-    public void editEducation(Experience experience, String companyName) {
-        experienceDao.editEducation(experience, companyName);
+    public void editEducation(Experience experience, String companyName, int user_ID) {
+        experienceDao.editEducation(experience, companyName, user_ID);
     }
 
     public void deleteEducation(int exp_id, int user_id) {

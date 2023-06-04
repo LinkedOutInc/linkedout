@@ -3,6 +3,7 @@ package app.linkedout.backend_v2.controllers;
 import app.linkedout.backend_v2.models.Experience;
 import app.linkedout.backend_v2.models.ExperienceAndCompany;
 import app.linkedout.backend_v2.services.ExperienceService;
+import app.linkedout.backend_v2.services.SessionService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,65 +15,75 @@ import java.util.Map;
 public class ExperienceController {
 
     private final ExperienceService experienceService;
+    private final SessionService sessionService;
     ObjectMapper objectMapper = new ObjectMapper();
 
-    public ExperienceController(ExperienceService experienceService) {
+    public ExperienceController(ExperienceService experienceService, SessionService sessionService) {
         this.experienceService = experienceService;
+        this.sessionService = sessionService;
     }
 
     @CrossOrigin(origins = "*")
-    @GetMapping("/{user_ID}")
-    public List<ExperienceAndCompany> getExperiences(@PathVariable("user_ID") Integer user_ID) {
+    @GetMapping
+    public List<ExperienceAndCompany> getExperiences() throws Exception {
+        int user_ID = sessionService.getCurrentUserId();
         return experienceService.getExperiences(user_ID);
     }
 
     @CrossOrigin(origins = "*")
     @PostMapping()
-    public void addExperience(@RequestBody Map<String, Object> requestMap) {
+    public void addExperience(@RequestBody Map<String, Object> requestMap) throws Exception {
         Experience experience = objectMapper.convertValue(requestMap.get("experience"), Experience.class);
         String companyName = (String) requestMap.get("companyName");
-        experienceService.addExperience(experience, companyName);
+        int user_ID = sessionService.getCurrentUserId();
+        experienceService.addExperience(experience, companyName, user_ID);
     }
 
     @CrossOrigin(origins = "*")
     @PutMapping("")
-    public void editExperience(@RequestBody Map<String, Object> requestMap) {
+    public void editExperience(@RequestBody Map<String, Object> requestMap) throws Exception {
         Experience experience = objectMapper.convertValue(requestMap.get("experience"), Experience.class);
         String companyName = (String) requestMap.get("companyName");
-        experienceService.editExperience(experience, companyName);
+        int user_ID = sessionService.getCurrentUserId();
+        experienceService.editExperience(experience, companyName, user_ID);
     }
 
     @CrossOrigin(origins = "*")
-    @DeleteMapping("/{exp_id}/{user_id}")
-    public void deleteExperience(@PathVariable("exp_id") int exp_id,@PathVariable("user_id") int user_id) {
+    @DeleteMapping("/{exp_id}")
+    public void deleteExperience(@PathVariable("exp_id") int exp_id) throws Exception {
+        int user_id = sessionService.getCurrentUserId();
         experienceService.deleteExperience(exp_id, user_id);
     }
 
     @CrossOrigin(origins = "*")
-    @GetMapping("/educations/{user_ID}")
-    public List<ExperienceAndCompany> getEducations(@PathVariable("user_ID") Integer user_ID) {
+    @GetMapping("/educations")
+    public List<ExperienceAndCompany> getEducations() throws Exception {
+        int user_ID = sessionService.getCurrentUserId();
         return experienceService.getEducations(user_ID);
     }
 
     @CrossOrigin(origins = "*")
     @PostMapping("/educations")
-    public void addEducation(@RequestBody Map<String, Object> requestMap) {
+    public void addEducation(@RequestBody Map<String, Object> requestMap) throws Exception {
         Experience experience = objectMapper.convertValue(requestMap.get("experience"), Experience.class);
         String institutionName = (String) requestMap.get("institutionName");
-        experienceService.addEducation(experience, institutionName);
+        int user_ID = sessionService.getCurrentUserId();
+        experienceService.addEducation(experience, institutionName, user_ID);
     }
 
     @CrossOrigin(origins = "*")
     @PutMapping("/educations")
-    public void editEducation(@RequestBody Map<String, Object> requestMap) {
+    public void editEducation(@RequestBody Map<String, Object> requestMap) throws Exception {
         Experience experience = objectMapper.convertValue(requestMap.get("experience"), Experience.class);
         String institutionName = (String) requestMap.get("institutionName");
-        experienceService.editEducation(experience, institutionName);
+        int user_ID = sessionService.getCurrentUserId();
+        experienceService.editEducation(experience, institutionName, user_ID);
     }
 
     @CrossOrigin(origins = "*")
-    @DeleteMapping("/educations/{exp_id}/{user_id}")
-    public void deleteEducation(@PathVariable("exp_id") int exp_id,@PathVariable("user_id") int user_id) {
+    @DeleteMapping("/educations/{exp_id}")
+    public void deleteEducation(@PathVariable("exp_id") int exp_id) throws Exception {
+        int user_id = sessionService.getCurrentUserId();
         experienceService.deleteEducation(exp_id, user_id);
     }
 }
