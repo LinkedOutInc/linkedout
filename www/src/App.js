@@ -21,6 +21,7 @@ import { AuthProvider } from "./contexts/AuthContext";
 import { UserRoutes as AuthRoutes } from "./routes/AuthRoute";
 import { ProfileRoute } from "./routes/ProfileRoute";
 import { ProfileProvider } from "./contexts/ProfileContext";
+import { ConnectionProvider } from "./contexts/ConnectionContext";
 
 function App() {
   return (
@@ -47,7 +48,14 @@ function App() {
               </Route>
               <Route path="/jobs" element={<Jobs />} />
               <Route path="/recruiter" element={<Recruiter />} />
-              <Route path="/connections" element={<Connections />} />
+              <Route
+                path="/connections"
+                element={
+                  <ConnectionProvider>
+                    <Connections />
+                  </ConnectionProvider>
+                }
+              />
               <Route path="/admin/login" element={<AdminLogin />} />
               <Route path="/admin" element={<Admin />} />
             </Route>
