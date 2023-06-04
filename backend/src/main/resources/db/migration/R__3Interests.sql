@@ -1,10 +1,10 @@
-CREATE TABLE Interest (
+CREATE TABLE IF NOT EXISTS Interest (
     id BIGSERIAL PRIMARY KEY,
     title VARCHAR(100) NOT NULL,
     area VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE Interests (
+CREATE TABLE IF NOT EXISTS Interests (
     int_id BIGSERIAL NOT NULL,
     person_id BIGSERIAL NOT NULL,
     FOREIGN KEY (int_id) REFERENCES Interest(id),
