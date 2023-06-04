@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface JobPostDao {
     List<JobPostAndCompany> getJobs();
-    int insertJobPost(JobPost jobPost);
+    int insertJobPost(JobPost jobPost, int user_id);
     int deleteJobPost(int id);
     Optional<JobPostAndCompany> getJobPostDetails(int id);
     List<JobPostAndCompany> filterJobs(String content, String job_title, String position, String workplace, String location);

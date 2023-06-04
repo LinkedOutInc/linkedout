@@ -1,4 +1,4 @@
-CREATE TABLE Connections (
+CREATE TABLE IF NOT EXISTS Connections (
     user_ID_1 BIGSERIAL NOT NULL,
     user_ID_2 BIGSERIAL NOT NULL,
     status VARCHAR(20),
@@ -7,7 +7,7 @@ CREATE TABLE Connections (
     FOREIGN KEY (user_ID_2) REFERENCES Person(id)
 );
 
-CREATE TABLE ConnectionSuggestions (
+CREATE TABLE IF NOT EXISTS ConnectionSuggestions (
     user_ID_1 BIGSERIAL NOT NULL,
     user_ID_2 BIGSERIAL NOT NULL,
     type VARCHAR(20),

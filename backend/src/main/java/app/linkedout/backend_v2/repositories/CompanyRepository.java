@@ -36,17 +36,21 @@ public class CompanyRepository implements CompanyDao {
     @Override
     public int deleteCompanyById(int id) {
         var sql = """
+                DELETE FROM JobPost
+                WHERE company_ID = ?;
+                DELETE FROM Exp_company
+                WHERE company_ID = ?;
                 DELETE FROM Company
-                WHERE id = ?;
+                WHERE company_ID = ?;
                 """;
-        return jdbcTemplate.update(sql, id);
+        return jdbcTemplate.update(sql, id, id, id);
     }
 
     @Override
     public Optional<Company> getCompanyById(int id) {
         var sql = """
-                SELECT  * FROM CareerExpert
-                WHERE id = ?;
+                SELECT  * FROM Company
+                WHERE company_ID = ?;
                 """;
         return jdbcTemplate.query(sql, new CompanyRowMapper(), id).stream().findFirst();
     }
@@ -55,11 +59,11 @@ public class CompanyRepository implements CompanyDao {
     public int updateCompanyById(int id, Company company)
     {
         var sql = """
-                UPDATE CareerExpert
+                UPDATE Company
                 SET name = ?, location = ?, about = ?, domain = ?, company_picture = ?
-                WHERE id = ?;
+                WHERE company_ID = ?;
                 """;
-        return jdbcTemplate.update(sql, company.company_ID(), company.name(), company.location(), company.about(), company.domain(), company.company_picture());
+        return jdbcTemplate.update(sql, company.name(), company.location(), company.about(), company.domain(), company.company_picture(), id);
     }
 
 }

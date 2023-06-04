@@ -26,8 +26,8 @@ public class JobPostService {
         return jobPostDao.getJobs();
     }
 
-    public void addJobPost(JobPost jobPost) {
-        jobPostDao.insertJobPost(jobPost);
+    public void addJobPost(JobPost jobPost, int user_id) {
+        jobPostDao.insertJobPost(jobPost, user_id);
     }
 
     public void deleteJobPostById(int id) {
