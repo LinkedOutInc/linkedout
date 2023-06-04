@@ -1,10 +1,13 @@
 package app.linkedout.backend_v2.repositories;
 
 import app.linkedout.backend_v2.dao.JobPostDao;
+import app.linkedout.backend_v2.models.ExperienceAndCompany;
 import app.linkedout.backend_v2.models.JobPost;
 import app.linkedout.backend_v2.models.JobPostAndCompany;
+import app.linkedout.backend_v2.repositories.rowMappers.ExperienceAndCompanyRowMapper;
 import app.linkedout.backend_v2.repositories.rowMappers.JobPostAndCompanyRowMapper;
 import app.linkedout.backend_v2.repositories.rowMappers.JobPostRowMapper;
+import app.linkedout.backend_v2.services.ExperienceService;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.SqlParameterValue;
 import org.springframework.stereotype.Repository;
@@ -18,18 +21,15 @@ import java.util.Optional;
 public class JobPostRepository implements JobPostDao {
 
     private final JdbcTemplate jdbcTemplate;
+    private final ExperienceService experienceService;
 
-    public JobPostRepository(JdbcTemplate jdbcTemplate) {
+    public JobPostRepository(JdbcTemplate jdbcTemplate, ExperienceService experienceService) {
         this.jdbcTemplate = jdbcTemplate;
+        this.experienceService = experienceService;
     }
 
     @Override
     public List<JobPostAndCompany> getJobs() {
-        /*var sql = """
-                SELECT post_ID, date, content, job_title, workplace, jp.location AS location, position, jp.company_ID, name AS company_name
-                FROM JobPost AS jp JOIN Company AS c ON jp.company_ID = c.company_ID
-                WHERE date > CURRENT_DATE;
-                """;*/
         var sql = """
                 SELECT *
                 FROM JobPost AS jp JOIN Company AS c ON jp.company_ID = c.company_ID
@@ -39,7 +39,17 @@ public class JobPostRepository implements JobPostDao {
     }
 
     @Override
-    public int insertJobPost(JobPost jobPost) {
+    public int insertJobPost(JobPost jobPost, int user_id) {
+        var sqlRecruiterCompany = """
+                SELECT *
+                FROM (Experience NATURAL JOIN Exp_company) AS e JOIN Company
+                AS c ON e.company_ID = c.company_ID
+                WHERE e.user_ID = ? AND e.type != 'EDUCATION' AND e.end_date is null;
+                """;
+        Optional<ExperienceAndCompany> recruiterCompany = jdbcTemplate.query(sqlRecruiterCompany, new ExperienceAndCompanyRowMapper(), user_id).stream().findFirst();
+        if(recruiterCompany.isEmpty()) {
+            return -1;
+        }
         var sql = """
                 INSERT INTO JobPost(date, content, job_title, company_id, workplace, position, profession)
                 VALUES(?, ?, ?, ?, ?, ?, ?);
@@ -49,7 +59,7 @@ public class JobPostRepository implements JobPostDao {
                 (SELECT J.post_ID, 0 FROM JobPost AS J WHERE J.job_title = ?);
                 """;
         jdbcTemplate.update(sqlupd, jobPost.job_title());
-        return jdbcTemplate.update(sql, jobPost.date(), jobPost.content(), jobPost.job_title(), jobPost.company_ID(), jobPost.workplace(), jobPost.position(), jobPost.profession());
+        return jdbcTemplate.update(sql, jobPost.date(), jobPost.content(), jobPost.job_title(), recruiterCompany.get().company_ID(), jobPost.workplace(), jobPost.position(), jobPost.profession());
     }
 
     @Override

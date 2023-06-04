@@ -34,40 +34,61 @@ public class ExperienceRepository implements ExperienceDao {
     }
 
     @Override
-    public int insertExperience(Experience experience, String companyName) {
+    public int insertExperience(Experience experience, String companyName, int user_ID) {
         var sql = """
-                INSERT INTO Experience (exp_ID, user_ID, title, description, type, start_date, end_date)
-                VALUES (?, ?, ?, ?, 'WORK', ?, ?);
+                INSERT INTO Experience (user_ID, title, description, type, start_date, end_date)
+                VALUES (?, ?, ?, 'WORK', ?, ?);
                 """;
-        jdbcTemplate.update(sql, experience.exp_ID(), experience.user_ID(), experience.title(), experience.description(), experience.start_date(), experience.end_date());
+        jdbcTemplate.update(sql, user_ID, experience.title(), experience.description(), experience.start_date(), experience.end_date());
 
 
-        sql = """
+        var companyIDsql = """
                 SELECT * FROM Company WHERE name = ?
                 """;
-        Optional<Company> temp = jdbcTemplate.query(sql, new CompanyRowMapper(), companyName).stream().findFirst();
+        Optional<Company> temp = jdbcTemplate.query(companyIDsql, new CompanyRowMapper(), companyName).stream().findFirst();
 
+        sql = """
+                SELECT * FROM Experience WHERE user_ID = ? AND title = ? AND description = ?
+                """;
+        Optional<Experience> expTemp = jdbcTemplate.query(sql, new ExperienceRowMapper(), user_ID, experience.title(), experience.description()).stream().findFirst();
+        if(temp.isEmpty()) {
+            sql = """
+                    INSERT INTO Company(name)
+                    VALUES(?);
+                    """;
+            jdbcTemplate.update(sql, companyName);
+        }
+        temp = jdbcTemplate.query(companyIDsql, new CompanyRowMapper(), companyName).stream().findFirst();
         sql = """
                 INSERT INTO Exp_company (exp_ID, user_ID, company_ID)
                 VALUES (?, ?, ?);
                 """;
-        jdbcTemplate.update(sql, experience.exp_ID(), experience.user_ID(), temp.get().company_ID());
-
+        jdbcTemplate.update(sql, expTemp.get().exp_ID(), user_ID, temp.get().company_ID());
         sql = """
                 INSERT INTO experiences (exp_ID, user_ID)
                 VALUES (?, ?);
                 """;
-        return jdbcTemplate.update(sql, experience.exp_ID(), experience.user_ID());
+        return jdbcTemplate.update(sql, expTemp.get().exp_ID(), user_ID);
 
     }
 
     @Override
-    public int editExperience(Experience experience, String companyName) {
+    public int editExperience(Experience experience, String companyName, int user_ID, int exp_ID) {
         var sql = """
                 SELECT * FROM Company WHERE name = ?
                 """;
         Optional<Company> temp = jdbcTemplate.query(sql, new CompanyRowMapper(), companyName).stream().findFirst();
-
+        if(temp.isEmpty()) {
+            sql = """
+                    INSERT INTO Company(name)
+                    VALUES(?);
+                    """;
+            jdbcTemplate.update(sql, companyName);
+        }
+        sql = """
+                SELECT * FROM Company WHERE name = ?
+                """;
+        temp = jdbcTemplate.query(sql, new CompanyRowMapper(), companyName).stream().findFirst();
         sql = """
                 UPDATE Experience
                 SET title = ?, description = ?, start_date = ?, end_date = ?
@@ -76,7 +97,7 @@ public class ExperienceRepository implements ExperienceDao {
                 SET company_ID = ?
                 WHERE exp_ID = ?;
                 """;
-        return jdbcTemplate.update(sql, experience.title(), experience.description(), experience.start_date(), experience.end_date(), experience.exp_ID(), experience.user_ID(), temp.get().company_ID(), experience.exp_ID());
+        return jdbcTemplate.update(sql, experience.title(), experience.description(), experience.start_date(), experience.end_date(), exp_ID, user_ID, temp.get().company_ID(), exp_ID);
     }
 
     @Override
@@ -112,39 +133,60 @@ public class ExperienceRepository implements ExperienceDao {
     }
 
     @Override
-    public int insertEducation(Experience experience, String institution) {
+    public int insertEducation(Experience experience, String institution, int user_ID) {
         var sql = """
-                INSERT INTO Experience (exp_ID, user_ID, title, description, type, start_date, end_date)
-                VALUES (?, ?, ?, ?, 'EDUCATION', ?, ?);
+                INSERT INTO Experience (user_ID, title, description, type, start_date, end_date)
+                VALUES (?, ?, ?, 'EDUCATION', ?, ?);
                 """;
-        jdbcTemplate.update(sql, experience.exp_ID(), experience.user_ID(), experience.title(), experience.description(), experience.start_date(), experience.end_date());
+        jdbcTemplate.update(sql, user_ID, experience.title(), experience.description(), experience.start_date(), experience.end_date());
 
 
-        sql = """
+        var companyIDsql = """
                 SELECT * FROM Company WHERE name = ?
                 """;
-        Optional<Company> temp = jdbcTemplate.query(sql, new CompanyRowMapper(), institution).stream().findFirst();
+        Optional<Company> temp = jdbcTemplate.query(companyIDsql, new CompanyRowMapper(), institution).stream().findFirst();
 
+        sql = """
+                SELECT * FROM Experience WHERE user_ID = ? AND title = ? AND description = ?
+                """;
+        Optional<Experience> expTemp = jdbcTemplate.query(sql, new ExperienceRowMapper(), user_ID, experience.title(), experience.description()).stream().findFirst();
+        if(temp.isEmpty()) {
+            sql = """
+                    INSERT INTO Company(name)
+                    VALUES(?);
+                    """;
+            jdbcTemplate.update(sql, institution);
+        }
+        temp = jdbcTemplate.query(companyIDsql, new CompanyRowMapper(), institution).stream().findFirst();
         sql = """
                 INSERT INTO Exp_company (exp_ID, user_ID, company_ID)
                 VALUES (?, ?, ?);
                 """;
-        jdbcTemplate.update(sql, experience.exp_ID(), experience.user_ID(), temp.get().company_ID());
-
+        jdbcTemplate.update(sql, expTemp.get().exp_ID(), user_ID, temp.get().company_ID());
         sql = """
                 INSERT INTO experiences (exp_ID, user_ID)
                 VALUES (?, ?);
                 """;
-        return jdbcTemplate.update(sql, experience.exp_ID(), experience.user_ID());
+        return jdbcTemplate.update(sql, expTemp.get().exp_ID(), user_ID);
     }
 
     @Override
-    public int editEducation(Experience experience, String institution) {
+    public int editEducation(Experience experience, String institution, int user_ID, int exp_ID) {
         var sql = """
                 SELECT * FROM Company WHERE name = ?
                 """;
         Optional<Company> temp = jdbcTemplate.query(sql, new CompanyRowMapper(), institution).stream().findFirst();
-
+        if(temp.isEmpty()) {
+            sql = """
+                    INSERT INTO Company(name)
+                    VALUES(?);
+                    """;
+            jdbcTemplate.update(sql, institution);
+        }
+        sql = """
+                SELECT * FROM Company WHERE name = ?
+                """;
+        temp = jdbcTemplate.query(sql, new CompanyRowMapper(), institution).stream().findFirst();
         sql = """
                 UPDATE Experience
                 SET title = ?, description = ?, start_date = ?, end_date = ?
@@ -153,7 +195,7 @@ public class ExperienceRepository implements ExperienceDao {
                 SET company_ID = ?
                 WHERE exp_ID = ?;
                 """;
-        return jdbcTemplate.update(sql, experience.title(), experience.description(), experience.start_date(), experience.end_date(), experience.exp_ID(), experience.user_ID(), temp.get().company_ID(), experience.exp_ID());
+        return jdbcTemplate.update(sql, experience.title(), experience.description(), experience.start_date(), experience.end_date(), exp_ID, user_ID, temp.get().company_ID(), exp_ID);
     }
 
     @Override
