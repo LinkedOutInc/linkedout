@@ -19,8 +19,8 @@ public class FileService {
     public List<File> getFilesByUserIdAndType(int user_id, String content_type) {
         return fileDao.getFilesByUserIdAndType(user_id, content_type);
     }
-    public int insertFile(File file) {
-        return fileDao.insertFile(file);
+    public int insertFile(File file, int user_id) {
+        return fileDao.insertFile(file, user_id);
     }
     public int updateFile(File file)
     {

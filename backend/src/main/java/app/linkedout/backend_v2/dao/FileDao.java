@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface FileDao {
     List<File> getFilesByUserIdAndType(int user_id, String content_type);
-    int insertFile(File file);
+    int insertFile(File file, int user_id);
     int updateFile(File file);
 }

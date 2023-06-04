@@ -37,12 +37,12 @@ public class FileRepository implements FileDao {
     }
 
     @Override
-    public int insertFile(File file) {
+    public int insertFile(File file, int user_id) {
         var sql = """
                 INSERT INTO File (file_id, user_id, content, fileName, fileType, uploadTime, contentType)
                 VALUES (?, ?, ?, ?, ?, ?, ?);
                 """;
-        return jdbcTemplate.update(sql, file.file_id(), file.user_id(), file.content(), file.fileName(), file.fileType(), file.uploadTime(), file.contentType());
+        return jdbcTemplate.update(sql, file.file_id(), user_id, file.content(), file.fileName(), file.fileType(), file.uploadTime(), file.contentType());
 
     }
 
@@ -51,10 +51,10 @@ public class FileRepository implements FileDao {
     {
         var sql = """
                 UPDATE File
-                SET file_id = ?, user_id = ?, content = ?, fileName = ?, fileType = ?, uploadTime = ?, contentType = ?
+                SET file_id = ?, content = ?, fileName = ?, fileType = ?, uploadTime = ?, contentType = ?
                 WHERE user_id = ? AND content_type = ?;
                 """;
-        return jdbcTemplate.update(sql, file.file_id(), file.user_id(), file.content(), file.fileName(), file.fileType(), file.uploadTime(), file.contentType(), file.user_id(), file.contentType()); 
+        return jdbcTemplate.update(sql, file.file_id(), file.content(), file.fileName(), file.fileType(), file.uploadTime(), file.contentType(), file.user_id(), file.contentType());
     }
 
 }
