@@ -65,4 +65,36 @@ public class ConnectionService {
                 return Error.create(500, "Connection status could not be retrieved.");
         }
     }
+
+    public Object cancelRequest(int userId, int targetUserId) {
+        String status = connectionDao.getConnectionStatus(userId, targetUserId);
+        switch (status) {
+            case "LINKED":
+                return Error.create(400,"Already linked; unlink connection instead.");
+            case "UNLINKED":
+                return Error.create(400, "No request to cancel.");
+            case "REQUESTED":
+                return connectionDao.deleteConnection(userId, targetUserId);
+            case "WAITING":
+                return Error.create(400, "Request is waiting for you to accept or decline.");
+            default: // UNKNOWN
+                return Error.create(500, "Connection status could not be retrieved.");
+        }
+    }
+
+    public Object removeConnection(int userId, int targetUserId) {
+        String status = connectionDao.getConnectionStatus(userId, targetUserId);
+        switch (status) {
+            case "LINKED":
+                return connectionDao.deleteConnection(userId, targetUserId);
+            case "UNLINKED":
+                return Error.create(400, "No connection to remove.");
+            case "REQUESTED":
+                return Error.create(400, "Request is already sent; cancel it instead.");
+            case "WAITING":
+                return Error.create(400, "Request is waiting for you to accept or decline; decline instead.");
+            default: // UNKNOWN
+                return Error.create(500, "Connection status could not be retrieved.");
+        }
+    }
 }
