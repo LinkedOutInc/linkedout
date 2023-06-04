@@ -19,17 +19,48 @@ public class ConnectionService {
     }
 
     public Object sendRequest(int userId, int targetUserId) {
-        // Get connection status
         String status = connectionDao.getConnectionStatus(userId, targetUserId);
         switch (status) {
             case "LINKED":
-                return Success.create("Already linked.");
+                return Error.create(400,"Already linked.");
             case "UNLINKED":
                 return connectionDao.insertRequest(userId, targetUserId);
             case "REQUESTED":
                 return Error.create(400, "Request has already been sent.");
             case "WAITING":
                 return Error.create(400, "This user has already sent you a request; accept it instead.");
+            default: // UNKNOWN
+                return Error.create(500, "Connection status could not be retrieved.");
+        }
+    }
+
+    public Object acceptRequest(int userId, int targetUserId) {
+        String status = connectionDao.getConnectionStatus(userId, targetUserId);
+        switch (status) {
+            case "LINKED":
+                return Error.create(400,"Already linked.");
+            case "UNLINKED":
+                return Error.create(400, "No request to accept; send connection request first.");
+            case "REQUESTED":
+                return Error.create(400, "Request has already been sent.");
+            case "WAITING":
+                return connectionDao.acceptRequest(targetUserId, userId);
+            default: // UNKNOWN
+                return Error.create(500, "Connection status could not be retrieved.");
+        }
+    }
+
+    public Object declineRequest(int userId, int targetUserId) {
+        String status = connectionDao.getConnectionStatus(userId, targetUserId);
+        switch (status) {
+            case "LINKED":
+                return Error.create(400,"Already linked; unlink connection instead.");
+            case "UNLINKED":
+                return Error.create(400, "No request to decline.");
+            case "REQUESTED":
+                return Error.create(400, "Request has already been sent; cancel request instead.");
+            case "WAITING":
+                return connectionDao.deleteConnection(targetUserId, userId);
             default: // UNKNOWN
                 return Error.create(500, "Connection status could not be retrieved.");
         }

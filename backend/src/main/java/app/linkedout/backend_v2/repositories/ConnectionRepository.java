@@ -72,4 +72,37 @@ public class ConnectionRepository implements ConnectionDao {
         }
         return Success.create("Connection request sent.");
     }
+
+    @Override
+    public Object acceptRequest(int userId, int targetUserId) {
+        var sql = """
+                UPDATE Connections
+                SET status = ?
+                WHERE user_ID_1 = ? AND user_ID_2 = ?;
+                """;
+        int queryResult = jdbcTemplate.update(sql, "LINKED", userId, targetUserId);
+        if (queryResult <= 0) {
+            return Error.create(500, "Connection request status could not be updated.");
+        }
+        return Success.create("Connection request accepted.");
+    }
+
+    @Override
+    public Object deleteConnection(int userId, int targetUserId) {
+        var sql = """
+              DELETE FROM Connections
+              WHERE user_ID_1 = ? AND user_ID_2 = ?;
+                """;
+        int queryResult = jdbcTemplate.update(sql, userId, targetUserId);
+        if (queryResult > 0) {
+            return Success.create("Connection deleted");
+        }
+
+        queryResult = jdbcTemplate.update(sql, targetUserId, userId);
+        if (queryResult > 0) {
+            return Success.create("Connection deleted");
+        }
+
+        return Error.create(500, "Connection could not be deleted..");
+    }
 }

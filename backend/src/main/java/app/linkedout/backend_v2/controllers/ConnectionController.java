@@ -27,4 +27,28 @@ public class ConnectionController {
         int userId = (int) controlResult;
         return connectionService.sendRequest(userId, targetUserId);
     }
+
+    @CrossOrigin(origins = "*")
+    @PostMapping("{userId}/accept")
+    public Object acceptConnectionRequest(@PathVariable("userId") Integer targetUserId) {
+        Object controlResult = sessionService.gutCurrentUserIdIfExists();
+        if (controlResult instanceof ResponseEntity) {
+            return controlResult;
+        }
+
+        int userId = (int) controlResult;
+        return connectionService.acceptRequest(userId, targetUserId);
+    }
+
+    @CrossOrigin(origins = "*")
+    @PostMapping("{userId}/decline")
+    public Object declineConnectionRequest(@PathVariable("userId") Integer targetUserId) {
+        Object controlResult = sessionService.gutCurrentUserIdIfExists();
+        if (controlResult instanceof ResponseEntity) {
+            return controlResult;
+        }
+
+        int userId = (int) controlResult;
+        return connectionService.declineRequest(userId, targetUserId);
+    }
 }
