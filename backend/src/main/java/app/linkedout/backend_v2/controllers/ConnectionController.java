@@ -75,4 +75,28 @@ public class ConnectionController {
         int userId = (int) controlResult;
         return connectionService.removeConnection(userId, targetUserId);
     }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping("network")
+    public Object getNetwork(@RequestParam(name = "offset") int offset) {
+        Object controlResult = sessionService.gutCurrentUserIdIfExists();
+        if (controlResult instanceof ResponseEntity) {
+            return controlResult;
+        }
+
+        int userId = (int) controlResult;
+        return connectionService.getNetwork(userId, offset);
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping("suggestions")
+    public Object getSuggestions(@RequestParam(name = "offset") int offset) {
+        Object controlResult = sessionService.gutCurrentUserIdIfExists();
+        if (controlResult instanceof ResponseEntity) {
+            return controlResult;
+        }
+
+        int userId = (int) controlResult;
+        return connectionService.getSuggestions(userId, offset);
+    }
 }

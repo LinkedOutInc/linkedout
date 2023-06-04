@@ -97,4 +97,12 @@ public class ConnectionService {
                 return Error.create(500, "Connection status could not be retrieved.");
         }
     }
+
+    public List<HashMap<String, Object>> getNetwork(int userId, int offset) {
+        return connectionDao.getNetwork(userId, offset);
+    }
+
+    public List<HashMap<String, Object>> getSuggestions(int userId, int offset) {
+        return connectionDao.getSuggestions(userId, offset);
+    }
 }

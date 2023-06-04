@@ -105,4 +105,36 @@ public class ConnectionRepository implements ConnectionDao {
 
         return Error.create(500, "Connection could not be deleted..");
     }
+
+    @Override
+    public List<HashMap<String, Object>> getNetwork(int userId, int offset) {
+        var sql = """
+                (SELECT cs1.user_ID_2 AS user_ID, u1.name, u1.surname, u1.job_title
+                FROM Person AS u1 JOIN Connections AS cs1 ON u1.id = cs1.user_ID_2
+                WHERE cs1.user_ID_1 = ? AND status = 'LINKED'
+                UNION
+                SELECT cs2.user_ID_1 AS user_ID, u2.name, u2.surname, u2.job_title
+                FROM Person AS u2 JOIN Connections AS cs2 ON u2.id = cs2.user_ID_1
+                WHERE cs2.user_ID_2 = ? AND status = 'LINKED')
+                LIMIT 10
+                OFFSET ?;
+                """;
+        return jdbcTemplate.query(sql, new GenericRowMapper(), userId, userId, offset);
+    }
+
+    @Override
+    public List<HashMap<String, Object>> getSuggestions(int userId, int offset) {
+        var sql = """
+                (SELECT cs1.user_ID_2 AS user_ID, u1.name, u1.surname, u1.job_title, cs1.type
+                FROM Person AS u1 JOIN ConnectionSuggestions AS cs1 ON u1.id = cs1.user_ID_2
+                WHERE cs1.user_ID_1 = ?
+                UNION
+                SELECT cs2.user_ID_1 AS user_ID, u2.name, u2.surname, u2.job_title, cs2.type
+                FROM Person AS u2 JOIN ConnectionSuggestions AS cs2 ON u2.id = cs2.user_ID_1
+                WHERE cs2.user_ID_2 = ?)
+                LIMIT 10
+                OFFSET ?;
+                """;
+        return jdbcTemplate.query(sql, new GenericRowMapper(), userId, userId, offset);
+    }
 }
