@@ -12,9 +12,9 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = React.useState(null); // null: loading, undefined: not logged in
   const [loading, setLoading] = React.useState(false);
   const [role, setRole] = React.useState(undefined);
-
   const [token, setToken] = React.useState(() => {
     const token = localStorage.getItem("auth");
+    console.log(token);
     return token ? token : undefined;
   });
 
@@ -53,7 +53,6 @@ const AuthProvider = ({ children }) => {
         localStorage.setItem("auth", result);
         setToken(() => result);
         setLoading((loading) => !loading);
-        navigate("/feed");
       })
       .catch((error) => {
         console.log("error", error);
@@ -61,17 +60,19 @@ const AuthProvider = ({ children }) => {
       });
   };
 
-  const logout = async () => {
+  const logout = () => {
+    setLoading((loading) => true);
     localStorage.removeItem("auth");
-    setUser(() => undefined);
-    setToken(() => "");
+    setToken(() => null);
+    setUser(() => null);
+    setLoading((loading) => false);
     navigate("/");
   };
 
   const signup = async (form) => {
     if (loading)
       return console.log("Already loading, please wait for a few seconds");
-    setLoading((loading) => !loading);
+    setLoading((loading) => true);
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -101,13 +102,13 @@ const AuthProvider = ({ children }) => {
         console.log(result);
         localStorage.setItem("auth", result);
         setToken(() => result);
-        setLoading((loading) => !loading);
         navigate("/feed");
       })
       .catch((error) => {
         console.log("error", error);
-        setLoading((loading) => !loading);
       });
+
+    setLoading((loading) => false);
   };
 
   const fetchUser = async () => {
@@ -130,8 +131,18 @@ const AuthProvider = ({ children }) => {
         }
       })
       .then((result) => {
-        console.log(result);
-        setUser(() => JSON.parse(result));
+        const curUser = JSON.parse(result);
+        setUser(() => curUser);
+        setUser({
+          ...curUser,
+          image:
+            "https://media.licdn.com/dms/image/D4E03AQGlM3HJ4eX9oA/profile-displayphoto-shrink_800_800/0/1667050655479?e=1691625600&v=beta&t=n048tKit2SdDB5cuikTf6H6L8-o_q6Tk3RF-34vDj_o",
+        });
+        if (curUser.role === "ROLE_ADMIN") {
+          navigate("/admin");
+        } else {
+          navigate("/feed");
+        }
       })
       .catch((error) => {
         console.log("error", error);
@@ -139,14 +150,10 @@ const AuthProvider = ({ children }) => {
   };
 
   React.useEffect(() => {
-    if (token && token.length > 0 && !user) {
+    if (token && token.length > 0 && user === null) {
       fetchUser();
     }
   }, [token, user]);
-
-  useEffect(() => {
-    localStorage.setItem("auth", token);
-  }, [token]);
 
   const value = { user, login, logout, signup, loading, token };
 

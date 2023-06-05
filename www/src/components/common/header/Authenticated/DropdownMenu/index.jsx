@@ -3,9 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../../../contexts/AuthContext";
 import { useEffect, useRef, useState } from "react";
 
-// Data
-import richard from "../../../../../assets/richard.jpg";
-
 function DropdownMenu() {
   const { user } = useAuth();
   const { logout } = useAuth();
@@ -19,7 +16,7 @@ function DropdownMenu() {
             <span class="sr-only">Menu</span>
             <img
               alt="Man"
-              src={richard}
+              src={user.image ? user.image : "https://via.placeholder.com/150"}
               class="h-10 w-10 rounded-full object-cover"
             />
 
@@ -161,8 +158,7 @@ function DropdownMenu() {
           <div
             class="flex items-center cursor-pointer gap-2 rounded-lg px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700"
             onClick={() => {
-              window.location.reload();
-              navigate("/");
+              logout();
             }}
           >
             <svg
