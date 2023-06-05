@@ -19,6 +19,10 @@ public class ConnectionService {
     }
 
     public Object sendRequest(int userId, int targetUserId) {
+        if (userId == targetUserId) {
+            return Error.create(400,"Cannot send connection request to self.");
+        }
+
         String status = connectionDao.getConnectionStatus(userId, targetUserId);
         switch (status) {
             case "LINKED":
@@ -100,6 +104,10 @@ public class ConnectionService {
 
     public List<HashMap<String, Object>> getNetwork(int userId, int offset) {
         return connectionDao.getNetwork(userId, offset);
+    }
+
+    public List<HashMap<String, Object>> getRequests(int userId, int offset) {
+        return connectionDao.getRequests(userId, offset);
     }
 
     public List<HashMap<String, Object>> getSuggestions(int userId, int offset) {
