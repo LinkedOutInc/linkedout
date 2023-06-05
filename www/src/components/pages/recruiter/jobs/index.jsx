@@ -3,46 +3,12 @@ import JobItem from "./JobItem";
 import JobDescription from "./JobDescription";
 import JobSearch from "./JobSearch";
 import NewJob from "./NewJob";
+import { useRecruiter } from "../../../../contexts/RecruiterContext";
 
 const Jobs = () => {
-  const [jobs, setJobs] = useState([]);
+  const { myJobs } = useRecruiter();
   const [selectedJob, setSelectedJob] = useState(null);
   const [selectedFilter, setSelectedFilter] = useState("all");
-
-  // Fetch jobs data from an API or any other data source
-  useEffect(() => {
-    const fetchJobs = async () => {
-      const newJobs = [
-        {
-          id: 1,
-          title: "Software Engineer",
-          company: "ABC Corp",
-          location: "New York, NY",
-          description: "This is a Software Engineer job description.",
-          type: "On-site",
-        },
-        {
-          id: 2,
-          title: "Product Manager",
-          company: "XYZ Inc",
-          location: "San Francisco, CA",
-          description: "This is a Product Manager job description.",
-          type: "Remote",
-        },
-        {
-          id: 3,
-          title: "Data Scientist",
-          company: "Data Co",
-          location: "Seattle, WA",
-          description: "This is a Data Scientist job description.",
-          type: "Hybrid",
-        },
-      ];
-      setJobs(newJobs);
-    };
-
-    fetchJobs();
-  }, []);
 
   const handleSearch = (searchTerm) => {
     // Implement search logic here
@@ -72,11 +38,11 @@ const Jobs = () => {
               </select>
             </div>
 
-            {jobs.map((job) => (
+            {myJobs.map((job) => (
               <JobItem
-                key={job.id}
+                key={job.post_ID}
                 job={job}
-                isSelected={selectedJob && selectedJob.id === job.id}
+                isSelected={selectedJob && selectedJob.post_ID === job.post_ID}
                 onSelect={setSelectedJob}
               />
             ))}

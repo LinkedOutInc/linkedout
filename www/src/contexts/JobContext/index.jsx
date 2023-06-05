@@ -24,6 +24,7 @@ const JobProvider = ({ children }) => {
     setLoading((loading) => !loading);
     try {
       var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
       myHeaders.append("Authorization", `Bearer ${token}`);
 
       var requestOptions = {
@@ -32,7 +33,7 @@ const JobProvider = ({ children }) => {
         redirect: "follow",
       };
 
-      fetch(`${API}/api/v1/jobs`, requestOptions)
+      fetch(`${API}/api/v1/jobposts`, requestOptions)
         .then((response) => {
           if (!response.ok) {
             throw new Error("Couldn't fetch jobs");
@@ -53,6 +54,7 @@ const JobProvider = ({ children }) => {
     setLoading((loading) => !loading);
     try {
       var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
       myHeaders.append("Authorization", `Bearer ${token}`);
 
       var requestOptions = {
@@ -61,7 +63,7 @@ const JobProvider = ({ children }) => {
         redirect: "follow",
       };
 
-      fetch(`${API}/api/v1/jobs/applied`, requestOptions)
+      fetch(`${API}/api/v1/jobposts/applied/${user.id}`, requestOptions)
         .then((response) => {
           if (!response.ok) {
             throw new Error("Couldn't fetch jobs");
@@ -234,6 +236,11 @@ const JobProvider = ({ children }) => {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    fetchJobs();
+    fetchAppliedJobs();
+  }, [token]);
 
   const value = {
     jobs,

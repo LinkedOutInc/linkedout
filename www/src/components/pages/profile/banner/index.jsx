@@ -16,7 +16,7 @@ const ProfileBanner = ({ data }) => {
       <div className="flex items-center">
         <div>
           <img
-            src="https://via.placeholder.com/150"
+            src={data.image ? data.image : "https://via.placeholder.com/150"}
             alt={data.name}
             className="w-32 h-32 border-4 border-white rounded-full"
           />
