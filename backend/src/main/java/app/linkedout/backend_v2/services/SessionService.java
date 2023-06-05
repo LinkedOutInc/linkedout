@@ -37,6 +37,7 @@ public class SessionService {
             case "ROLE_USER" -> personService.getPersonByEmail(email);
             case "ROLE_CE" -> careerExpertService.getCareerExpertByEmaill(email);
             case "ROLE_RECRUITER" -> recruiterService.getRecruiterByEmail(email);
+            case "ROLE_ADMIN" -> personService.getPersonByEmail(email);
             default -> null;
         };
     }
