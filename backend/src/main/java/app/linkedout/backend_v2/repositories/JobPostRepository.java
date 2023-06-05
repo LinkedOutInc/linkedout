@@ -5,16 +5,14 @@ import app.linkedout.backend_v2.models.ExperienceAndCompany;
 import app.linkedout.backend_v2.models.JobPost;
 import app.linkedout.backend_v2.models.JobPostAndCompany;
 import app.linkedout.backend_v2.models.Person;
-import app.linkedout.backend_v2.repositories.rowMappers.ExperienceAndCompanyRowMapper;
-import app.linkedout.backend_v2.repositories.rowMappers.JobPostAndCompanyRowMapper;
-import app.linkedout.backend_v2.repositories.rowMappers.JobPostRowMapper;
-import app.linkedout.backend_v2.repositories.rowMappers.PersonRowMapper;
+import app.linkedout.backend_v2.repositories.rowMappers.*;
 import app.linkedout.backend_v2.services.ExperienceService;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.SqlParameterValue;
 import org.springframework.stereotype.Repository;
 
 
+import java.sql.ResultSet;
 import java.sql.Types;
 import java.util.List;
 import java.util.Optional;
@@ -127,5 +125,14 @@ public class JobPostRepository implements JobPostDao {
                 WHERE id IN (SELECT user_ID FROM Applies WHERE post_ID = ?)
                 """;
         return jdbcTemplate.query(sql, new PersonRowMapper(), post_id);
+    }
+
+    @Override
+    public int getApplicationCount() {
+        var sql = """
+                SELECT COUNT(*) AS cnt
+                FROM Applies
+                """;
+        return jdbcTemplate.query(sql, new CountRowMapper()).get(0);
     }
 }

@@ -7,6 +7,35 @@ DELETE FROM Reaction;
 DELETE FROM Feed_Posts;
 DELETE FROM FeedPost;
 DELETE FROM Admin;
+DELETE FROM File;
+
+DELETE FROM Connections;
+DELETE FROM ConnectionSuggestions;
+
+DELETE FROM FeedPost;
+DELETE FROM Comment;
+DELETE FROM Reaction;
+DELETE FROM User_reactions;
+DELETE FROM User_comments;
+DELETE FROM Feed_posts;
+
+DELETE FROM Interests;
+DELETE FROM Interest;
+
+DELETE FROM Admin;
+DELETE FROM SystemReport;
+DELETE FROM Reports;
+DELETE FROM Hiring_Reports;
+DROP VIEW IF EXISTS Hiring_Reports_View;
+
+DELETE FROM experiences;
+DELETE FROM Exp_company;
+DELETE FROM Applies;
+DELETE FROM Experience;
+DELETE FROM JobPost;
+DELETE FROM Company;
+DELETE FROM CareerExpert;
+DELETE FROM Recruiter;
 DELETE FROM Person;
 
 INSERT INTO Admin(id, name, surname, email, password, job_title, location, role) VALUES (1, 'admin', 'admin', 'admin', 'admin', 'admin', 'admin', 'ROLE_ADMIN');
