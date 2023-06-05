@@ -8,10 +8,12 @@ function JobCard({ job, isSelected, onSelect }) {
         isSelected ? "bg-orange-50" : ""
       }`}
     >
-      <h3 className="text-lg font-semibold mb-2">{job.title}</h3>
-      <p className="text-sm text-gray-600 mb-2">{job.company}</p>
+      <h3 className="text-lg font-semibold mb-2">{job.job_title}</h3>
+      <p className="text-sm text-gray-600 mb-2">
+        {"Company ID " + job.company_ID}
+      </p>
       <p className="text-sm text-gray-500 mb-2">{job.location}</p>
-      <p className="text-sm text-gray-500">{job.type}</p>
+      <p className="text-sm text-gray-500">{job.profession}</p>
     </div>
   );
 }

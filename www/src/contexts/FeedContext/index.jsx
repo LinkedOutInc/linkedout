@@ -86,8 +86,6 @@ const FeedProvider = ({ children }) => {
       console.log(error);
     }
 
-    console.log("new post");
-
     setLoading((loading) => !loading);
   };
 
