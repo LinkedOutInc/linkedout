@@ -16,6 +16,7 @@ const ConnectionProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [connections, setConnections] = useState([]);
   const [connectionSuggestions, setConnectionSuggestions] = useState([]);
+  const [suggestionOffset, setSuggestionOffset] = useState(0);
   const [connectionRequests, setConnectionRequests] = useState([]);
   const navigate = useNavigate();
 
@@ -32,7 +33,7 @@ const ConnectionProvider = ({ children }) => {
         redirect: "follow",
       };
 
-      fetch(`${API}/api/v1/connections`, requestOptions)
+      fetch(`${API}/api/v1/connections/network?offset=0`, requestOptions)
         .then((response) => {
           if (!response.ok) {
             throw new Error("Couldn't fetch connections");
@@ -61,7 +62,10 @@ const ConnectionProvider = ({ children }) => {
         redirect: "follow",
       };
 
-      fetch(`${API}/api/v1/connections/suggestions`, requestOptions)
+      fetch(
+        `${API}/api/v1/connections/suggestions?offset=${suggestionOffset}`,
+        requestOptions
+      )
         .then((response) => {
           if (!response.ok) {
             throw new Error("Couldn't fetch connection suggestions");
@@ -90,7 +94,7 @@ const ConnectionProvider = ({ children }) => {
         redirect: "follow",
       };
 
-      fetch(`${API}/api/v1/connections/requests`, requestOptions)
+      fetch(`${API}/api/v1/connections/requests?offset=0`, requestOptions)
         .then((response) => {
           if (!response.ok) {
             throw new Error("Couldn't fetch connection requests");
@@ -200,6 +204,27 @@ const ConnectionProvider = ({ children }) => {
     }
   };
 
+  const declineConnection = async (id) => {
+    setLoading((loading) => !loading);
+    try {
+      var myHeaders = new Headers();
+      myHeaders.append("Authorization", `Bearer ${token}`);
+
+      var requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        redirect: "follow",
+      };
+
+      fetch(`${API}/api/v1/connections/${id}/decline`, requestOptions)
+        .then((response) => response.text())
+        .then((result) => console.log(result))
+        .catch((error) => console.log("error", error));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     if (user) {
       fetchConnections();
@@ -210,6 +235,13 @@ const ConnectionProvider = ({ children }) => {
 
   const value = {
     loading,
+    connections,
+    connectionSuggestions,
+    connectionRequests,
+    addConnection,
+    acceptConnection,
+    deleteConnection,
+    declineConnection,
   };
 
   return (

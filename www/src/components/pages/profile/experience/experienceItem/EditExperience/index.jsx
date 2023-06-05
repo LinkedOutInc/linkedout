@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useProfile } from "../../../../../../contexts/ProfileContext";
 
 const EditExperience = ({
+  id,
   title,
   company,
   description,
@@ -9,6 +11,12 @@ const EditExperience = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const popupRef = useRef(null);
+  const { editExperience } = useProfile();
+  const { deleteExperience } = useProfile();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
 
   const handleOpen = () => {
     setIsOpen(true);
@@ -112,12 +120,14 @@ const EditExperience = ({
               <div className="flex justify-between">
                 <button
                   type="submit"
+                  onClick={() => deleteExperience(id)}
                   className="bg-linkedout text-white font-semibold py-2 px-4 rounded-2xl hover:bg-white hover:text-linkedout hover:ring-1 ring-inset hover:ring-linkedout"
                 >
                   Delete
                 </button>
                 <button
                   type="submit"
+                  onClick={handleSubmit}
                   className="bg-linkedout text-white font-semibold py-2 px-4 rounded-2xl hover:bg-white hover:text-linkedout hover:ring-1 ring-inset hover:ring-linkedout"
                 >
                   Save

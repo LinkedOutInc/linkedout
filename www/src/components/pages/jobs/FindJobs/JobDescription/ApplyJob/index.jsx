@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useJob } from "../../../../../../contexts/JobContext";
 
-const ApplyJob = ({ title, company, description, startDate, endDate }) => {
+const ApplyJob = (id) => {
   const [isOpen, setIsOpen] = useState(false);
   const popupRef = useRef(null);
+  const { applyJob } = useJob();
 
   const handleOpen = () => {
     setIsOpen(true);
+    applyJob(id);
   };
 
   const handleClose = () => {

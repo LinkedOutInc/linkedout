@@ -2,45 +2,11 @@ import React, { useState, useEffect } from "react";
 import JobItem from "./JobItem";
 import JobDescription from "./JobDescription";
 import JobSearch from "./JobSearch";
+import { useJob } from "../../../../contexts/JobContext";
 
 const FindJobs = () => {
-  const [jobs, setJobs] = useState([]);
+  const { jobs } = useJob();
   const [selectedJob, setSelectedJob] = useState(null);
-
-  // Fetch jobs data from an API or any other data source
-  useEffect(() => {
-    const fetchJobs = async () => {
-      const newJobs = [
-        {
-          id: 1,
-          title: "Software Engineer",
-          company: "ABC Corp",
-          location: "New York, NY",
-          description: "This is a Software Engineer job description.",
-          type: "On-site",
-        },
-        {
-          id: 2,
-          title: "Product Manager",
-          company: "XYZ Inc",
-          location: "San Francisco, CA",
-          description: "This is a Product Manager job description.",
-          type: "Remote",
-        },
-        {
-          id: 3,
-          title: "Data Scientist",
-          company: "Data Co",
-          location: "Seattle, WA",
-          description: "This is a Data Scientist job description.",
-          type: "Hybrid",
-        },
-      ];
-      setJobs(newJobs);
-    };
-
-    fetchJobs();
-  }, []);
 
   const handleSearch = (searchTerm) => {
     // Implement search logic here
@@ -60,16 +26,22 @@ const FindJobs = () => {
       <div className="mt-4 shadow rounded-2xl shadow-linkedout p-4">
         <div className="grid grid-cols-2 gap-6">
           <div className="space-y-6">
-            {jobs.map((job) => (
-              <JobItem
-                key={job.id}
-                job={job}
-                isSelected={selectedJob && selectedJob.id === job.id}
-                onSelect={setSelectedJob}
-              />
-            ))}
+            {jobs.length > 0 ? (
+              jobs.map((job) => (
+                <JobItem
+                  key={job.post_ID}
+                  job={job}
+                  isSelected={selectedJob && selectedJob.id === job.post_ID}
+                  onSelect={setSelectedJob}
+                />
+              ))
+            ) : (
+              <div className="flex justify-center">
+                There are no jobs available
+              </div>
+            )}
           </div>
-          <JobDescription job={selectedJob} />
+          {jobs.length > 0 && <JobDescription job={selectedJob} />}
         </div>
       </div>
     </div>

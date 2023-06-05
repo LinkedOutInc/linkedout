@@ -1,8 +1,21 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useProfile } from "../../../../../contexts/ProfileContext";
 
 const NewInterest = () => {
   const [isOpen, setIsOpen] = useState(false);
   const popupRef = useRef(null);
+  const { addInterest } = useProfile();
+  const title = useRef(null);
+  const area = useRef(null);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    addInterest({
+      title: title.current.value,
+      area: area.current.value,
+    });
+    handleClose();
+  };
 
   const handleOpen = () => {
     setIsOpen(true);
@@ -72,15 +85,16 @@ const NewInterest = () => {
             <form className="flex flex-col gap-6">
               <div>
                 <h2 className="text-lg font-bold">Interest Title</h2>
-                <input className="border rounded-lg p-1 mt-1" />
+                <input className="border rounded-lg p-1 mt-1" ref={title} />
               </div>
               <div>
                 <h2 className="text-lg font-bold">Interest Area</h2>
-                <input className="border rounded-lg p-1 mt-1" />
+                <input className="border rounded-lg p-1 mt-1" ref={area} />
               </div>
               <button
                 type="submit"
                 className="bg-linkedout text-white font-semibold py-2 px-4 rounded-2xl hover:bg-white hover:text-linkedout hover:ring-1 ring-inset hover:ring-linkedout"
+                onClick={handleSubmit}
               >
                 Submit
               </button>
