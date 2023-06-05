@@ -20,7 +20,7 @@ function Login() {
   };
 
   return (
-    <div className="m-auto max-w-screen-xl md:min-w-[768px] min-w-fit min-[480px]:min-w-[360px] px-4 py-16 sm:px-6 lg:px-8">
+    <div className="my-auto max-w-screen-xl md:min-w-[768px] min-w-fit min-[380px]:min-w-[360px] px-4 py-16 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-lg">
         <h1 className="text-center text-2xl font-bold text-black sm:text-3xl">
           Sign in
