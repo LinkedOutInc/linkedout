@@ -7,11 +7,7 @@ DELETE FROM Reaction;
 DELETE FROM Feed_Posts;
 DELETE FROM FeedPost;
 DELETE FROM Admin;
-DELETE FROM Interests;
-DELETE FROM Interest;
 DELETE FROM Person;
-DELETE FROM Jobpost;
-DELETE FROM Company;
 
 INSERT INTO Admin(id, name, surname, email, password, job_title, location, role) VALUES (1, 'admin', 'admin', 'admin', 'admin', 'admin', 'admin', 'ROLE_ADMIN');
 
@@ -29,21 +25,3 @@ INSERT INTO User_Comments (comment_id, user_id) VALUES (1, 2);
 
 INSERT INTO Reaction (reaction_ID, type, date) VALUES (1, 'Like', NULL);
 INSERT INTO Reaction (reaction_ID, type, date) VALUES (2, 'Love', NULL);
-
-INSERT INTO Interest (id, title, area) VALUES (1, 'Java Development', 'Programming');
-INSERT INTO Interest (id, title, area) VALUES (2, 'Python Development', 'Programming');
-INSERT INTO Interest (id, title, area) VALUES (3, 'C++ Development', 'Programming');
-INSERT INTO Interest (id, title, area) VALUES (4, 'SQL Development', 'Programming');
-
-INSERT INTO Interests (int_id, person_id) VALUES (1, 2);
-INSERT INTO Interests (int_id, person_id) VALUES (2, 2);
-INSERT INTO Interests (int_id, person_id) VALUES (3, 2);
-INSERT INTO Interests (int_id, person_id) VALUES (4, 3);
-
-INSERT INTO Company (company_ID ,name,location,about, domain) VALUES (1, 'Apple', 'California, LA', 'Apple is a good company', 'apple.com');
-INSERT INTO Company (company_ID ,name,location,about, domain) VALUES (2, 'Togg', 'Ankara', 'Togg is a cool company', 'togg.com');
-
-INSERT INTO jobPost (post_ID, date, content, job_title, company_ID, workplace, position, profession) VALUES (1, '2023-03-03 09:30:20', 'Please apply we are desperate for developers!',
-                                                                                                             'Java Developer', 1, 'California, LA', 'On-site', 'Senior Developer');
-INSERT INTO jobPost (post_ID, date, content, job_title, company_ID, workplace, position, profession) VALUES (2, '2023-03-03 09:30:20', 'Need Alpha Male Top Gs ASAP!',
-                                                                                                             'Professional Top G', 2, 'Houston, Texas', 'On-site', 'Senior Top G');
