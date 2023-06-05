@@ -103,4 +103,29 @@ public class CommentRepository implements CommentDao {
 
         return Success.create("Comment deleted.");
     }
+
+    @Override
+    public Object deleteComments(int postId) {
+        // Delete from UserComments
+        var sqlUserComments = """
+              DELETE FROM User_comments
+              WHERE comment_ID IN (SELECT comment_ID FROM Comment WHERE post_ID = ?);
+                """;
+        int queryResult = jdbcTemplate.update(sqlUserComments, postId);
+        if (queryResult <= 0) {
+            return Error.create(500, "Comments could not be unlinked.");
+        }
+
+        // Delete from Comment
+        var sqlComment = """
+                DELETE FROM Comment
+                WHERE post_ID = ?;
+                """;
+        queryResult = jdbcTemplate.update(sqlComment, postId);
+        if (queryResult <= 0) {
+            return Error.create(500, "Comments could not be deleted.");
+        }
+
+        return true;
+    }
 }
