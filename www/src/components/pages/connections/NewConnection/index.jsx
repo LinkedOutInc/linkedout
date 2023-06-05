@@ -1,35 +1,18 @@
 import React from "react";
 import UserSearch from "./UserSearch";
 import ConnectionItem from "./ConnectionItem";
-
-// Too lazy to create a mock db for this so I'll just hardcode the data
-// delete later and create a mock db
-import gavin from "../../../../assets/gavin.jpg";
-import richard from "../../../../assets/richard.jpg";
-import jian from "../../../../assets/jian.jpg";
-
-const searchData = [
-  // And suggestions if search is empty
-  {
-    userImage: gavin,
-    userName: "Gavin Belson",
-    userTitle: "CEO, Hooli",
-  },
-  {
-    userImage: jian,
-    userName: "Jian Yang",
-    userTitle: "Software Engineer",
-  },
-];
+import { useConnection } from "../../../../contexts/ConnectionContext";
 
 function NewConnection() {
-  const connections = searchData.map((connection) => {
+  const { connectionSuggestions } = useConnection();
+  const connections = connectionSuggestions.map((connection) => {
     return (
       <div className="mt-2">
         <ConnectionItem
-          userImage={connection.userImage}
-          userName={connection.userName}
-          userTitle={connection.userTitle}
+          id={connection.user_ID}
+          userImage={connection.image}
+          userName={connection.name + " " + connection.surname}
+          userTitle={connection.job_title}
         />
       </div>
     );
