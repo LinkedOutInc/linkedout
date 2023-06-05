@@ -68,10 +68,10 @@ public class AuthenticationController {
             personService.addPerson(person);
         }
         else if(Objects.equals(person.role(), "ROLE_RECRUITER")) {
-            recruiterService.addRecruiter(new Recruiter(person.id(), person.name(), person.surname(), person.email(), person.password(), person.job_title(), person.location(), person.role(), false));
+            recruiterService.addRecruiter(new Recruiter(person.id(), person.name(), person.surname(), person.email(), person.password(), person.job_title(), person.image(), person.location(), person.role(), false));
         }
         else if(Objects.equals(person.role(), "ROLE_CE")) {
-            careerExpertService.addCareerExpert(new CareerExpert(person.id(), person.name(), person.surname(), person.email(), person.password(), person.job_title(), person.location(), person.role(), "dummy"));
+            careerExpertService.addCareerExpert(new CareerExpert(person.id(), person.name(), person.surname(), person.email(), person.password(), person.job_title(), person.location(), person.image(), person.role(), "dummy"));
         }
         else {
             return ResponseEntity.badRequest().body("[-] User could not be registered.");
