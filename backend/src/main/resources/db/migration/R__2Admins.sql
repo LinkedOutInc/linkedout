@@ -24,6 +24,12 @@ CREATE TABLE IF NOT EXISTS Hiring_Reports (
     PRIMARY KEY (Report_id)
 );
 
+CREATE VIEW Hiring_Reports_View AS
+SELECT H.JobPost_id, H.apply_count
+FROM Hiring_Reports AS H
+ORDER BY apply_count ASC
+;
+
 CREATE OR REPLACE FUNCTION trigger_function()
     RETURNS TRIGGER
 AS $$
