@@ -345,6 +345,143 @@ const ProfileProvider = ({ children }) => {
     }
   };
 
+  // Interests stuff
+  const fetchInterests = async () => {
+    setLoading((loading) => !loading);
+    try {
+      var myHeaders = new Headers();
+      myHeaders.append("Authorization", `Bearer ${token}`);
+
+      var requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+        redirect: "follow",
+      };
+
+      fetch(`${API}/profile/interests`, requestOptions)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Couldn't fetch interests");
+          }
+          return response.text();
+        })
+        .then((result) => {
+          setInterests(() => JSON.parse(result));
+          setLoading((loading) => !loading);
+        })
+        .catch((error) => console.log("error", error));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const addInterest = async ({ title, area }) => {
+    setLoading((loading) => !loading);
+    try {
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+      myHeaders.append("Authorization", `Bearer ${token}`);
+
+      var raw = JSON.stringify({
+        title: title,
+        area: area,
+      });
+
+      var requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow",
+      };
+
+      fetch(`${API}/profile/interests/add`, requestOptions)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Couldn't add interest");
+          }
+          return response.text();
+        })
+        .then((result) => {
+          console.log(result);
+          fetchInterests();
+        })
+        .catch((error) => console.log("error", error));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const editInterest = async ({ title, area }) => {
+    setLoading((loading) => !loading);
+    try {
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+      myHeaders.append("Authorization", `Bearer ${token}`);
+
+      var raw = JSON.stringify({
+        title: title,
+        area: area,
+      });
+
+      var requestOptions = {
+        method: "PUT",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow",
+      };
+
+      fetch(`${API}/profile/interests/edit`, requestOptions)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Couldn't edit interest");
+          }
+          return response.text();
+        })
+        .then((result) => {
+          console.log(result);
+          fetchInterests();
+        })
+        .catch((error) => console.log("error", error));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const deleteInterest = async (interest_ID) => {
+    setLoading((loading) => !loading);
+    try {
+      var myHeaders = new Headers();
+      myHeaders.append("Authorization", `Bearer ${token}`);
+
+      var requestOptions = {
+        method: "DELETE",
+        headers: myHeaders,
+        redirect: "follow",
+      };
+
+      fetch(`${API}/profile/interests/delete/${interest_ID}`, requestOptions)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Couldn't delete interest");
+          }
+          return response.text();
+        })
+        .then((result) => {
+          console.log(result);
+          fetchInterests();
+        })
+        .catch((error) => console.log("error", error));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // Fetch all data
+  useEffect(() => {
+    fetchEducation();
+    fetchExperience();
+  }, [token]);
+
   const value = {
     user,
     loading,
@@ -362,6 +499,10 @@ const ProfileProvider = ({ children }) => {
     addExperience,
     editExperience,
     deleteExperience,
+    fetchInterests,
+    addInterest,
+    editInterest,
+    deleteInterest,
   };
 
   return (
