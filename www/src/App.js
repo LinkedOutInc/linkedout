@@ -24,7 +24,8 @@ import { ProfileProvider } from "./contexts/ProfileContext";
 import { ConnectionProvider } from "./contexts/ConnectionContext";
 import { FeedProvider } from "./contexts/FeedContext";
 import { JobProvider } from "./contexts/JobContext";
-
+import { RecruiterProvider } from "./contexts/RecruiterContext";
+import { AdminProvider } from "./contexts/AdminContext";
 function App() {
   return (
     <div id="app_container" className="m-0 min-h-screen flex flex-col">
@@ -66,9 +67,9 @@ function App() {
               <Route
                 path="/recruiter"
                 element={
-                  <JobProvider>
+                  <RecruiterProvider>
                     <Recruiter />
-                  </JobProvider>
+                  </RecruiterProvider>
                 }
               />
               <Route
@@ -80,7 +81,14 @@ function App() {
                 }
               />
               <Route path="/admin/login" element={<AdminLogin />} />
-              <Route path="/admin" element={<Admin />} />
+              <Route
+                path="/admin"
+                element={
+                  <AdminProvider>
+                    <Admin />
+                  </AdminProvider>
+                }
+              />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>

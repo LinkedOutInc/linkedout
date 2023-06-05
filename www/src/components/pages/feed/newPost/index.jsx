@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { useFeed } from "../../../../contexts/FeedContext";
+import { useAuth } from "../../../../contexts/AuthContext";
 
-const NewPost = ({ userPhoto }) => {
+const NewPost = () => {
   const [postTitle, setPostTitle] = useState("");
   const [postContent, setPostContent] = useState("");
   const [postImage, setPostImage] = useState(null);
   const [textareaHeight, setTextareaHeight] = useState("4rem");
   const { newPost } = useFeed();
+  const { user } = useAuth();
 
   const handlePostTitleChange = (e) => {
     setPostTitle(e.target.value);
@@ -54,7 +56,7 @@ const NewPost = ({ userPhoto }) => {
         <div className="flex gap-4">
           <img
             className="h-12 w-12 rounded-full"
-            src={userPhoto ? userPhoto : "https://via.placeholder.com/150"}
+            src={user.image ? user.image : "https://via.placeholder.com/150"}
             alt="Profile Image"
           />
           <textarea

@@ -20,7 +20,7 @@ const Feed = () => {
 
   return (
     <div className="flex flex-col gap-4 max-w-screen-sm w-screen mx-auto">
-      <NewPost userPhoto={""} />
+      <NewPost />
       <div id="Feed" className="gap-4 flex flex-col mb-4">
         {posts}
       </div>

@@ -14,6 +14,7 @@ const AuthProvider = ({ children }) => {
   const [role, setRole] = React.useState(undefined);
   const [token, setToken] = React.useState(() => {
     const token = localStorage.getItem("auth");
+    console.log(token);
     return token ? token : undefined;
   });
 
@@ -63,7 +64,7 @@ const AuthProvider = ({ children }) => {
     setLoading((loading) => true);
     localStorage.removeItem("auth");
     setToken(() => null);
-    setUser(() => undefined);
+    setUser(() => null);
     setLoading((loading) => false);
     navigate("/");
   };
@@ -130,9 +131,13 @@ const AuthProvider = ({ children }) => {
         }
       })
       .then((result) => {
-        console.log(result);
         const curUser = JSON.parse(result);
         setUser(() => curUser);
+        setUser({
+          ...curUser,
+          image:
+            "https://media.licdn.com/dms/image/D4E03AQGlM3HJ4eX9oA/profile-displayphoto-shrink_800_800/0/1667050655479?e=1691625600&v=beta&t=n048tKit2SdDB5cuikTf6H6L8-o_q6Tk3RF-34vDj_o",
+        });
         if (curUser.role === "ROLE_ADMIN") {
           navigate("/admin");
         } else {
@@ -145,7 +150,7 @@ const AuthProvider = ({ children }) => {
   };
 
   React.useEffect(() => {
-    if (token && token.length > 0 && !user) {
+    if (token && token.length > 0 && user === null) {
       fetchUser();
     }
   }, [token, user]);

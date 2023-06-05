@@ -16,6 +16,7 @@ const AdminProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [roleCountReport, setRoleCountReport] = useState({});
   const [hiringReport, setHiringReport] = useState({});
+  const [stats, setStats] = useState(null);
   const navigate = useNavigate();
 
   const generateRoleCountReport = async () => {
@@ -46,7 +47,6 @@ const AdminProvider = ({ children }) => {
       console.log(error);
     }
     setLoading(false);
-    return roleCountReport;
   };
 
   const generateHiringReport = async () => {
@@ -77,14 +77,53 @@ const AdminProvider = ({ children }) => {
       console.log(error);
     }
     setLoading(false);
-    return hiringReport;
   };
+
+  const fetchStats = async () => {
+    setLoading(true);
+    try {
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+      myHeaders.append("Authorization", `Bearer ${token}`);
+
+      var requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+        redirect: "follow",
+      };
+
+      fetch(`${API}/admin/getCounts`, requestOptions)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.text();
+        })
+        .then((result) => {
+          console.log(result);
+          setStats(() => JSON.parse(result));
+        })
+        .catch((error) => console.log("error", error));
+    } catch (error) {
+      console.log(error);
+    }
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    if (user && user.role === "ROLE_ADMIN") {
+      fetchStats();
+    }
+  }, [token]);
 
   const value = {
     user,
     loading,
-    generateHiringReport,
+    hiringReport,
+    roleCountReport,
     generateRoleCountReport,
+    generateHiringReport,
+    stats,
   };
 
   return (

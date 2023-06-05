@@ -1,9 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useRecruiter } from "../../../../../contexts/RecruiterContext";
 
 const NewJob = () => {
   const [isOpen, setIsOpen] = useState(false);
   const popupRef = useRef(null);
   const [selectedType, setSelectedType] = useState("on-site");
+  const title = useRef(null);
+  const location = useRef(null);
+  const description = useRef(null);
+  const deadline = useRef(null);
+  const { addJob } = useRecruiter();
 
   const handleOpen = () => {
     setIsOpen(true);
@@ -16,6 +22,21 @@ const NewJob = () => {
   const handleSelect = (filter) => {
     // Implement filter logic here
     console.log("Filtering by:", filter);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("submitting");
+    console.log("submitting2");
+    addJob({
+      job_title: title.current.value,
+      location: location.current.value,
+      content: description.current.value,
+      date: deadline.current.value,
+      workplace: selectedType,
+    });
+    console.log("submitting3");
+    handleClose();
   };
 
   useEffect(() => {
@@ -70,19 +91,26 @@ const NewJob = () => {
             <form className="flex flex-col gap-6">
               <div>
                 <h2 className="text-lg font-bold">Job Title</h2>
-                <input className="border rounded-lg p-1 mt-1" />
+                <input className="border rounded-lg p-1 mt-1" ref={title} />
               </div>
               <div>
                 <h2 className="text-lg font-bold">Job Location</h2>
-                <input className="border rounded-lg p-1 mt-1" />
+                <input className="border rounded-lg p-1 mt-1" ref={location} />
               </div>
               <div>
                 <h2 className="text-lg font-bold">Job Description</h2>
-                <input className="border rounded-lg p-1 mt-1" />
+                <input
+                  className="border rounded-lg p-1 mt-1"
+                  ref={description}
+                />
               </div>
               <div>
                 <h2 className="text-lg font-bold">Application Deadline</h2>
-                <input className="border rounded-lg p-1 mt-1" type="date" />
+                <input
+                  className="border rounded-lg p-1 mt-1"
+                  type="date"
+                  ref={deadline}
+                />
               </div>
               <div>
                 <select
@@ -97,6 +125,7 @@ const NewJob = () => {
               </div>
               <button
                 type="submit"
+                onClick={(e) => handleSubmit(e)}
                 className="bg-linkedout text-white font-semibold py-2 px-4 rounded-2xl hover:bg-white hover:text-linkedout hover:ring-1 ring-inset hover:ring-linkedout"
               >
                 Submit
@@ -104,6 +133,7 @@ const NewJob = () => {
             </form>
             <button
               className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+              type="button"
               onClick={handleClose}
             >
               <svg
