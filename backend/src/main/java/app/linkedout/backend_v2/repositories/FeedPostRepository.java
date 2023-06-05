@@ -69,25 +69,12 @@ public class FeedPostRepository implements FeedPostDao {
             return Error.create(500, "Post could not be inserted.");
         }
 
-        // Get selected post id from FeedPost
-        var sqlQuery = """
-                SELECT *
-                FROM FeedPost
-                WHERE title = ? AND date = ? AND content = ? AND image = ? AND type = ?;
-                """;
-        List<FeedPost> tempFeedPosts = jdbcTemplate.query(sqlQuery, new FeedPostRowMapper(), feedPost.title(),
-                feedPost.date(), feedPost.content(), feedPost.image(), feedPost.type());
-        if (tempFeedPosts.isEmpty()) {
-            return Error.create(500, "Post id could not retrieved.");
-        }
-        int newPostId = tempFeedPosts.get(0).post_ID();
-
         // Insert on FeedPostUser
         var sqlFeedPostUser = """
                 INSERT INTO Feed_posts(user_ID, post_ID)
-                VALUES (?, ?);
+                VALUES (?, (SELECT post_ID FROM FeedPost WHERE title = ? AND content = ?));
                 """;
-        queryResult = jdbcTemplate.update(sqlFeedPostUser, userId, newPostId);
+        queryResult = jdbcTemplate.update(sqlFeedPostUser, userId, feedPost.title(), feedPost.content());
         if (queryResult <= 0) {
             return Error.create(500, "Post could not be linked to the user.");
         }
