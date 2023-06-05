@@ -47,6 +47,16 @@ public class PostService {
             return Error.create(403, "Not authorized to delete post of another user.");
         }
 
+        queryResult = reactionDao.removeUserReactions(postId);
+        if (queryResult instanceof ResponseEntity<?>) {
+            return queryResult;
+        }
+
+        queryResult = commentDao.deleteComments(postId);
+        if (queryResult instanceof ResponseEntity<?>) {
+            return queryResult;
+        }
+
         return feedPostDao.deletePost(postId);
     }
 
