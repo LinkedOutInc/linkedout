@@ -9,5 +9,6 @@ public interface ConnectionDao {
     public Object acceptRequest(int userId, int targetUserId);
     public Object deleteConnection(int userId, int targetUserId);
     public List<HashMap<String, Object>> getNetwork(int userId, int offset);
+    public List<HashMap<String, Object>> getRequests(int userId, int offset);
     public List<HashMap<String, Object>> getSuggestions(int userId, int offset);
 }

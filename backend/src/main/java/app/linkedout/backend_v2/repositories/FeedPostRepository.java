@@ -37,11 +37,11 @@ public class FeedPostRepository implements FeedPostDao {
                 WHERE u.id IN (
                     SELECT c1.user_ID_1
                     FROM Connections AS c1
-                    WHERE c1.user_ID_2 = ? AND c1.status = 'ACCEPTED'
+                    WHERE c1.user_ID_2 = ? AND c1.status = 'LINKED'
                     UNION
                     SELECT c2.user_ID_2
                     FROM Connections AS c2
-                    WHERE c2.user_ID_1 = ? AND c2.status = 'ACCEPTED'
+                    WHERE c2.user_ID_1 = ? AND c2.status = 'LINKED'
                     UNION
                     SELECT ce.id
                     FROM CareerExpert AS ce

@@ -89,6 +89,18 @@ public class ConnectionController {
     }
 
     @CrossOrigin(origins = "*")
+    @GetMapping("requests")
+    public Object getRequests(@RequestParam(name = "offset") int offset) {
+        Object controlResult = sessionService.gutCurrentUserIdIfExists();
+        if (controlResult instanceof ResponseEntity) {
+            return controlResult;
+        }
+
+        int userId = (int) controlResult;
+        return connectionService.getRequests(userId, offset);
+    }
+
+    @CrossOrigin(origins = "*")
     @GetMapping("suggestions")
     public Object getSuggestions(@RequestParam(name = "offset") int offset) {
         Object controlResult = sessionService.gutCurrentUserIdIfExists();
