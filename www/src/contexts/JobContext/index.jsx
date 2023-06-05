@@ -218,7 +218,8 @@ const JobProvider = ({ children }) => {
         redirect: "follow",
       };
 
-      fetch(`${API}/api/v1/jobs/${jobId}/applicants`, requestOptions)
+
+      fetch(`${API}/api/v1/jobs/applicants${jobId}`, requestOptions)
         .then((response) => {
           if (!response.ok) {
             throw new Error("Couldn't fetch applicants");
