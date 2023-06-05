@@ -16,4 +16,5 @@ public interface JobPostDao {
     List<JobPostAndCompany> getAppliedJobs(int id);
     int apply(int user_id, int post_id);
     List<Person> getApplicantsOfPost(int post_id);
+    int getApplicationCount();
 }

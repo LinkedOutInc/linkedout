@@ -54,4 +54,8 @@ public class JobPostService {
         return jobPostDao.getApplicantsOfPost(post_id);
     }
 
+    public int getApplicationCount() {
+        return jobPostDao.getApplicationCount();
+    }
+
 }
