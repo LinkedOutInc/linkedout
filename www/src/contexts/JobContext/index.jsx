@@ -218,6 +218,7 @@ const JobProvider = ({ children }) => {
         redirect: "follow",
       };
 
+
       fetch(`${API}/api/v1/jobs/applicants${jobId}`, requestOptions)
         .then((response) => {
           if (!response.ok) {
