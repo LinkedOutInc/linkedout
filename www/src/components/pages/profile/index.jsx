@@ -64,7 +64,7 @@ function Profile() {
   const { interests } = useProfile();
 
   return (
-    <div className="max-w-screen-lg p-4 md:p-8 w-screen mx-auto flex flex-col gap-4">
+    <div className="max-w-screen-lg p-4 md:p-0 w-screen mx-auto flex flex-col gap-4">
       <ProfileBanner data={user} />
       <Experience experiences={experience} />
       <Education educationItems={education} />

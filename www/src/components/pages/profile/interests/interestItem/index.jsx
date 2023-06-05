@@ -2,7 +2,7 @@ import React from "react";
 import EditInterest from "./EditInterest";
 
 const InterestItem = ({ interest }) => {
-  const { name, area, logoUrl } = interest;
+  const { id, name, area, logoUrl } = interest;
 
   return (
     <div className="bg-white p-6 shadow rounded flex items-center space-x-4">
@@ -10,7 +10,7 @@ const InterestItem = ({ interest }) => {
       <div className="flex flex-col">
         <div className="flex justify-between">
           <h2 className="text-xl font-semibold">{name}</h2>
-          <EditInterest title={name} area={area} />
+          <EditInterest id={id} title={name} area={area} />
         </div>
         <p className="font-light">{area}</p>
       </div>

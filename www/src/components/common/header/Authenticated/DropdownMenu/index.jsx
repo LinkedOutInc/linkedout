@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../../../contexts/AuthContext";
+import { useEffect, useRef, useState } from "react";
 
 // Data
 import richard from "../../../../../assets/richard.jpg";
@@ -12,9 +13,9 @@ function DropdownMenu() {
   const navigate = useNavigate();
   return (
     <div className="select-none">
-      <details class="group [&_summary::-webkit-details-marker]:hidden">
-        <summary class="flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700">
-          <div class="flex items-center gap-2">
+      <div class="group">
+        <div class="inline-flex cursor-pointer items-center justify-between rounded-t-xl py-2 px-4 text-gray-500 group-hover:bg-gray-100 group-hover:text-gray-700">
+          <div class="flex items-center">
             <span class="sr-only">Menu</span>
             <img
               alt="Man"
@@ -31,7 +32,7 @@ function DropdownMenu() {
             </p>
           </div>
 
-          <span class="shrink-0 transition duration-300 group-open:-rotate-180">
+          <span class="shrink-0 transition duration-300 group-hover:-rotate-180">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="h-5 w-5"
@@ -45,14 +46,10 @@ function DropdownMenu() {
               />
             </svg>
           </span>
-        </summary>
-
-        <nav
-          aria-label="Main Nav"
-          class="absolute z-10 w-52 bg-gray-100 rounded-2xl mt-2 flex flex-col p-2"
-        >
+        </div>
+        <div class="hidden group-hover:absolute w-[12.34rem] shadow-2xl group-hover:flex z-10 flex-1 bg-gray-100 rounded-b-xl flex-col p-2">
           <div
-            class="flex items-center cursor-pointer gap-2 rounded-lg bg-gray-100 px-4 py-2 text-gray-700"
+            class="flex items-center cursor-pointer gap-2 rounded-lg bg-gray-100 px-4 py-2 text-gray-500 hover:text-gray-700"
             onClick={() => navigate("/profile")}
           >
             <svg
@@ -79,16 +76,16 @@ function DropdownMenu() {
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5 opacity-75"
               fill="none"
               viewBox="0 0 24 24"
+              strokeWidth={2}
               stroke="currentColor"
-              stroke-width="2"
+              className="w-5 h-5 opacity-75"
             >
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z"
               />
             </svg>
 
@@ -185,8 +182,8 @@ function DropdownMenu() {
 
             <span class="text-sm font-medium"> Logout </span>
           </div>
-        </nav>
-      </details>
+        </div>
+      </div>
     </div>
   );
 }

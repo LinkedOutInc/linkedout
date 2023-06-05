@@ -7,10 +7,12 @@ function Authenticated() {
   const navigate = useNavigate();
 
   return (
-    <header aria-label="Page Header">
-      <div class="mx-auto max-w-screen-lg py-8 pr-2 sm:pl-0 pl-2">
+    <header className="border-b" aria-label="Page Header">
+      <div class="mx-auto max-w-screen-lg py-8 pr-2 sm:pl-0 sm:pb-1 sm:pt-4 pl-2">
         <div class="flex justify-between items-center sm:gap-4">
-          <Logo />
+          <div className="cursor-pointer" onClick={() => navigate("/feed")}>
+            <Logo />
+          </div>
           <div class="flex flex-1 gap-8 justify-end">
             <div class="sm:flex gap-4 hidden">
               <div
