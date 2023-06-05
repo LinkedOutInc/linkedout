@@ -4,11 +4,24 @@ import { useProfile } from "../../../../../contexts/ProfileContext";
 const NewExperience = () => {
   const [isOpen, setIsOpen] = useState(false);
   const popupRef = useRef(null);
+  const titleRef = useRef(null);
+  const companyRef = useRef(null);
+  const descriptionRef = useRef(null);
+  const startDateRef = useRef(null);
+  const endDateRef = useRef(null);
 
-  const { setExperience } = useProfile();
+  const { addExperience } = useProfile();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    addExperience({
+      title: titleRef.current.value,
+      companyName: companyRef.current.value,
+      description: descriptionRef.current.value,
+      start_date: startDateRef.current.value,
+      end_date: endDateRef.current.value,
+    });
+    handleClose();
   };
 
   // Animation stuff
@@ -80,28 +93,43 @@ const NewExperience = () => {
             <form className="flex flex-col gap-6">
               <div>
                 <h2 className="text-lg font-bold">Job Title</h2>
-                <input className="border rounded-lg p-1 mt-1" />
+                <input className="border rounded-lg p-1 mt-1" ref={titleRef} />
               </div>
               <div>
                 <h2 className="text-lg font-bold">Company</h2>
-                <input className="border rounded-lg p-1 mt-1" />
+                <input
+                  className="border rounded-lg p-1 mt-1"
+                  ref={companyRef}
+                />
               </div>
               <div>
                 <h2 className="text-lg font-bold">Job Description</h2>
-                <input className="border rounded-lg p-1 mt-1" />
+                <input
+                  className="border rounded-lg p-1 mt-1"
+                  ref={descriptionRef}
+                />
               </div>
               <div>
                 <h2 className="text-lg font-bold">Start Date</h2>
-                <input className="border rounded-lg p-1 mt-1" type="date" />
+                <input
+                  className="border rounded-lg p-1 mt-1"
+                  type="date"
+                  ref={startDateRef}
+                />
               </div>
               <div>
                 <h2 className="text-lg font-bold">
                   End Date (leave empty for current job)
                 </h2>
-                <input className="border rounded-lg p-1 mt-1" type="date" />
+                <input
+                  className="border rounded-lg p-1 mt-1"
+                  type="date"
+                  ref={endDateRef}
+                />
               </div>
               <button
                 type="submit"
+                onClick={handleSubmit}
                 className="bg-linkedout text-white font-semibold py-2 px-4 rounded-2xl hover:bg-white hover:text-linkedout hover:ring-1 ring-inset hover:ring-linkedout"
               >
                 Submit

@@ -32,17 +32,22 @@ const FeedProvider = ({ children }) => {
       };
 
       fetch(`${API}/api/v1/posts/feed?offset=${feedOffset}`, requestOptions)
-        .then((response) => response.text())
-        .then((result) => console.log(result))
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Couldn't fetch feed posts");
+          }
+          return response.text();
+        })
+        .then((result) => {
+          setFeedPosts(() => JSON.parse(result));
+        })
         .catch((error) => console.log("error", error));
     } catch (error) {
       console.log(error);
     }
-  };
 
-  useEffect(() => {
-    fetchFeedPosts();
-  }, [feedOffset]);
+    setLoading((loading) => !loading);
+  };
 
   const newPost = async ({ title, content, image, type }) => {
     setLoading((loading) => !loading);
@@ -74,11 +79,14 @@ const FeedProvider = ({ children }) => {
         })
         .then((result) => {
           console.log(result);
+          fetchFeedPosts();
         })
         .catch((error) => console.log("error", error));
     } catch (error) {
       console.log(error);
     }
+
+    console.log("new post");
 
     setLoading((loading) => !loading);
   };
@@ -295,12 +303,17 @@ const FeedProvider = ({ children }) => {
     setLoading((loading) => !loading);
   };
 
-  value = {
+  useEffect(() => {
+    fetchFeedPosts();
+  }, [token]);
+
+  const value = {
     feedPosts,
     loading,
+    newPost,
   };
 
   return <FeedContext.Provider value={value}>{children}</FeedContext.Provider>;
 };
 
-export { JobProvider };
+export { FeedProvider };

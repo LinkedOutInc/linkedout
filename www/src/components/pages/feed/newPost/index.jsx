@@ -1,9 +1,16 @@
 import React, { useState } from "react";
+import { useFeed } from "../../../../contexts/FeedContext";
 
 const NewPost = ({ userPhoto }) => {
+  const [postTitle, setPostTitle] = useState("");
   const [postContent, setPostContent] = useState("");
   const [postImage, setPostImage] = useState(null);
   const [textareaHeight, setTextareaHeight] = useState("4rem");
+  const { newPost } = useFeed();
+
+  const handlePostTitleChange = (e) => {
+    setPostTitle(e.target.value);
+  };
 
   const handlePostContentChange = (e) => {
     setPostContent(e.target.value);
@@ -23,6 +30,13 @@ const NewPost = ({ userPhoto }) => {
     // Submit the post content and image (if any) to the API or backend
     console.log("Post content:", postContent);
     console.log("Post image:", postImage);
+
+    newPost({
+      title: postTitle,
+      content: postContent,
+      image: postImage,
+      type: "POST",
+    });
 
     // Clear the input fields
     setPostContent("");
@@ -45,6 +59,8 @@ const NewPost = ({ userPhoto }) => {
           />
           <textarea
             id="title"
+            value={postTitle}
+            onChange={handlePostTitleChange}
             className="border h-11 w-full pl-2 pt-2 border-gray-300 rounded resize-none overflow-y-hidden focus:outline-none focus:ring focus:ring-linkedout"
             placeholder="Post Title"
           />
