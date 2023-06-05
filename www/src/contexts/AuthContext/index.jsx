@@ -12,7 +12,6 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = React.useState(null); // null: loading, undefined: not logged in
   const [loading, setLoading] = React.useState(false);
   const [role, setRole] = React.useState(undefined);
-
   const [token, setToken] = React.useState(() => {
     const token = localStorage.getItem("auth");
     return token ? token : undefined;
@@ -53,7 +52,6 @@ const AuthProvider = ({ children }) => {
         localStorage.setItem("auth", result);
         setToken(() => result);
         setLoading((loading) => !loading);
-        navigate("/feed");
       })
       .catch((error) => {
         console.log("error", error);
@@ -61,17 +59,19 @@ const AuthProvider = ({ children }) => {
       });
   };
 
-  const logout = async () => {
+  const logout = () => {
+    setLoading((loading) => true);
     localStorage.removeItem("auth");
+    setToken(() => null);
     setUser(() => undefined);
-    setToken(() => "");
+    setLoading((loading) => false);
     navigate("/");
   };
 
   const signup = async (form) => {
     if (loading)
       return console.log("Already loading, please wait for a few seconds");
-    setLoading((loading) => !loading);
+    setLoading((loading) => true);
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -101,13 +101,13 @@ const AuthProvider = ({ children }) => {
         console.log(result);
         localStorage.setItem("auth", result);
         setToken(() => result);
-        setLoading((loading) => !loading);
         navigate("/feed");
       })
       .catch((error) => {
         console.log("error", error);
-        setLoading((loading) => !loading);
       });
+
+    setLoading((loading) => false);
   };
 
   const fetchUser = async () => {
@@ -131,7 +131,13 @@ const AuthProvider = ({ children }) => {
       })
       .then((result) => {
         console.log(result);
-        setUser(() => JSON.parse(result));
+        const curUser = JSON.parse(result);
+        setUser(() => curUser);
+        if (curUser.role === "ROLE_ADMIN") {
+          navigate("/admin");
+        } else {
+          navigate("/feed");
+        }
       })
       .catch((error) => {
         console.log("error", error);
@@ -143,10 +149,6 @@ const AuthProvider = ({ children }) => {
       fetchUser();
     }
   }, [token, user]);
-
-  useEffect(() => {
-    localStorage.setItem("auth", token);
-  }, [token]);
 
   const value = { user, login, logout, signup, loading, token };
 

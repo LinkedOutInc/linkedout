@@ -123,6 +123,18 @@ public class ConnectionRepository implements ConnectionDao {
     }
 
     @Override
+    public List<HashMap<String, Object>> getRequests(int userId, int offset) {
+        var sql = """
+                SELECT cs1.user_ID_1 AS user_ID, u1.name, u1.surname, u1.job_title
+                FROM Person AS u1 JOIN Connections AS cs1 ON u1.id = cs1.user_ID_1
+                WHERE cs1.user_ID_2 = ? AND status = 'REQUESTED'
+                LIMIT 10
+                OFFSET ?;
+                """;
+        return jdbcTemplate.query(sql, new GenericRowMapper(), userId, offset);
+    }
+
+    @Override
     public List<HashMap<String, Object>> getSuggestions(int userId, int offset) {
         var sql = """
                 (SELECT cs1.user_ID_2 AS user_ID, u1.name, u1.surname, u1.job_title, cs1.type

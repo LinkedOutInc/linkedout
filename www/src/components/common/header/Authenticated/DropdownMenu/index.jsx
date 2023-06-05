@@ -161,8 +161,7 @@ function DropdownMenu() {
           <div
             class="flex items-center cursor-pointer gap-2 rounded-lg px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700"
             onClick={() => {
-              window.location.reload();
-              navigate("/");
+              logout();
             }}
           >
             <svg
