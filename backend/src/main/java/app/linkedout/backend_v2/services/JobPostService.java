@@ -5,6 +5,7 @@ import app.linkedout.backend_v2.dao.JobPostDao;
 import app.linkedout.backend_v2.models.HiringReport;
 import app.linkedout.backend_v2.models.JobPost;
 import app.linkedout.backend_v2.models.JobPostAndCompany;
+import app.linkedout.backend_v2.models.Person;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -48,6 +49,9 @@ public class JobPostService {
 
     public List<JobPostAndCompany> getAppliedJobs(int id) {
         return jobPostDao.getAppliedJobs(id);
+    }
+    public List<Person> getApplicantsOfPost(int post_id) {
+        return jobPostDao.getApplicantsOfPost(post_id);
     }
 
 }

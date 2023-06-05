@@ -4,9 +4,11 @@ import app.linkedout.backend_v2.dao.JobPostDao;
 import app.linkedout.backend_v2.models.ExperienceAndCompany;
 import app.linkedout.backend_v2.models.JobPost;
 import app.linkedout.backend_v2.models.JobPostAndCompany;
+import app.linkedout.backend_v2.models.Person;
 import app.linkedout.backend_v2.repositories.rowMappers.ExperienceAndCompanyRowMapper;
 import app.linkedout.backend_v2.repositories.rowMappers.JobPostAndCompanyRowMapper;
 import app.linkedout.backend_v2.repositories.rowMappers.JobPostRowMapper;
+import app.linkedout.backend_v2.repositories.rowMappers.PersonRowMapper;
 import app.linkedout.backend_v2.services.ExperienceService;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.SqlParameterValue;
@@ -116,5 +118,14 @@ public class JobPostRepository implements JobPostDao {
                 VALUES (?, ?);
                 """;
         return jdbcTemplate.update(sql, user_id, post_id);
+    }
+    @Override
+    public List<Person> getApplicantsOfPost(int post_id) {
+        var sql = """
+                SELECT *
+                FROM Person
+                WHERE id IN (SELECT user_ID FROM Applies WHERE post_ID = ?)
+                """;
+        return jdbcTemplate.query(sql, new PersonRowMapper(), post_id);
     }
 }
