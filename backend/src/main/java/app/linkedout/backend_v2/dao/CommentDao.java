@@ -10,4 +10,5 @@ public interface CommentDao {
     public Object insertComment(Comment comment, int userId);
     public Object getComment(int commentId);
     public Object deleteComment(int commentId);
+    public Object deleteComments(int postId);
 }

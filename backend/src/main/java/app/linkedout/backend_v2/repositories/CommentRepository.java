@@ -50,25 +50,13 @@ public class CommentRepository implements CommentDao {
             return Error.create(500, "Comment could not be inserted.");
         }
 
-        // Get selected post id from FeedPost
-        var sqlQuery = """
-                SELECT *
-                FROM Comment
-                WHERE post_ID = ? AND content = ? AND date = ?;
-                """;
-        List<Comment> tempComments = jdbcTemplate.query(sqlQuery, new CommentRowMapper(), comment.post_ID(),
-                comment.content(), comment.date());
-        if (tempComments.isEmpty()) {
-            return Error.create(500, "Comment id could not retrieved.");
-        }
-        int newCommentId = tempComments.get(0).comment_ID();
-
         // Insert on FeedPostUser
         var sqlUserComment = """
                 INSERT INTO User_comments (user_ID, comment_ID)
-                VALUES (?, ?);
+                VALUES (?, (SELECT comment_ID FROM Comment WHERE post_ID = ? AND content = ? AND date = ?));
                 """;
-        queryResult = jdbcTemplate.update(sqlUserComment, userId, newCommentId);
+        queryResult = jdbcTemplate.update(sqlUserComment, userId, comment.post_ID(),
+                comment.content(), comment.date());
         if (queryResult <= 0) {
             return Error.create(500, "Comment could not be linked to the user.");
         }
@@ -114,5 +102,30 @@ public class CommentRepository implements CommentDao {
         }
 
         return Success.create("Comment deleted.");
+    }
+
+    @Override
+    public Object deleteComments(int postId) {
+        // Delete from UserComments
+        var sqlUserComments = """
+              DELETE FROM User_comments
+              WHERE comment_ID IN (SELECT comment_ID FROM Comment WHERE post_ID = ?);
+                """;
+        int queryResult = jdbcTemplate.update(sqlUserComments, postId);
+        if (queryResult <= 0) {
+            return Error.create(500, "Comments could not be unlinked.");
+        }
+
+        // Delete from Comment
+        var sqlComment = """
+                DELETE FROM Comment
+                WHERE post_ID = ?;
+                """;
+        queryResult = jdbcTemplate.update(sqlComment, postId);
+        if (queryResult <= 0) {
+            return Error.create(500, "Comments could not be deleted.");
+        }
+
+        return true;
     }
 }

@@ -7,7 +7,6 @@ DELETE FROM Reaction;
 DELETE FROM Feed_Posts;
 DELETE FROM FeedPost;
 DELETE FROM Admin;
-
 DELETE FROM File;
 
 DELETE FROM Connections;
@@ -36,7 +35,6 @@ DELETE FROM Applies;
 DELETE FROM Experience;
 DELETE FROM JobPost;
 DELETE FROM Company;
-
 DELETE FROM CareerExpert;
 DELETE FROM Recruiter;
 DELETE FROM Person;

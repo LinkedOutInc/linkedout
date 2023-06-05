@@ -11,4 +11,5 @@ public interface PersonDao {
     int deletePersonById(int id);
     Optional<Person> getPersonById(int id);
     Optional<Person> getPersonByEmail(String email);
+    Object updateImage(int userId, String link);
 }
