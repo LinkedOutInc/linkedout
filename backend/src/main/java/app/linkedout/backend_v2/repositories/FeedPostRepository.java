@@ -34,7 +34,7 @@ public class FeedPostRepository implements FeedPostDao {
                 FROM FeedPost AS p
                     JOIN Feed_posts AS fp ON p.post_ID = fp.post_ID
                     JOIN Person AS u ON fp.user_ID = u.id
-                WHERE u.id IN (
+                WHERE u.id = ? OR u.id IN (
                     SELECT c1.user_ID_1
                     FROM Connections AS c1
                     WHERE c1.user_ID_2 = ? AND c1.status = 'LINKED'
@@ -53,7 +53,7 @@ public class FeedPostRepository implements FeedPostDao {
                 LIMIT 20
                 OFFSET ?;
                 """;
-        return jdbcTemplate.query(sql, new GenericRowMapper(), userId, userId, userId, offset);
+        return jdbcTemplate.query(sql, new GenericRowMapper(), userId, userId, userId, userId, offset);
     }
 
     @Override
