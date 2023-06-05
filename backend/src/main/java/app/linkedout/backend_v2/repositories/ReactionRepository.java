@@ -105,6 +105,6 @@ public class ReactionRepository implements ReactionDao {
               WHERE post_ID = ?;
                 """;
         jdbcTemplate.update(sql, postId);
-        return Success.create("Reaction removed.");
+        return true;
     }
 }
