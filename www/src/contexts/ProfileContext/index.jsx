@@ -480,6 +480,7 @@ const ProfileProvider = ({ children }) => {
   useEffect(() => {
     fetchEducation();
     fetchExperience();
+    fetchInterests();
   }, [token]);
 
   const value = {
