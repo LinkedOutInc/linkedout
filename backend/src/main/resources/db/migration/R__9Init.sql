@@ -29,6 +29,7 @@ DELETE FROM Reports;
 DELETE FROM Hiring_Reports;
 DROP VIEW IF EXISTS Hiring_Reports_View;
 
+DELETE FROM JobPosts;
 DELETE FROM experiences;
 DELETE FROM Exp_company;
 DELETE FROM Applies;
@@ -45,6 +46,11 @@ INSERT INTO Admin(id, name, surname, email, password, job_title, location, role)
 INSERT INTO Person (id, name, surname, email, password, job_title, location, role) VALUES (2, 'user1', 'user1', 'user1', 'user1', 'user1', 'user1', 'ROLE_USER');
 INSERT INTO Person (id, name, surname, email, password, job_title, location, role) VALUES (3, 'user2', 'user2', 'user2', 'user2', 'user2', 'user2', 'ROLE_USER');
 INSERT INTO Person (id, name, surname, email, password, job_title, location, role) VALUES (4, 'user3', 'user3', 'user3', 'user3', 'user3', 'user3', 'ROLE_USER');
+INSERT INTO Recruiter (id, name, surname, email, password, job_title, location, role) VALUES (5, 'recruiter1', 'recruiter1', 'recruiter1', 'recruiter1', 'recruiter1', 'recruiter1', 'ROLE_RECRUITER');
+INSERT INTO Recruiter (id, name, surname, email, password, job_title, location, role) VALUES (6, 'recruiter2', 'recruiter2', 'recruiter2', 'recruiter2', 'recruiter2', 'recruiter2', 'ROLE_RECRUITER');
+INSERT INTO CareerExpert (id, name, surname, email, password, job_title, location, role, field) VALUES (7, 'careerExpert1', 'careerExpert1', 'careerExpert1', 'careerExpert1', 'careerExpert1', 'careerExpert1', 'ROLE_CE', 'none');
+INSERT INTO CareerExpert (id, name, surname, email, password, job_title, location, role, field) VALUES (8, 'careerExpert1', 'careerExpert1', 'careerExpert1', 'careerExpert1', 'careerExpert1', 'careerExpert1', 'ROLE_CE', 'none');
+
 
 INSERT INTO Connections (user_ID_1, user_ID_2, status) VALUES (2, 3, 'LINKED');
 
@@ -74,3 +80,5 @@ INSERT INTO jobPost (post_ID, date, content, job_title, company_ID, workplace, p
                                                                                                              'Java Developer', 1, 'California, LA', 'On-site', 'Senior Developer');
 INSERT INTO jobPost (post_ID, date, content, job_title, company_ID, workplace, position, profession) VALUES (2, '2023-03-03 09:30:20', 'Need Alpha Male Top Gs ASAP!',
                                                                                                              'Professional Top G', 2, 'Houston, Texas', 'On-site', 'Senior Top G');
+INSERT INTO jobposts (recruiter_id, post_id) VALUES (5, 1);
+INSERT INTO jobposts (recruiter_id, post_id) VALUES (5, 2);
