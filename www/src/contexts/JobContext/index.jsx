@@ -218,7 +218,6 @@ const JobProvider = ({ children }) => {
         redirect: "follow",
       };
 
-
       fetch(`${API}/api/v1/jobs/applicants${jobId}`, requestOptions)
         .then((response) => {
           if (!response.ok) {
@@ -227,7 +226,7 @@ const JobProvider = ({ children }) => {
           return response.text();
         })
         .then((result) => {
-          setApplicants(() => JSON.parse(result));
+          setApplicantList(() => JSON.parse(result));
           setLoading((loading) => !loading);
         })
         .catch((error) => console.log("error", error));
@@ -236,7 +235,7 @@ const JobProvider = ({ children }) => {
     }
   };
 
-  value = {
+  const value = {
     jobs,
     loading,
     fetchJobs,

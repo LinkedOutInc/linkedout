@@ -23,6 +23,7 @@ const NewEducation = () => {
       end_date: end_date.current.value,
       institutionName: institutionName.current.value,
     });
+    handleClose();
   };
 
   // Animation stuff

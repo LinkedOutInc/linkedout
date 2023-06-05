@@ -22,6 +22,8 @@ import { UserRoutes as AuthRoutes } from "./routes/AuthRoute";
 import { ProfileRoute } from "./routes/ProfileRoute";
 import { ProfileProvider } from "./contexts/ProfileContext";
 import { ConnectionProvider } from "./contexts/ConnectionContext";
+import { FeedProvider } from "./contexts/FeedContext";
+import { JobProvider } from "./contexts/JobContext";
 
 function App() {
   return (
@@ -35,7 +37,14 @@ function App() {
             <Route path="/signup" element={<Signup />} />
             <Route path="/signup/complete" element={<CompleteSignup />} />
             <Route element={<AuthRoutes />}>
-              <Route path="/feed" element={<Feed />} />
+              <Route
+                path="/feed"
+                element={
+                  <FeedProvider>
+                    <Feed />
+                  </FeedProvider>
+                }
+              />
               <Route element={<ProfileRoute />}>
                 <Route
                   path="/profile"
@@ -46,8 +55,22 @@ function App() {
                   }
                 />
               </Route>
-              <Route path="/jobs" element={<Jobs />} />
-              <Route path="/recruiter" element={<Recruiter />} />
+              <Route
+                path="/jobs"
+                element={
+                  <JobProvider>
+                    <Jobs />
+                  </JobProvider>
+                }
+              />
+              <Route
+                path="/recruiter"
+                element={
+                  <JobProvider>
+                    <Recruiter />
+                  </JobProvider>
+                }
+              />
               <Route
                 path="/connections"
                 element={
