@@ -32,8 +32,7 @@ public class JobPostRepository implements JobPostDao {
     public List<JobPostAndCompany> getJobs() {
         var sql = """
                 SELECT *
-                FROM JobPost AS jp JOIN Company AS c ON jp.company_ID = c.company_ID
-                WHERE date > CURRENT_DATE;
+                FROM JobPost AS jp JOIN Company AS c ON jp.company_ID = c.company_ID;
                 """;
         return jdbcTemplate.query(sql, new JobPostAndCompanyRowMapper());
     }
