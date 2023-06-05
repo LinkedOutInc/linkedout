@@ -9,6 +9,7 @@ import java.util.Optional;
 
 public interface JobPostDao {
     List<JobPostAndCompany> getJobs();
+    List<JobPostAndCompany> getMyJobs(int user_id);
     int insertJobPost(JobPost jobPost, int user_id);
     int deleteJobPost(int id);
     Optional<JobPostAndCompany> getJobPostDetails(int id);
@@ -17,4 +18,5 @@ public interface JobPostDao {
     int apply(int user_id, int post_id);
     List<Person> getApplicantsOfPost(int post_id);
     int getApplicationCount();
+
 }

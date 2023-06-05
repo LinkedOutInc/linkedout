@@ -28,6 +28,7 @@ DELETE FROM Reports;
 DELETE FROM Hiring_Reports;
 DROP VIEW IF EXISTS Hiring_Reports_View;
 
+DELETE FROM JobPosts;
 DELETE FROM experiences;
 DELETE FROM Exp_company;
 DELETE FROM Applies;
@@ -43,6 +44,11 @@ INSERT INTO Admin(id, name, surname, email, password, job_title, location, role)
 INSERT INTO Person (id, name, surname, email, password, job_title, location, role) VALUES (2, 'user1', 'user1', 'user1', 'user1', 'user1', 'user1', 'ROLE_USER');
 INSERT INTO Person (id, name, surname, email, password, job_title, location, role) VALUES (3, 'user2', 'user2', 'user2', 'user2', 'user2', 'user2', 'ROLE_USER');
 INSERT INTO Person (id, name, surname, email, password, job_title, location, role) VALUES (4, 'user3', 'user3', 'user3', 'user3', 'user3', 'user3', 'ROLE_USER');
+INSERT INTO Recruiter (id, name, surname, email, password, job_title, location, role) VALUES (5, 'recruiter1', 'recruiter1', 'recruiter1', 'recruiter1', 'recruiter1', 'recruiter1', 'ROLE_RECRUITER');
+INSERT INTO Recruiter (id, name, surname, email, password, job_title, location, role) VALUES (6, 'recruiter2', 'recruiter2', 'recruiter2', 'recruiter2', 'recruiter2', 'recruiter2', 'ROLE_RECRUITER');
+INSERT INTO CareerExpert (id, name, surname, email, password, job_title, location, role, field) VALUES (7, 'careerExpert1', 'careerExpert1', 'careerExpert1', 'careerExpert1', 'careerExpert1', 'careerExpert1', 'ROLE_CE', 'none');
+INSERT INTO CareerExpert (id, name, surname, email, password, job_title, location, role, field) VALUES (8, 'careerExpert1', 'careerExpert1', 'careerExpert1', 'careerExpert1', 'careerExpert1', 'careerExpert1', 'ROLE_CE', 'none');
+
 
 INSERT INTO Connections (user_ID_1, user_ID_2, status) VALUES (2, 3, 'LINKED');
 
@@ -54,3 +60,23 @@ INSERT INTO User_Comments (comment_id, user_id) VALUES (1, 2);
 
 INSERT INTO Reaction (reaction_ID, type, date) VALUES (1, 'Like', NULL);
 INSERT INTO Reaction (reaction_ID, type, date) VALUES (2, 'Love', NULL);
+
+INSERT INTO Interest (id, title, area) VALUES (1, 'Java Development', 'Programming');
+INSERT INTO Interest (id, title, area) VALUES (2, 'Python Development', 'Programming');
+INSERT INTO Interest (id, title, area) VALUES (3, 'C++ Development', 'Programming');
+INSERT INTO Interest (id, title, area) VALUES (4, 'SQL Development', 'Programming');
+
+INSERT INTO Interests (int_id, person_id) VALUES (1, 2);
+INSERT INTO Interests (int_id, person_id) VALUES (2, 2);
+INSERT INTO Interests (int_id, person_id) VALUES (3, 2);
+INSERT INTO Interests (int_id, person_id) VALUES (4, 3);
+
+INSERT INTO Company (company_ID ,name,location,about, domain) VALUES (1, 'Apple', 'California, LA', 'Apple is a good company', 'apple.com');
+INSERT INTO Company (company_ID ,name,location,about, domain) VALUES (2, 'Togg', 'Ankara', 'Togg is a cool company', 'togg.com');
+
+INSERT INTO jobPost (post_ID, date, content, job_title, company_ID, workplace, position, profession) VALUES (1, '2023-03-03 09:30:20', 'Please apply we are desperate for developers!',
+                                                                                                             'Java Developer', 1, 'California, LA', 'On-site', 'Senior Developer');
+INSERT INTO jobPost (post_ID, date, content, job_title, company_ID, workplace, position, profession) VALUES (2, '2023-03-03 09:30:20', 'Need Alpha Male Top Gs ASAP!',
+                                                                                                             'Professional Top G', 2, 'Houston, Texas', 'On-site', 'Senior Top G');
+INSERT INTO jobposts (recruiter_id, post_id) VALUES (5, 1);
+INSERT INTO jobposts (recruiter_id, post_id) VALUES (5, 2);

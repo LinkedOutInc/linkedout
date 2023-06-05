@@ -39,6 +39,16 @@ public class JobPostRepository implements JobPostDao {
     }
 
     @Override
+    public List<JobPostAndCompany> getMyJobs(int user_id) {
+        var sql = """
+                SELECT *
+                FROM JobPost AS jp JOIN Company AS c ON jp.company_ID = c.company_ID
+                WHERE date > CURRENT_DATE AND jp.post_id in (SELECT JobPosts.post_id FROM JobPosts WHERE JobPosts.recruiter_id = ?);
+                """;
+        return jdbcTemplate.query(sql, new JobPostAndCompanyRowMapper(), user_id);
+    }
+
+    @Override
     public int insertJobPost(JobPost jobPost, int user_id) {
         var sqlRecruiterCompany = """
                 SELECT *
@@ -47,9 +57,6 @@ public class JobPostRepository implements JobPostDao {
                 WHERE e.user_ID = ? AND e.type != 'EDUCATION' AND e.end_date is null;
                 """;
         Optional<ExperienceAndCompany> recruiterCompany = jdbcTemplate.query(sqlRecruiterCompany, new ExperienceAndCompanyRowMapper(), user_id).stream().findFirst();
-        if(recruiterCompany.isEmpty()) {
-            return -1;
-        }
         var sql = """
                 INSERT INTO JobPost(date, content, job_title, company_id, workplace, position, profession)
                 VALUES(?, ?, ?, ?, ?, ?, ?);
@@ -58,8 +65,14 @@ public class JobPostRepository implements JobPostDao {
                 INSERT INTO Hiring_Reports(JobPost_id, apply_count)
                 (SELECT J.post_ID, 0 FROM JobPost AS J WHERE J.job_title = ?);
                 """;
+        var sqlupd2 = """
+                INSERT INTO JobPosts(recruiter_id, post_id)
+                VALUES(?,(SELECT post_ID FROM JobPost WHERE content = ? AND job_title = ?));
+                """;
+        jdbcTemplate.update(sql, jobPost.date(), jobPost.content(), jobPost.job_title(), 1, jobPost.workplace(), jobPost.position(), jobPost.profession());
+        jdbcTemplate.update(sqlupd2, user_id, jobPost.content(), jobPost.job_title());
         jdbcTemplate.update(sqlupd, jobPost.job_title());
-        return jdbcTemplate.update(sql, jobPost.date(), jobPost.content(), jobPost.job_title(), recruiterCompany.get().company_ID(), jobPost.workplace(), jobPost.position(), jobPost.profession());
+        return 1;
     }
 
     @Override

@@ -26,6 +26,9 @@ public class JobPostService {
     public List<JobPostAndCompany> getJobPosts() {
         return jobPostDao.getJobs();
     }
+    public List<JobPostAndCompany> getMyJobPosts(int user_id) {
+        return jobPostDao.getMyJobs(user_id);
+    }
 
     public void addJobPost(JobPost jobPost, int user_id) {
         jobPostDao.insertJobPost(jobPost, user_id);
