@@ -204,6 +204,27 @@ const ConnectionProvider = ({ children }) => {
     }
   };
 
+  const declineConnection = async (id) => {
+    setLoading((loading) => !loading);
+    try {
+      var myHeaders = new Headers();
+      myHeaders.append("Authorization", `Bearer ${token}`);
+
+      var requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        redirect: "follow",
+      };
+
+      fetch(`${API}/api/v1/connections/${id}/decline`, requestOptions)
+        .then((response) => response.text())
+        .then((result) => console.log(result))
+        .catch((error) => console.log("error", error));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     if (user) {
       fetchConnections();
@@ -217,6 +238,10 @@ const ConnectionProvider = ({ children }) => {
     connections,
     connectionSuggestions,
     connectionRequests,
+    addConnection,
+    acceptConnection,
+    deleteConnection,
+    declineConnection,
   };
 
   return (

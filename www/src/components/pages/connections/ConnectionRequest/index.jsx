@@ -1,30 +1,14 @@
 import React from "react";
 import RequestItem from "./RequestItem";
-
-// Too lazy to create a mock db for this so I'll just hardcode the data
-// delete later and create a mock db
-import gavin from "../../../../assets/gavin.jpg";
-import richard from "../../../../assets/richard.jpg";
-import jian from "../../../../assets/jian.jpg";
-
-const requestData = [
-  {
-    userImage: gavin,
-    userName: "Gavin Belson",
-    userTitle: "CEO, Hooli",
-  },
-  {
-    userImage: jian,
-    userName: "Jian Yang",
-    userTitle: "Software Engineer",
-  },
-];
+import { useConnection } from "../../../../contexts/ConnectionContext";
 
 function ConnectionRequest() {
-  const requests = requestData.map((request) => {
+  const { connectionRequests } = useConnection();
+  const requests = connectionRequests.map((request) => {
     return (
       <div className="mt-2">
         <RequestItem
+          id={request.user_ID}
           userImage={request.userImage}
           userName={request.userName}
           userTitle={request.userTitle}
@@ -33,7 +17,11 @@ function ConnectionRequest() {
     );
   });
 
-  return <div>{requests}</div>;
+  return connectionRequests.length > 0 ? (
+    requests
+  ) : (
+    <div className="text-center">No pending requests</div>
+  );
 }
 
 export default ConnectionRequest;
