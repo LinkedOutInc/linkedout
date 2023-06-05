@@ -5,6 +5,7 @@ import app.linkedout.backend_v2.models.Hiring;
 import app.linkedout.backend_v2.models.RoleCount;
 import app.linkedout.backend_v2.services.*;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,16 +32,19 @@ public class AdminController {
         this.jobPostService = jobPostService;
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/generateRoleCountReport")
     public ResponseEntity<List<RoleCount>> generateRoleCountReport() {
         return ResponseEntity.ok().body(adminService.generateReport());
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/generateHiringReport")
     public ResponseEntity<List<Hiring>> generateHiringReport() {
         return ResponseEntity.ok().body(hiringReportService.generateReport());
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/getCounts")
     public ResponseEntity<AdminCounts> getCounts() {
 
