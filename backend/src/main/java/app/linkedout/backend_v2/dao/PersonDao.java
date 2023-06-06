@@ -12,4 +12,5 @@ public interface PersonDao {
     Optional<Person> getPersonById(int id);
     Optional<Person> getPersonByEmail(String email);
     Object updateImage(int userId, String link);
+    Object updateResume(int userId, String link);
 }

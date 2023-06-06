@@ -79,4 +79,18 @@ public class PersonRepository implements PersonDao {
         }
         return Success.create("Image updated.");
     }
+
+    @Override
+    public Object updateResume(int userId, String link) {
+        var sql = """
+                UPDATE Person
+                SET resume = ?
+                WHERE id = ?;
+                """;
+        int queryResult = jdbcTemplate.update(sql, link, userId);
+        if (queryResult <= 0) {
+            return Error.create(500, "Resume could not be updated.");
+        }
+        return Success.create("Resume updated.");
+    }
 }
