@@ -4,6 +4,7 @@ import app.linkedout.backend_v2.models.JobPost;
 import app.linkedout.backend_v2.models.JobPostAndCompany;
 import app.linkedout.backend_v2.models.Person;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,5 +19,5 @@ public interface JobPostDao {
     int apply(int user_id, int post_id);
     List<Person> getApplicantsOfPost(int post_id);
     int getApplicationCount();
-
+    List<JobPostAndCompany> filterJobsByDate(String date1, String date2) throws ParseException;
 }

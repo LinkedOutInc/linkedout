@@ -8,6 +8,7 @@ import app.linkedout.backend_v2.models.JobPostAndCompany;
 import app.linkedout.backend_v2.models.Person;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.util.List;
 
 import javax.el.PropertyNotFoundException;
@@ -61,4 +62,7 @@ public class JobPostService {
         return jobPostDao.getApplicationCount();
     }
 
+    public List<JobPostAndCompany> getJobsByDate(String date1, String date2) throws ParseException {
+        return jobPostDao.filterJobsByDate(date1, date2);
+    }
 }
