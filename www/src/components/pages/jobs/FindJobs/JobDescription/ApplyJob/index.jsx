@@ -8,7 +8,7 @@ const ApplyJob = (id) => {
 
   const handleOpen = () => {
     setIsOpen(true);
-    applyJob(id);
+    applyJob(id.id);
   };
 
   const handleClose = () => {

@@ -52,6 +52,13 @@ const AuthProvider = ({ children }) => {
         console.log(result);
         localStorage.setItem("auth", result);
         setToken(() => result);
+        fetchUser().then(() => {
+          if (user?.role === "ROLE_ADMIN") {
+            navigate("/admin");
+          } else {
+            navigate("/feed");
+          }
+        });
         setLoading((loading) => !loading);
       })
       .catch((error) => {
@@ -133,16 +140,6 @@ const AuthProvider = ({ children }) => {
       .then((result) => {
         const curUser = JSON.parse(result);
         setUser(() => curUser);
-        setUser({
-          ...curUser,
-          image:
-            "https://media.licdn.com/dms/image/D4E03AQGlM3HJ4eX9oA/profile-displayphoto-shrink_800_800/0/1667050655479?e=1691625600&v=beta&t=n048tKit2SdDB5cuikTf6H6L8-o_q6Tk3RF-34vDj_o",
-        });
-        if (curUser.role === "ROLE_ADMIN") {
-          navigate("/admin");
-        } else {
-          navigate("/feed");
-        }
       })
       .catch((error) => {
         console.log("error", error);
