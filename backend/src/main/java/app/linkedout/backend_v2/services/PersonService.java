@@ -34,5 +34,17 @@ public class PersonService {
     public Person getPersonByEmail(String email) throws Exception {
         return personDao.getPersonByEmail(email).orElseThrow(Exception::new);
     }
+
+    public Object updateImage(int userId, String link) {
+        return personDao.updateImage(userId, link);
+    }
+
+    public Object updateResume(int userId, String link) {
+        return personDao.updateResume(userId, link);
+    }
+
+    public void editProfile(Person person, int userId) {
+        personDao.editProfile(person, userId);
+    }
 }
 

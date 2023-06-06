@@ -111,4 +111,16 @@ public class ConnectionController {
         int userId = (int) controlResult;
         return connectionService.getSuggestions(userId, offset);
     }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping("suggestions-alternative")
+    public Object getAlternativeSuggestions(@RequestParam(name = "offset") int offset) {
+        Object controlResult = sessionService.gutCurrentUserIdIfExists();
+        if (controlResult instanceof ResponseEntity) {
+            return controlResult;
+        }
+
+        int userId = (int) controlResult;
+        return connectionService.getAlternativeSuggestions(userId, offset);
+    }
 }

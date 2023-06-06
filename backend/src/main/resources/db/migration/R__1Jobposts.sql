@@ -51,3 +51,9 @@ CREATE TABLE IF NOT EXISTS Applies (
     FOREIGN KEY (user_ID) REFERENCES Person(id),
     FOREIGN KEY (post_ID) REFERENCES JobPost(post_ID)
 );
+CREATE TABLE IF NOT EXISTS JobPosts (
+  recruiter_id BIGSERIAL,
+  post_id BIGSERIAL,
+  FOREIGN KEY (recruiter_id) REFERENCES Recruiter(id),
+  FOREIGN KEY (post_id) REFERENCES JobPost(post_id)
+);

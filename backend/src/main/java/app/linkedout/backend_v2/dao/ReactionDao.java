@@ -10,4 +10,5 @@ public interface ReactionDao {
     public Object updateUserReaction(int postId, int reactionId, int userId);
     public List<HashMap<String, Object>> getReactionCounts(int postId);
     public Object removeUserReaction(int postId, int userId);
+    public Object removeUserReactions(int postId);
 }

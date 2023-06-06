@@ -6,6 +6,8 @@ CREATE TABLE IF NOT EXISTS Person (
     password VARCHAR(50) NOT NULL,
     job_title VARCHAR(20) NOT NULL,
     location VARCHAR(20) NOT NULL,
+    image VARCHAR(200),
+    resume VARCHAR(200),
     role VARCHAR(20) NOT NULL,
     unique (email)
 );

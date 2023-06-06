@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useProfile } from "../../../../../contexts/ProfileContext";
 
-const EditProfile = ({ title, area }) => {
+const EditProfile = () => {
   const { user } = useProfile();
   const [isOpen, setIsOpen] = useState(false);
   const popupRef = useRef(null);
@@ -10,6 +10,7 @@ const EditProfile = ({ title, area }) => {
   const [job_title, setJob_title] = useState(user?.job_title);
   const [location, setLocation] = useState(user?.location);
   const [image, setImage] = useState(user?.image);
+  const { editProfile } = useProfile();
 
   const handleOpen = () => {
     setIsOpen(true);
@@ -37,6 +38,15 @@ const EditProfile = ({ title, area }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    editProfile({
+      name: first,
+      surname: last,
+      title: job_title,
+      location: location,
+      image: image,
+      resume: user.resume,
+    });
+    handleClose();
   };
 
   return (
@@ -118,12 +128,13 @@ const EditProfile = ({ title, area }) => {
                 <input
                   className="border rounded-lg p-1 mt-1"
                   value={image}
-                  onChange={(e) => setLocation(e.target.value)}
+                  onChange={(e) => setImage(e.target.value)}
                 />
               </div>
               <div className="flex justify-end">
                 <button
                   type="submit"
+                  onClick={handleSubmit}
                   className="bg-linkedout text-white font-semibold py-2 px-4 rounded-2xl hover:bg-white hover:text-linkedout hover:ring-1 ring-inset hover:ring-linkedout"
                 >
                   Save

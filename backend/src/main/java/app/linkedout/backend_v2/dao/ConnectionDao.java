@@ -11,4 +11,5 @@ public interface ConnectionDao {
     public List<HashMap<String, Object>> getNetwork(int userId, int offset);
     public List<HashMap<String, Object>> getRequests(int userId, int offset);
     public List<HashMap<String, Object>> getSuggestions(int userId, int offset);
+    public List<HashMap<String, Object>> getAlternativeSuggestions(int userId, int offset);
 }

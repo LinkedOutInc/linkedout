@@ -1,8 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useProfile } from "../../../../../contexts/ProfileContext";
 
 const Resume = ({ title, institution, description, startDate, endDate }) => {
   const [isOpen, setIsOpen] = useState(false);
   const popupRef = useRef(null);
+  const { editProfile } = useProfile();
+  const { user } = useProfile();
+  const [resume, setResume] = useState(user?.resume);
 
   const handleOpen = () => {
     setIsOpen(true);
@@ -27,6 +31,20 @@ const Resume = ({ title, institution, description, startDate, endDate }) => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, [isOpen]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    editProfile({
+      name: user.name,
+      surname: user.surname,
+      title: user.job_title,
+      location: user.location,
+      image: user.image,
+      resume: resume,
+    });
+
+    handleClose();
+  };
 
   return (
     <div className="">
@@ -74,9 +92,9 @@ const Resume = ({ title, institution, description, startDate, endDate }) => {
             <form className="flex flex-col gap-6">
               <div>
                 <input
-                  type="file"
-                  name="upload"
-                  accept="application/pdf,application/vnd.ms-excel"
+                  className="border rounded-lg p-1 mt-1"
+                  value={resume}
+                  onChange={(e) => setResume(e.target.value)}
                 />
               </div>
               <div className="flex justify-between">
@@ -88,6 +106,7 @@ const Resume = ({ title, institution, description, startDate, endDate }) => {
                 </button>
                 <button
                   type="submit"
+                  onClick={handleSubmit}
                   className="bg-linkedout text-white font-semibold py-2 px-4 rounded-2xl hover:bg-white hover:text-linkedout hover:ring-1 ring-inset hover:ring-linkedout"
                 >
                   Save

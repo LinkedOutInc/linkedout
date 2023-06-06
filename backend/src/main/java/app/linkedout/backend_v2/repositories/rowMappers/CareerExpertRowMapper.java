@@ -17,6 +17,7 @@ public class CareerExpertRowMapper implements RowMapper<CareerExpert> {
                 rs.getString("password"),
                 rs.getString("job_title"),
                 rs.getString("location"),
+                rs.getString("image"),
                 rs.getString("role"),
                 rs.getString("field")
         );

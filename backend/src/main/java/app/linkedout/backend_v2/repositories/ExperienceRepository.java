@@ -107,9 +107,7 @@ public class ExperienceRepository implements ExperienceDao {
                 WHERE exp_ID = ? AND user_ID = ?;
                 """;
         Optional<Experience> experience = jdbcTemplate.query(sql, new ExperienceRowMapper(), exp_id, user_id).stream().findFirst();
-        if(experience.isPresent() && experience.get().type().equals("EDUCATION")) {
-            return -1;
-        }
+
         sql = """
                 DELETE FROM Exp_company
                 WHERE exp_ID = ?;
@@ -205,9 +203,7 @@ public class ExperienceRepository implements ExperienceDao {
                 WHERE exp_ID = ? AND user_ID = ?;
                 """;
         Optional<Experience> experience = jdbcTemplate.query(sql, new ExperienceRowMapper(), exp_id, user_id).stream().findFirst();
-        if(experience.isPresent() && !experience.get().type().equals("EDUCATION")) {
-            return -1;
-        }
+
         sql = """
                 DELETE FROM Exp_company
                 WHERE exp_ID = ?;

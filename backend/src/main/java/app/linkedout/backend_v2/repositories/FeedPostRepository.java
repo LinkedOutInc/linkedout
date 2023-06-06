@@ -30,7 +30,7 @@ public class FeedPostRepository implements FeedPostDao {
     @Override
     public List<HashMap<String, Object>> getFeed(int userId, int offset) {
         var sql = """
-                SELECT p.post_ID, p.title, p.content, p.image, p.type, p.date, fp.user_ID, u.name, u.surname, u.job_title
+                SELECT p.post_ID, p.title, p.content, p.image AS post_image, p.type, p.date, fp.user_ID, u.name, u.surname, u.job_title, u.image
                 FROM FeedPost AS p
                     JOIN Feed_posts AS fp ON p.post_ID = fp.post_ID
                     JOIN Person AS u ON fp.user_ID = u.id

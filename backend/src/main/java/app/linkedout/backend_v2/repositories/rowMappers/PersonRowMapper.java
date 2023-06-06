@@ -17,6 +17,8 @@ public class PersonRowMapper implements RowMapper<Person> {
                 rs.getString("password"),
                 rs.getString("job_title"),
                 rs.getString("location"),
+                rs.getString("image"),
+                rs.getString("resume"),
                 rs.getString("role")
         );
     }

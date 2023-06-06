@@ -50,9 +50,11 @@ function App() {
                 <Route
                   path="/profile"
                   element={
-                    <ProfileProvider>
-                      <Profile />
-                    </ProfileProvider>
+                    <ConnectionProvider>
+                      <ProfileProvider>
+                        <Profile />
+                      </ProfileProvider>
+                    </ConnectionProvider>
                   }
                 />
               </Route>

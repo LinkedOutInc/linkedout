@@ -97,4 +97,14 @@ public class ReactionRepository implements ReactionDao {
         jdbcTemplate.update(sql, userId, postId);
         return Success.create("Reaction removed.");
     }
+
+    @Override
+    public Object removeUserReactions(int postId) {
+        var sql = """
+              DELETE FROM User_reactions
+              WHERE post_ID = ?;
+                """;
+        jdbcTemplate.update(sql, postId);
+        return true;
+    }
 }

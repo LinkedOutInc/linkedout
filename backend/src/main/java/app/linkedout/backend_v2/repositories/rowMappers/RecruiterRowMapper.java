@@ -17,6 +17,7 @@ public class RecruiterRowMapper implements RowMapper<Recruiter> {
                 rs.getString("password"),
                 rs.getString("job_title"),
                 rs.getString("location"),
+                rs.getString("image"),
                 rs.getString("role"),
                 rs.getBoolean("is_hiring")
         );

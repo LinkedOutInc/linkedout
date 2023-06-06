@@ -17,6 +17,7 @@ const ProfileProvider = ({ children }) => {
   const [experience, setExperience] = useState([]);
   const [education, setEducation] = useState([]);
   const [interests, setInterests] = useState([]);
+  const { fetchUser } = useAuth();
   const navigate = useNavigate();
 
   // Education stuff
@@ -476,6 +477,58 @@ const ProfileProvider = ({ children }) => {
     }
   };
 
+  const editProfile = async ({
+    name,
+    surname,
+    title,
+    location,
+    image,
+    resume,
+  }) => {
+    setLoading((loading) => !loading);
+    try {
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+      myHeaders.append("Authorization", `Bearer ${token}`);
+
+      var raw = JSON.stringify({
+        name: name,
+        surname: surname,
+        email: user.email,
+        password: user.password,
+        job_title: title,
+        location: location,
+        image: image,
+        resume: resume,
+        role: user.role,
+      });
+
+      console.log("RAW: " + raw);
+
+      var requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow",
+      };
+
+      fetch(`${API}/profile/edit`, requestOptions)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Couldn't edit profile");
+          }
+          return response.text();
+        })
+        .then((result) => {
+          console.log(result);
+          fetchUser();
+        })
+        .catch((error) => console.log("error", error));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   // Fetch all data
   useEffect(() => {
     fetchEducation();
@@ -504,6 +557,7 @@ const ProfileProvider = ({ children }) => {
     addInterest,
     editInterest,
     deleteInterest,
+    editProfile,
   };
 
   return (
