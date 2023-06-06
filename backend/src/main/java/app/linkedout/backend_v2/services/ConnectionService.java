@@ -113,4 +113,8 @@ public class ConnectionService {
     public List<HashMap<String, Object>> getSuggestions(int userId, int offset) {
         return connectionDao.getSuggestions(userId, offset);
     }
+
+    public List<HashMap<String, Object>> getAlternativeSuggestions(int userId, int offset) {
+        return connectionDao.getAlternativeSuggestions(userId, offset);
+    }
 }

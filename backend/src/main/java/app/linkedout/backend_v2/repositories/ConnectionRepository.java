@@ -149,4 +149,38 @@ public class ConnectionRepository implements ConnectionDao {
                 """;
         return jdbcTemplate.query(sql, new GenericRowMapper(), userId, userId, offset);
     }
+
+    @Override
+    public List<HashMap<String, Object>> getAlternativeSuggestions(int userId, int offset) {
+        var sql = """
+                SELECT u.id, u.name, u.surname, u.image, u.job_title
+                FROM Person AS u
+                WHERE
+                    (SELECT COUNT(*)
+                    FROM (
+                        SELECT i1.person_ID AS p1, i1.int_ID AS int_ID
+                        FROM Interests i1
+                        WHERE i1.person_ID = ?
+                    ) AS t1 NATURAL JOIN (
+                        SELECT i2.person_ID AS p2, i2.int_ID AS int_ID
+                        FROM Interests i2
+                        WHERE i2.person_ID = u.id
+                    ) AS t2
+                ) > 0
+                AND
+                u.id NOT IN (
+                    (SELECT c1.user_id_1
+                    FROM Connections AS c1
+                    WHERE c1.user_id_2 = ? AND status = 'LINKED')
+                    UNION
+                    (SELECT c2.user_id_2
+                    FROM Connections AS c2
+                    WHERE c2.user_id_1 = ? AND status = 'LINKED')
+                )
+                AND u.id <> ?
+                LIMIT 10
+                OFFSET ?;
+                """;
+        return jdbcTemplate.query(sql, new GenericRowMapper(), userId, userId, userId, userId, offset);
+    }
 }
