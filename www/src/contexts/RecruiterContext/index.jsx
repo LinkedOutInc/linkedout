@@ -15,6 +15,7 @@ const RecruiterProvider = ({ children }) => {
   const { token } = useAuth();
   const [loading, setLoading] = useState(false);
   const [myJobs, setMyJobs] = useState([]);
+  const [applicants, setApplicants] = useState([]);
   const navigate = useNavigate();
 
   const fetchMyJobs = async () => {
@@ -168,7 +169,7 @@ const RecruiterProvider = ({ children }) => {
         redirect: "follow",
       };
 
-      fetch(`${API}/api/v1/jobs/applicants${jobId}`, requestOptions)
+      fetch(`${API}/api/v1/jobposts/applicants/${jobId}`, requestOptions)
         .then((response) => {
           if (!response.ok) {
             throw new Error("Couldn't fetch applicants");
@@ -177,6 +178,7 @@ const RecruiterProvider = ({ children }) => {
         })
         .then((result) => {
           const res = JSON.parse(result);
+          setApplicants(() => res);
           setLoading((loading) => !loading);
           return res;
         })
@@ -186,10 +188,13 @@ const RecruiterProvider = ({ children }) => {
     }
   };
 
-  useEffect(() => {}, [token]);
+  useEffect(() => {
+    fetchMyJobs();
+  }, [token]);
 
   const value = {
     myJobs,
+    applicants,
     loading,
     addJob,
     fetchMyJobs,
