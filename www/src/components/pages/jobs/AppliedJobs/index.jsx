@@ -25,9 +25,11 @@ const AppliedJobs = () => {
             {appliedJobs.length > 0 ? (
               appliedJobs.map((job) => (
                 <JobItem
-                  key={job.id}
+                  key={job.post_ID}
                   job={job}
-                  isSelected={selectedJob && selectedJob.id === job.id}
+                  isSelected={
+                    selectedJob && selectedJob.post_ID === job.post_ID
+                  }
                   onSelect={setSelectedJob}
                 />
               ))
