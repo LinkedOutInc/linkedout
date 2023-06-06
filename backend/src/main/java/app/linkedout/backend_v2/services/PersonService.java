@@ -42,5 +42,9 @@ public class PersonService {
     public Object updateResume(int userId, String link) {
         return personDao.updateResume(userId, link);
     }
+
+    public void editProfile(Person person, int userId) {
+        personDao.editProfile(person, userId);
+    }
 }
 

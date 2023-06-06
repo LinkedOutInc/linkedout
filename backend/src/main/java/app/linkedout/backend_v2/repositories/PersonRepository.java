@@ -93,4 +93,14 @@ public class PersonRepository implements PersonDao {
         }
         return Success.create("Resume updated.");
     }
+
+    @Override
+    public void editProfile(Person person, int userId) {
+        var sql = """
+                UPDATE Person
+                SET name = ?, surname = ?, email = ?, password = ?, job_title = ?, location = ?, image = ?, resume = ?
+                WHERE id = ?;
+                """;
+        jdbcTemplate.update(sql, person.name(), person.surname(), person.email(), person.password(), person.job_title(), person.location(), person.image(), person.resume(), userId);
+    }
 }
