@@ -2,6 +2,7 @@ package app.linkedout.backend_v2.controllers;
 
 import app.linkedout.backend_v2.dto.Error;
 import app.linkedout.backend_v2.models.Interest;
+import app.linkedout.backend_v2.models.Person;
 import app.linkedout.backend_v2.services.InterestService;
 import app.linkedout.backend_v2.services.PersonService;
 import app.linkedout.backend_v2.services.SessionService;
@@ -68,6 +69,8 @@ public class ProfileController {
         return ResponseEntity.ok().body(interests);
     }
 
+
+
     @CrossOrigin(origins = "*")
     @PostMapping("/interests/add")
     public void addInterest(@RequestBody Interest interest) throws Exception {
@@ -80,4 +83,10 @@ public class ProfileController {
         interestService.deleteInterestById(id);
     }
 
+    @CrossOrigin(origins = "*")
+    @PostMapping("/edit")
+    public void editProfile(@RequestBody Person person) throws Exception {
+        int id = sessionService.getCurrentUserId();
+        personService.editProfile(person, id);
+    }
 }
