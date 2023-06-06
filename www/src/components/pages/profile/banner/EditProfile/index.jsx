@@ -2,10 +2,14 @@ import React, { useState, useEffect, useRef } from "react";
 import { useProfile } from "../../../../../contexts/ProfileContext";
 
 const EditProfile = ({ title, area }) => {
+  const { user } = useProfile();
   const [isOpen, setIsOpen] = useState(false);
   const popupRef = useRef(null);
-
-  const { user } = useProfile();
+  const [first, setFirst] = useState(user?.name);
+  const [last, setLast] = useState(user?.surname);
+  const [job_title, setJob_title] = useState(user?.job_title);
+  const [location, setLocation] = useState(user?.location);
+  const [image, setImage] = useState(user?.image);
 
   const handleOpen = () => {
     setIsOpen(true);
@@ -30,6 +34,10 @@ const EditProfile = ({ title, area }) => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, [isOpen]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
 
   return (
     <div className="">
@@ -77,29 +85,40 @@ const EditProfile = ({ title, area }) => {
                 <h2 className="text-lg font-bold">First Name</h2>
                 <input
                   className="border rounded-lg p-1 mt-1"
-                  value={user.name}
+                  value={first}
+                  onChange={(e) => setFirst(e.target.value)}
                 />
               </div>
               <div>
                 <h2 className="text-lg font-bold">Last Name</h2>
                 <input
                   className="border rounded-lg p-1 mt-1"
-                  value={user.surname}
+                  value={last}
+                  onChange={(e) => setLast(e.target.value)}
+                />
+              </div>
+              <div>
+                <h2 className="text-lg font-bold">Title</h2>
+                <input
+                  className="border rounded-lg p-1 mt-1"
+                  value={job_title}
+                  onChange={(e) => setJob_title(e.target.value)}
                 />
               </div>
               <div>
                 <h2 className="text-lg font-bold">Location</h2>
                 <input
                   className="border rounded-lg p-1 mt-1"
-                  value={user.location}
+                  value={location}
+                  onChange={(e) => setLocation(e.target.value)}
                 />
               </div>
               <div>
                 <h2 className="text-lg font-bold">Profile Photo</h2>
                 <input
-                  type="file"
-                  name="upload"
-                  accept="application/pdf,application/vnd.ms-excel"
+                  className="border rounded-lg p-1 mt-1"
+                  value={image}
+                  onChange={(e) => setLocation(e.target.value)}
                 />
               </div>
               <div className="flex justify-end">
