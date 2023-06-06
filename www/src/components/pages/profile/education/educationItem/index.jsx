@@ -23,7 +23,10 @@ const EducationItem = ({ education }) => {
         />
       </div>
       <h3 className="text-gray-500">{name}</h3>
-      <h4 className="text-gray-400 mt-2">{start_date + " " + end_date}</h4>
+      <h4 className="text-gray-400 mt-2">
+        {(start_date ? start_date + " - " : "") +
+          (end_date ? end_date : " current")}
+      </h4>
       <p className="mt-2">{description}</p>
     </div>
   );
