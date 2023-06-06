@@ -8,6 +8,7 @@ import app.linkedout.backend_v2.services.SessionService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -41,6 +42,14 @@ public class JobPostController {
     public void addJobPost(@RequestBody JobPost jobPost) throws Exception {
         int user_id = sessionService.getCurrentUserId();
         jobPostService.addJobPost(jobPost, user_id);
+    }
+
+    @CrossOrigin(origins = "*")
+    @PostMapping("/filteredByDate")
+    public List<JobPostAndCompany> filteredByDate(@RequestBody Map<String, String> filterParams) throws ParseException {
+        String date1 = filterParams.get("date1");
+        String date2 = filterParams.get("date2");
+        return jobPostService.getJobsByDate(date1, date2);
     }
 
     @CrossOrigin(origins = "*")

@@ -14,6 +14,9 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.Types;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -146,5 +149,18 @@ public class JobPostRepository implements JobPostDao {
                 FROM Applies
                 """;
         return jdbcTemplate.query(sql, new CountRowMapper()).get(0);
+    }
+
+    @Override
+    public List<JobPostAndCompany> filterJobsByDate(String date1, String date2) throws ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+        Date date3 = simpleDateFormat.parse(date1);
+        Date date4 = simpleDateFormat.parse(date2);
+        var sql = """
+                SELECT *
+                FROM JobPost AS jp JOIN Company AS c ON jp.company_ID = c.company_ID
+                WHERE jp.date > ? AND jp.date < ?;
+                """;
+        return jdbcTemplate.query(sql, new JobPostAndCompanyRowMapper(), date3, date4);
     }
 }

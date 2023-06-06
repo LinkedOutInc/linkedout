@@ -59,7 +59,7 @@ public class CareerExpertRepository implements CareerExpertDao {
     public Optional<CareerExpert> getCareerExpertByEmail(String email) {
         var sql = """
                 SELECT * FROM CareerExpert
-                WHERE email='?';
+                WHERE email=?;
                 """;
         return jdbcTemplate.query(sql, new CareerExpertRowMapper(), email).stream().findFirst();
     }
