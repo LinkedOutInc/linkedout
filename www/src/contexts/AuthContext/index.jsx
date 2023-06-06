@@ -52,13 +52,6 @@ const AuthProvider = ({ children }) => {
         console.log(result);
         localStorage.setItem("auth", result);
         setToken(() => result);
-        fetchUser().then(() => {
-          if (user?.role === "ROLE_ADMIN") {
-            navigate("/admin");
-          } else {
-            navigate("/feed");
-          }
-        });
         setLoading((loading) => !loading);
       })
       .catch((error) => {
