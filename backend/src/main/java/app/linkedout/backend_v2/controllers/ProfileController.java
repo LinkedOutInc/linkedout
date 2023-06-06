@@ -45,6 +45,22 @@ public class ProfileController {
     }
 
     @CrossOrigin(origins = "*")
+    @PostMapping("updateResume")
+    public Object updateResume(@RequestBody HashMap<String, Object> body) {
+        Object controlResult = sessionService.gutCurrentUserIdIfExists();
+        if (controlResult instanceof ResponseEntity) {
+            return controlResult;
+        }
+
+        if (body.get("link") == null) {
+            return Error.create(400, "'link' not found in the body.");
+        }
+
+        int userId = (int) controlResult;
+        return personService.updateResume(userId, (String) body.get("link"));
+    }
+
+    @CrossOrigin(origins = "*")
     @GetMapping("/interests")
     public ResponseEntity<List<Interest>> getInterests() throws Exception {
         int userId = sessionService.getCurrentUserId();

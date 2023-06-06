@@ -38,5 +38,9 @@ public class PersonService {
     public Object updateImage(int userId, String link) {
         return personDao.updateImage(userId, link);
     }
+
+    public Object updateResume(int userId, String link) {
+        return personDao.updateResume(userId, link);
+    }
 }
 
