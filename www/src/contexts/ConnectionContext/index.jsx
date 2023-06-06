@@ -63,7 +63,7 @@ const ConnectionProvider = ({ children }) => {
       };
 
       fetch(
-        `${API}/api/v1/connections/suggestions?offset=${suggestionOffset}`,
+        `${API}/api/v1/connections/suggestions-alternative?offset=0`,
         requestOptions
       )
         .then((response) => {
@@ -73,6 +73,7 @@ const ConnectionProvider = ({ children }) => {
           return response.text();
         })
         .then((result) => {
+          console.log(result);
           setConnectionSuggestions(() => JSON.parse(result));
           setLoading((loading) => !loading);
         })
