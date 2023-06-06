@@ -30,7 +30,7 @@ const RecruiterProvider = ({ children }) => {
         redirect: "follow",
       };
 
-      fetch(`${API}/api/v1/jobs`, requestOptions)
+      fetch(`${API}/api/v1/jobposts/getMine`, requestOptions)
         .then((response) => {
           if (!response.ok) {
             throw new Error("Couldn't fetch jobs");
