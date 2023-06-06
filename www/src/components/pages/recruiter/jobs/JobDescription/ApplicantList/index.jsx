@@ -1,35 +1,20 @@
 import React, { useState, useEffect, useRef } from "react";
 import ApplicantItem from "./ApplicantItem";
-
-// Too lazy to create a mock db for this so I'll just hardcode the data
-// delete later and create a mock db
-import gavin from "../../../../../../assets/gavin.jpg";
-import richard from "../../../../../../assets/richard.jpg";
-import jian from "../../../../../../assets/jian.jpg";
-const applicantData = [
-  {
-    userImage: gavin,
-    userName: "Gavin Belson",
-    userTitle: "CEO, Hooli",
-  },
-  {
-    userImage: jian,
-    userName: "Jian Yang",
-    userTitle: "Software Engineer",
-  },
-];
+import { useRecruiter } from "../../../../../../contexts/RecruiterContext";
 
 const ApplicantList = () => {
   const [isOpen, setIsOpen] = useState(false);
   const popupRef = useRef(null);
+  const { applicants, fetchApplicants } = useRecruiter();
 
-  const applications = applicantData.map((application) => {
+  const applications = applicants.map((application) => {
+    fetchApplicants(application.post_ID);
     return (
       <div className="mt-2">
         <ApplicantItem
-          userImage={application.userImage}
-          userName={application.userName}
-          userTitle={application.userTitle}
+          userImage={application.image}
+          userName={application.name}
+          userTitle={application.job_title}
         />
       </div>
     );
