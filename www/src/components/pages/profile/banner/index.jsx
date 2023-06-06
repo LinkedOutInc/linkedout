@@ -2,8 +2,10 @@
 import React from "react";
 import Resume from "./Resume";
 import EditProfile from "./EditProfile";
+import { useConnection } from "../../../../contexts/ConnectionContext";
 
 const ProfileBanner = ({ data }) => {
+  const { connections } = useConnection();
   return (
     <div className="flex flex-col md:flex-row shadow p-4 justify-between rounded-2xl">
       {/* <div className="bg-blue-600 h-48">
@@ -28,10 +30,9 @@ const ProfileBanner = ({ data }) => {
               <EditProfile />
             </div>
             <h2 className="font-semibold">{data.job_title}</h2>
-            <div className="">[Replace with most recent experience]</div>
-            <div className="flex space-x-4 mt-2">
+            <div className="flex flex-col mt-2">
               <div>{data.location}</div>
-              <div>{data.connectionCount} connections</div>
+              <div>{connections?.length} connections</div>
             </div>
           </div>
         </div>

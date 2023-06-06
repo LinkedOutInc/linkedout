@@ -140,6 +140,7 @@ const AuthProvider = ({ children }) => {
       .then((result) => {
         const curUser = JSON.parse(result);
         setUser(() => curUser);
+        console.log(curUser);
       })
       .catch((error) => {
         console.log("error", error);
@@ -152,7 +153,7 @@ const AuthProvider = ({ children }) => {
     }
   }, [token, user]);
 
-  const value = { user, login, logout, signup, loading, token };
+  const value = { user, login, logout, signup, loading, token, fetchUser };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
